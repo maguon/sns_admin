@@ -8,4 +8,6 @@
 ## start
 
    npm start
+   webpack --watch
+
    http://localhost:9900
