@@ -1,4 +1,3 @@
-'use strict'
 import {apiHost} from '../../config/HostConfig';
 
 const httpUtil = require('../../utils/HttpUtil');
@@ -14,9 +13,9 @@ export const login = (params) => async () => {
             localUtil.setSessionItem(sysConst.AUTH_TOKEN, res.result.accessToken);
             window.location.href = '/index.html';
         } else if (res.success === false) {
-            swal('登陆失败', res.msg, 'warning');
+            // swal('登陆失败', res.msg, 'warning');
         }
     } catch (err) {
-        swal('操作失败', err.message, 'error');
+        // swal('操作失败', err.message, 'error');
     }
 };
