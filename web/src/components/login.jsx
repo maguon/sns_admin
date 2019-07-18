@@ -4,10 +4,7 @@ import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import {HashRouter as Router, Route} from "react-router-dom";
 import {applyMiddleware, createStore, compose} from 'redux';
-
 import {Login, Register, ResetPassword} from './layout/index';
-
-
 import reducers from '../reducers'
 
 const store = compose(

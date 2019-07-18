@@ -9,7 +9,8 @@
 </head>
 <body>
 <div id="root"></div>
+</body>
 <script src="./assets/jquery.min.js"></script>
 <script src="./assets/materialize/js/materialize.min.js"></script>
-</body>
+<script src="./assets/index.bundle.js"></script>
 </html>
