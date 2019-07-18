@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="./assets/materialize/css/materialize.min.css"/>
     <link rel="stylesheet" href="./assets/md_font/css/materialdesignicons.min.css"/>
     <link rel="stylesheet" href="./assets/css/login.css">
-<!--    <link rel="stylesheet" href="./assets/css/style.css">-->
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-<body>
+<body class="login-bg">
 <div id="root"></div>
 <script src="./assets/jquery.min.js"></script>
 <script src="./assets/materialize/js/materialize.min.js"></script>
