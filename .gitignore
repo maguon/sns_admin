@@ -1,5 +1,6 @@
 *.log
 *.bundle.js
+*.bundle.*.js
 .idea/*
 uploads/*
 node_modules
@@ -7,3 +8,5 @@ node_modules
 .DS_Store?
 package-lock.json
 web/src/config/HostConfig.js
+web/index.html
+web.login.html
