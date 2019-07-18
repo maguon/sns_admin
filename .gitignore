@@ -9,4 +9,4 @@ node_modules
 package-lock.json
 web/src/config/HostConfig.js
 web/index.html
-web.login.html
+web/login.html
