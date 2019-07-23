@@ -7,6 +7,9 @@ const sysConst = require('../../utils/SysConst');
 
 export const login = (params) => async () => {
     try {
+        // TEMP TODO
+        // window.location.href = '/index.html';
+
         const res = await httpUtil.httpPost(apiHost + '/api/adminLogin', params);
         if (res.success === true) {
             localUtil.setSessionItem(sysConst.USER_ID, res.result.adminId);
@@ -18,7 +21,6 @@ export const login = (params) => async () => {
             swal("登陆失败", res.msg, "warning");
         }
     } catch (err) {
-        console.log('login in error ');
         swal('操作失败', err.message, 'error');
     }
 };

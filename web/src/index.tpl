@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/month_picker/month_picker.min.css">
     <link rel="stylesheet" href="./assets/css/react-table.css">
     <link rel="stylesheet" href="./assets/css/style.css"/>
+    <link rel="stylesheet" href="./assets/css/custom-sweetalert.css">
 </head>
 <body>
 <div id="root" style="height: 100%"></div>

@@ -14,9 +14,7 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-
     height: 100vh;
-
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -moz-box-pack: center;
@@ -29,10 +27,20 @@
     align-items: center;
 }
 
-#login-page .card-panel.border-radius-5.login-card {
+.login-card {
+    padding: 30px 10px 20px 10px !important;
     margin-left: 0 !important;
+    border-radius: 5px !important;
 }
 
 .bg-opacity-8 {
     background-color: rgba(255, 255, 255, .8);
+}
+
+.row {
+    margin-bottom: 0;
+}
+
+.border-round {
+    border-radius: 150px !important;
 }

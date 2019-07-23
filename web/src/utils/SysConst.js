@@ -42,6 +42,28 @@ export const CUSTOM_REACT_SELECT_STYLE = {
     })
 };
 
+export const STATISTIC_SELECT_STYLE = {
+    control: (styles, {isFocused}) => ({
+        ...styles,
+        height: '38px',
+        borderRadius: '0',
+        boxShadow: '0',
+        borderTop: '0',
+        borderLeft: '0',
+        borderRight: '0',
+        background: '#FFFFFF',
+        margin: "0 0 0 0",
+        borderColor: isFocused ? '#26a69a' : '#ACACAC',
+        ':hover': {
+            borderColor: "#26a69a"
+        }
+    }),
+    // 下拉菜单和输入框距离
+    menu: styles => ({ ...styles, marginTop:'1px'}),
+    indicatorSeparator: styles => ({...styles, display: 'none'}),
+    valueContainer: styles => ({...styles, paddingLeft: '0',height: '38px'})
+};
+
 export const DATE_PICKER_OPTION = {
     autoClose: true,
     // showClearBtn: true,

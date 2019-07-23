@@ -26,17 +26,18 @@ class Header extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        const userId = localUtil.getSessionItem(sysConst.USER_ID);
-        const token = localUtil.getSessionItem(sysConst.AUTH_TOKEN);
-        const userType = localUtil.getSessionItem(sysConst.USER_TYPE);
-        httpHeaders.set(sysConst.USER_ID, userId);
-        httpHeaders.set(sysConst.USER_TYPE, userType);
-        httpHeaders.set(sysConst.AUTH_TOKEN, token);
-        if (userId == null || userType == null || token == null) {
-            window.location.href = '/login.html';
-        } else {
-            this.props.getUserDetail(userId);
-        }
+        // TODO
+        // const userId = localUtil.getSessionItem(sysConst.USER_ID);
+        // const token = localUtil.getSessionItem(sysConst.AUTH_TOKEN);
+        // const userType = localUtil.getSessionItem(sysConst.USER_TYPE);
+        // httpHeaders.set(sysConst.USER_ID, userId);
+        // httpHeaders.set(sysConst.USER_TYPE, userType);
+        // httpHeaders.set(sysConst.AUTH_TOKEN, token);
+        // if (userId == null || userType == null || token == null) {
+        //     window.location.href = '/login.html';
+        // } else {
+        //     this.props.getUserDetail(userId);
+        // }
         $('.sidenav').sidenav();
         // $("#sideNav").sideNav({closeOnClick: true});
         $('.collapsible').collapsible();
