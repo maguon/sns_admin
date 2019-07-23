@@ -1,3 +1,5 @@
+import swal from 'sweetalert';
+
 const httpHeaders = require('./HttpHeaders');
 
 export const httpAsyncFormPost = (url, formData, success, fail) => {
@@ -26,6 +28,9 @@ const simpleFetch = (method, url, params) => {
     if ('GET' != method) {
         options.body = JSON.stringify(params)
     }
+
+    console.log('options',options);
+
     return fetch('http://' + url, options).then((response) => {
         $("#preload").hide();
 

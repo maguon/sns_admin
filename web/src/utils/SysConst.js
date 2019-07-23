@@ -83,3 +83,16 @@ export const USE_FLAG = [
         label: "可用"
     }
 ];
+
+// 性别
+export const GENDER = [
+    {
+        value: 0,
+        label: "女"
+
+    },
+    {
+        value: 1,
+        label: "男"
+    }
+];

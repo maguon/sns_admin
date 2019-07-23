@@ -3,7 +3,7 @@ import {LoginActionType} from '../../types';
 
 const initialState = {
     data: {
-        phone: '',
+        userName: '',
         password: ''
     }
 };
