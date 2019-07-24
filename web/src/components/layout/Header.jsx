@@ -26,18 +26,20 @@ class Header extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        // TODO
-        // const userId = localUtil.getSessionItem(sysConst.USER_ID);
-        // const token = localUtil.getSessionItem(sysConst.AUTH_TOKEN);
-        // const userType = localUtil.getSessionItem(sysConst.USER_TYPE);
-        // httpHeaders.set(sysConst.USER_ID, userId);
-        // httpHeaders.set(sysConst.USER_TYPE, userType);
-        // httpHeaders.set(sysConst.AUTH_TOKEN, token);
-        // if (userId == null || userType == null || token == null) {
-        //     window.location.href = '/login.html';
-        // } else {
-        //     this.props.getUserDetail(userId);
-        // }
+        const userId = localUtil.getSessionItem(sysConst.USER_ID);
+        const userType = localUtil.getSessionItem(sysConst.USER_TYPE);
+        const status = localUtil.getSessionItem(sysConst.USER_STATUS);
+        const token = localUtil.getSessionItem(sysConst.AUTH_TOKEN);
+
+        httpHeaders.set(sysConst.USER_ID, userId);
+        httpHeaders.set(sysConst.USER_TYPE, userType);
+        httpHeaders.set(sysConst.USER_STATUS, status);
+        httpHeaders.set(sysConst.AUTH_TOKEN, token);
+        if (userId == null || userType == null || token == null) {
+            window.location.href = '/login.html';
+        } else {
+            this.props.getUserDetail(userId);
+        }
         $('.sidenav').sidenav();
         // $("#sideNav").sideNav({closeOnClick: true});
         $('.collapsible').collapsible();
@@ -67,7 +69,7 @@ class Header extends React.Component {
                         <span className="header-icon">
                             <img src="../../../assets/images/logo_48.png" alt=""/>
                         </span>
-                        <span className="header-font">广运车管理系统</span>
+                        <span className="header-font">司机之家管理系统</span>
 
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li>
