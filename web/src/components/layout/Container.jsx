@@ -7,8 +7,14 @@ import {
     FinancePanel,
     RecommendBusinessManager,
     RecommendBusinessManagerDetail,
+
+    // 统计
+    UserManager,
+    UserManagerDetail,
+
     // 统计
     OrderStatistic,
+
     // 表单
     FormElements,
     FormValidation,
@@ -29,7 +35,7 @@ const routes = [
     {
         path: "/",
         exact: true,
-        component: FinancePanel
+        component: UserManager
     },
     // 财务主控面板
     {
@@ -49,6 +55,19 @@ const routes = [
         component: RecommendBusinessManagerDetail
     },
 
+    // 用户信息
+    {
+        // 用户信息
+        path: "/user",
+        exact: true,
+        component: UserManager
+    },
+    {
+        // 用户信息-详情
+        path: "/user/:id",
+        exact: true,
+        component: UserManagerDetail
+    },
 
     // 统计
     {
@@ -144,6 +163,15 @@ class Container extends React.Component {
                     {
                         "link": '/recommend_business',
                         "name": '推广业绩'
+                    }
+                ]
+            }, {
+                "label": '用户信息',
+                "icon": 'mdi-account-group',
+                "children": [
+                    {
+                        "link": '/user',
+                        "name": '用户信息'
                     }
                 ]
             }, {

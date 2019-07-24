@@ -1,6 +1,18 @@
 import * as LoginActionType  from './layout/LoginActionType';
 import * as HeaderActionType  from './layout/HeaderActionType';
-import * as InquiryModalActionType  from './modules/InquiryModalActionType';
+
+
+
+
+import * as UserManagerActionType  from './main/UserManagerActionType';
+import * as UserManagerDetailActionType  from './main/UserManagerDetailActionType';
+
+
+
+
+
+
+
 
 import * as CommonActionType  from './main/CommonActionType';
 import * as FinancePanelActionType  from './main/FinancePanelActionType';
@@ -15,9 +27,19 @@ import * as RecommendBusinessManagerActionType  from './main/RecommendBusinessMa
 import * as RecommendBusinessManagerDetailActionType  from './main/RecommendBusinessManagerDetailActionType';
 
 
+import * as InquiryModalActionType  from './modules/InquiryModalActionType';
+
+
 export  {
     LoginActionType,
     HeaderActionType,
+
+    UserManagerActionType,
+    UserManagerDetailActionType,
+
+
+
+
     InquiryModalActionType,
 
     CommonActionType,

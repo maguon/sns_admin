@@ -3,6 +3,10 @@ import {reducer as reduxFormReducer} from 'redux-form';
 
 import LoginReducer from './layout/LoginReducer';
 import HeaderReducer from './layout/HeaderReducer';
+import UserManagerReducer from './main/UserManagerReducer'
+
+
+
 import InquiryModalReducer from './modules/InquiryModalReducer';
 
 import CommonReducer from './main/CommonReducer';
@@ -22,6 +26,12 @@ export default combineReducers({
     form: reduxFormReducer,
     LoginReducer,
     HeaderReducer,
+
+
+    UserManagerReducer,
+
+
+
     InquiryModalReducer,
 
     CommonReducer,
