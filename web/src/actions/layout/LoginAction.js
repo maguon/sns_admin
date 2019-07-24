@@ -10,7 +10,6 @@ export const login = (params) => async () => {
         if (res.success === true) {
             localUtil.setSessionItem(sysConst.USER_ID, res.result.adminId);
             localUtil.setSessionItem(sysConst.USER_TYPE, res.result.type);
-            localUtil.setSessionItem(sysConst.USER_STATUS, res.result.status);
             localUtil.setSessionItem(sysConst.AUTH_TOKEN, res.result.accessToken);
             window.location.href = '/index.html';
         } else if (res.success === false) {

@@ -28,12 +28,10 @@ class Header extends React.Component {
     componentDidMount() {
         const userId = localUtil.getSessionItem(sysConst.USER_ID);
         const userType = localUtil.getSessionItem(sysConst.USER_TYPE);
-        const status = localUtil.getSessionItem(sysConst.USER_STATUS);
         const token = localUtil.getSessionItem(sysConst.AUTH_TOKEN);
 
         httpHeaders.set(sysConst.USER_ID, userId);
         httpHeaders.set(sysConst.USER_TYPE, userType);
-        httpHeaders.set(sysConst.USER_STATUS, status);
         httpHeaders.set(sysConst.AUTH_TOKEN, token);
         if (userId == null || userType == null || token == null) {
             window.location.href = '/login.html';

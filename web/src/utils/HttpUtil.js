@@ -27,8 +27,6 @@ const simpleFetch = (method, url, params) => {
         options.body = JSON.stringify(params)
     }
 
-    console.log('options',options);
-
     return fetch('http://' + url, options).then((response) => {
         $("#preload").hide();
 

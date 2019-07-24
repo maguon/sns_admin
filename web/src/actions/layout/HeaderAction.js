@@ -8,7 +8,7 @@ const localUtil = require('../../utils/LocalUtil');
 export const getUserDetail = (params) => async (dispatch) => {
     try {
         // admin用户 检索 URL
-        const url = apiHost + '/api/admin?adminId=' + params.userId;
+        const url = apiHost + '/api/adminUser?adminUserId=' + params.userId;
 
         // 发送 get 请求
         const res = await httpUtil.httpGet(url);
@@ -35,7 +35,6 @@ export const logout = () => async () => {
         if (value) {
             localUtil.removeSessionStore(sysConst.USER_ID);
             localUtil.removeSessionStore(sysConst.USER_TYPE);
-            localUtil.removeSessionStore(sysConst.USER_STATUS);
             localUtil.removeSessionStore(sysConst.AUTH_TOKEN);
             window.location.href = '/login.html';
         }
