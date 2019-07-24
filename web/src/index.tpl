@@ -18,5 +18,6 @@
 <script src="./assets/materialize/js/materialize.min.js"></script>
 <script src="./assets/month_picker/jquery-ui.min.js"></script>
 <script src="./assets/month_picker/month_picker.min.js"></script>
+<script src="./assets/sweetalert.min.js"></script>
 </body>
 </html>

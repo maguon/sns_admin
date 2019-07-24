@@ -1,5 +1,3 @@
-import swal from 'sweetalert';
-
 const httpHeaders = require('./HttpHeaders');
 
 export const httpAsyncFormPost = (url, formData, success, fail) => {

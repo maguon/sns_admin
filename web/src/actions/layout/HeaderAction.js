@@ -1,6 +1,5 @@
 import {HeaderActionType} from '../../types';
 import {apiHost} from '../../config/HostConfig';
-import swal from 'sweetalert';
 
 const sysConst = require('../../utils/SysConst');
 const httpUtil = require('../../utils/HttpUtil');
@@ -36,6 +35,7 @@ export const logout = () => async () => {
         if (value) {
             localUtil.removeSessionStore(sysConst.USER_ID);
             localUtil.removeSessionStore(sysConst.USER_TYPE);
+            localUtil.removeSessionStore(sysConst.USER_STATUS);
             localUtil.removeSessionStore(sysConst.AUTH_TOKEN);
             window.location.href = '/login.html';
         }

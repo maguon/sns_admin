@@ -14,5 +14,6 @@
 <div id="root"></div>
 <script src="./assets/jquery.min.js"></script>
 <script src="./assets/materialize/js/materialize.min.js"></script>
+<script src="./assets/sweetalert.min.js"></script>
 </body>
 </html>

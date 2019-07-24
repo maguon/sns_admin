@@ -1,5 +1,4 @@
 import {apiHost} from '../../config/HostConfig';
-import swal from 'sweetalert';
 
 const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
@@ -7,9 +6,6 @@ const sysConst = require('../../utils/SysConst');
 
 export const login = (params) => async () => {
     try {
-        // TEMP TODO
-        // window.location.href = '/index.html';
-
         const res = await httpUtil.httpPost(apiHost + '/api/adminLogin', params);
         if (res.success === true) {
             localUtil.setSessionItem(sysConst.USER_ID, res.result.adminId);
