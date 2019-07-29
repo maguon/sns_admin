@@ -41,6 +41,10 @@
     margin-bottom: 0;
 }
 
-.border-round {
+.login-btn {
     border-radius: 150px !important;
+    background: #8e24aa;
+    background: -webkit-linear-gradient(45deg, #8e24aa, #ff6e40) !important;
+    background: -o-linear-gradient(45deg, #8e24aa, #ff6e40) !important;
+    background: linear-gradient(45deg, #8e24aa, #ff6e40) !important;
 }

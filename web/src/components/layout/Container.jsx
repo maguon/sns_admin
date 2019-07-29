@@ -8,7 +8,7 @@ import {
     RecommendBusinessManager,
     RecommendBusinessManagerDetail,
 
-    // 统计
+    // 用户信息
     UserManager,
     UserManagerDetail,
 
@@ -37,7 +37,10 @@ const routes = [
         exact: true,
         component: UserManager
     },
-    // 财务主控面板
+
+
+
+    // 财务主控面板 TODO
     {
         path: "/finance_panel",
         exact: true,

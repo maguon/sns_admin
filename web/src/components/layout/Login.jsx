@@ -72,7 +72,7 @@ class Login extends React.Component {
                                     <div className="row">
                                         <div className="input-field col s12">
                                             <button type="submit" disabled={submitting}
-                                                    className="btn waves-effect waves-light cyan col s12 border-round">登陆
+                                                    className="btn waves-effect waves-light cyan col s12 login-btn">登陆
                                             </button>
                                         </div>
                                     </div>

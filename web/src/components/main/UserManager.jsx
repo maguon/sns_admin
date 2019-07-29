@@ -207,7 +207,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(UserManagerActionType.setConditionNickname(value))
     },
     changeConditionStatus: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionStatus(value))
+        dispatch(UserManagerActionType.setConditionStatus(value))
     }
 });
 

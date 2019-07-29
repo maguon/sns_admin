@@ -82,12 +82,12 @@ class RecommendBusinessManagerDetail extends React.Component {
                 {/* 标题部分 */}
                 <div className="row margin-bottom0">
                     <div className="input-field col s12">
-                        <Link to={{pathname: '/recommend_business', state: {fromDetail: true}}}>
+                        <Link to={{pathname: '/user', state: {fromDetail: true}}}>
                             <a className="btn-floating btn waves-effect custom-blue waves-light fz15">
                                 <i className="mdi mdi-arrow-left-bold"/>
                             </a>
                         </Link>
-                        <span className="page-title margin-left30">推广业绩 - 详情</span>
+                        <span className="page-title margin-left30">用户信息 - 详情</span>
                         <div className="divider custom-divider margin-top10"/>
                     </div>
                 </div>
