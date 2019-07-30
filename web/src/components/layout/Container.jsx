@@ -238,7 +238,7 @@ class Container extends React.Component {
         return (
             <Router hashType={"hashbang"}>
                 <div className="main-body">
-                    <ul id="slide-out" className="sidenav height-percent100">
+                    <ul id="slide-out" className="sidenav" style={{height: '100%'}}>
                         <li>
                             <div className="user-view blue-grey">
                                 <img className="circle" src={avatarUrl}/>
@@ -258,9 +258,11 @@ class Container extends React.Component {
                                                     {item.children.map(function (menu) {
                                                         return (
                                                             <ul>
-                                                                <li><NavLink to={menu.link} className="sidenav-close" activeClassName="active"><i className="mdi mdi-chevron-right"/>{menu.name}
-                                                                </NavLink></li>
-                                                                <li><div className="divider"/></li>
+                                                                <li>
+                                                                    <NavLink to={menu.link} className="sidenav-close" activeClassName="active">
+                                                                        <i className="mdi mdi-chevron-right"/>{menu.name}
+                                                                    </NavLink>
+                                                                </li>
                                                             </ul>
                                                         )
                                                     })}
