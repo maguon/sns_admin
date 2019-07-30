@@ -14,22 +14,26 @@ export const getAdminList = () => async (dispatch, getState) => {
         const conditionNo = getState().AdminUserSettingReducer.conditionNo.trim();
         // 检索条件：姓名
         const conditionAdminName = getState().AdminUserSettingReducer.conditionAdminName.trim();
-        // 检索条件：部门
-        const conditionDepartment = getState().AdminUserSettingReducer.conditionDepartment;
+        // // 检索条件：部门
+        // const conditionDepartment = getState().AdminUserSettingReducer.conditionDepartment;
+        // 检索条件：电话
+        const conditionPhone = getState().AdminUserSettingReducer.conditionPhone;
         // 检索条件：状态
         const conditionStatus = getState().AdminUserSettingReducer.conditionStatus;
 
         // 基本检索URL
-        let url = apiHost + '/api/admin?isSuperUserFlag=0&start=' + start + '&size=' + size;
+        let url = apiHost + '/api/adminUser?type=0&start=' + start + '&size=' + size;
 
         // 检索条件
         let conditionsObj = {
             // 检索条件：员工编号
-            adminId: conditionNo,
+            adminUserId: conditionNo,
             // 检索条件：姓名
-            realName: conditionAdminName,
-            // 检索条件：部门
-            department: conditionDepartment === null ? '' : conditionDepartment.value,
+            name: conditionAdminName,
+            // // 检索条件：部门
+            // department: conditionDepartment === null ? '' : conditionDepartment.value,
+            // 检索条件：电话
+            phone: conditionPhone,
             // 检索条件：状态
             status: conditionStatus === null ? '' : conditionStatus.value
         };
@@ -41,7 +45,7 @@ export const getAdminList = () => async (dispatch, getState) => {
             dispatch({type: AdminUserSettingActionType.setDataSize, payload: res.result.length});
             dispatch({type: AdminUserSettingActionType.getAdminList, payload: res.result.slice(0, size - 1)});
         } else if (res.success === false) {
-            swal('获取员工列表信息失败', res.msg, 'warning');
+            swal('获取管理员列表信息失败', res.msg, 'warning');
         }
     } catch (err) {
         swal('操作失败', err.message, 'error');

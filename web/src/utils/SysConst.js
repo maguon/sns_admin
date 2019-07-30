@@ -5,6 +5,26 @@ export const USER_TYPE ='user-type';
 export const USER_STATUS='user-status';
 export const AUTH_TOKEN ='auth-token';
 
+/**
+ * 日期控件 国际化用
+ */
+export const DATE_PICKER_OPTION = {
+    autoClose: true,
+    // showClearBtn: true,
+    format: 'yyyy-mm-dd',
+    i18n: {
+        cancel: '取消',
+        clear: '清除',
+        done: '确认',
+        previousMonth: '‹',
+        nextMonth: '›',
+        months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        monthsShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
+        weekdaysAbbrev: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+    },
+};
 
 /**
  * 单选下拉菜单样式
@@ -64,22 +84,38 @@ export const STATISTIC_SELECT_STYLE = {
     valueContainer: styles => ({...styles, paddingLeft: '0',height: '38px'})
 };
 
-export const DATE_PICKER_OPTION = {
-    autoClose: true,
-    // showClearBtn: true,
-    format: 'yyyy-mm-dd',
-    i18n: {
-        cancel: '取消',
-        clear: '清除',
-        done: '确认',
-        previousMonth: '‹',
-        nextMonth: '›',
-        months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-        monthsShort: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-        weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        weekdaysShort: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
-        weekdaysAbbrev: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
-    },
+/**
+ * 单选下拉菜单样式（自定义下拉菜单高度，120px 3项目高度）
+ */
+export const CUSTOM_REACT_SELECT_STYLE_FOR_MODAL = {
+    control: (styles, {isFocused}) => ({
+        ...styles,
+        height: 'calc(3rem + 1px)',
+        borderRadius: '0',
+        boxShadow: '0',
+        borderTop: '0',
+        borderLeft: '0',
+        borderRight: '0',
+        background: '#FFFFFF',
+        margin: "0 0 20px 0",
+        borderColor: isFocused ? '#26a69a' : '#ACACAC',
+        ':hover': {
+            borderColor: "#26a69a"
+        }
+    }),
+    // 下拉菜单和输入框距离
+    menu: styles => ({ ...styles, marginTop:'1px'}),
+    // 下拉菜单最大高度
+    menuList: styles => ({ ...styles, maxHeight: '120px' }),
+    indicatorSeparator: styles => ({...styles, display: 'none'}),
+    // 检索输入框
+    input: styles => ({...styles, margin: '0', paddingTop: '0',paddingBottom: '0',height: 'calc(3rem)'}),
+    // 选中内容显示区域
+    valueContainer: styles => ({
+        ...styles,
+        paddingLeft: '0',
+        height: 'calc(3rem + 1px)'
+    })
 };
 
 // 按日统计-日数

@@ -5,5 +5,6 @@ export const setStartNumber = createAction('SET_START_NUMBER');
 export const setDataSize = createAction('SET_DATA_SIZE');
 export const setConditionNo = createAction('SET_CONDITION_ADMIN_NO');
 export const setConditionAdminName = createAction('SET_CONDITION_ADMIN_NAME');
-export const setConditionDepartment = createAction('SET_CONDITION_ADMIN_DEPARTMENT');
+// export const setConditionDepartment = createAction('SET_CONDITION_ADMIN_DEPARTMENT');
+export const setConditionPhone = createAction('SET_CONDITION_ADMIN_PHONE');
 export const setConditionStatus = createAction('SET_CONDITION_ADMIN_STATUS');

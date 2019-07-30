@@ -13,8 +13,10 @@ const initialState = {
     conditionNo: '',
     // 检索条件：姓名
     conditionAdminName: '',
-    // 检索条件：部门
-    conditionDepartment: null,
+    // // 检索条件：部门
+    // conditionDepartment: null,
+    // 检索条件：电话
+    conditionPhone: '',
     // 检索条件：状态
     conditionStatus: null,
 
@@ -53,10 +55,10 @@ export default handleActions({
             conditionAdminName: action.payload
         }
     },
-    [AdminUserSettingActionType.setConditionDepartment]: (state, action) => {
+    [AdminUserSettingActionType.setConditionPhone]: (state, action) => {
         return {
             ...state,
-            conditionDepartment: action.payload
+            conditionPhone: action.payload
         }
     },
     [AdminUserSettingActionType.setConditionStatus]: (state, action) => {

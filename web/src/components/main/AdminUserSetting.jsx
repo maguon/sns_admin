@@ -4,9 +4,11 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {TextInput} from 'react-materialize';
 import {AdminUserSettingActionType} from '../../types';
+import {NewAdminModal} from '../modules/index';
 
-const commonAction = require('../../actions/main/CommonAction');
+// const commonAction = require('../../actions/main/CommonAction');
 const adminUserSettingAction = require('../../actions/main/AdminUserSettingAction');
+const newAdminModalAction = require('../../actions/modules/NewAdminModalAction');
 
 const sysConst = require('../../utils/SysConst');
 const commonUtil = require('../../utils/CommonUtil');
@@ -28,10 +30,10 @@ class AdminUserSetting extends React.Component {
             this.props.setStartNumber(0);
             this.props.setConditionNo('');
             this.props.setConditionAdminName('');
-            this.props.changeConditionDepartment(null);
+            this.props.setConditionAdminPhone('');
             this.props.changeConditionStatus(null);
         }
-        this.props.getDepartmentList();
+        // this.props.getDepartmentList();
         this.props.getAdminList();
     }
 
@@ -47,6 +49,13 @@ class AdminUserSetting extends React.Component {
      */
     changeConditionAdminName = (event) => {
         this.props.setConditionAdminName(event.target.value);
+    };
+
+    /**
+     * 更新 检索条件：电话
+     */
+    changeConditionAdminPhone = (event) => {
+        this.props.setConditionAdminPhone(event.target.value);
     };
 
     /**
@@ -74,9 +83,16 @@ class AdminUserSetting extends React.Component {
         this.props.getAdminList();
     };
 
+    /**
+     * 显示 新建/编辑 供应商信息
+     */
+    showNewAdminModal = () => {
+        this.props.initModalData();
+        $('#newAdminModal').modal('open');
+    };
 
     render() {
-        const {adminUserSettingReducer, commonReducer, changeConditionDepartment, changeConditionStatus} = this.props;
+        const {adminUserSettingReducer, changeConditionStatus} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -94,18 +110,7 @@ class AdminUserSetting extends React.Component {
 
                         <TextInput s={3} label="姓名" value={adminUserSettingReducer.conditionAdminName} onChange={this.changeConditionAdminName}/>
 
-                        <div className="input-field col s3">
-                            <Select
-                                options={commonReducer.departmentList}
-                                onChange={changeConditionDepartment}
-                                value={adminUserSettingReducer.conditionDepartment}
-                                isSearchable={false}
-                                placeholder={"请选择"}
-                                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
-                                isClearable={true}
-                            />
-                            <label className="active">部门</label>
-                        </div>
+                        <TextInput s={3} label="电话" value={adminUserSettingReducer.conditionPhone} onChange={this.changeConditionAdminPhone}/>
 
                         <div className="input-field col s3">
                             <Select
@@ -134,6 +139,7 @@ class AdminUserSetting extends React.Component {
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>
+                    <NewAdminModal/>
                 </div>
 
                 {/* 下部分：检索结果显示区域 */}
@@ -146,7 +152,7 @@ class AdminUserSetting extends React.Component {
                                 <th>手机</th>
                                 <th>姓名</th>
                                 <th>性别</th>
-                                <th>部门</th>
+                                {/*<th>部门</th>*/}
                                 <th>状态</th>
                                 <th className="center">操作</th>
                             </tr>
@@ -155,11 +161,11 @@ class AdminUserSetting extends React.Component {
                             {adminUserSettingReducer.adminArray.map(function (item) {
                                 return (
                                     <tr className="grey-text text-darken-1">
-                                        <td>{item.id}</td>
+                                        <td>{item._id}</td>
                                         <td>{item.phone}</td>
-                                        <td>{item.real_name}</td>
+                                        <td>{item.name}</td>
                                         <td>{commonUtil.getJsonValue(sysConst.GENDER, item.gender)}</td>
-                                        <td>{item.department_name}</td>
+                                        {/*<td>{item.department_name}</td>*/}
                                         <td>{commonUtil.getJsonValue(sysConst.USE_FLAG, item.status)}</td>
                                         <td className="operation center">
                                             <Link to={{pathname: '/admin_user_setting/' + item.id}}>
@@ -171,7 +177,7 @@ class AdminUserSetting extends React.Component {
                             })}
                             { adminUserSettingReducer.adminArray.length === 0 &&
                                 <tr className="grey-text text-darken-1">
-                                    <td className="no-data-tr" colSpan="7">暂无数据</td>
+                                    <td className="no-data-tr" colSpan="6">暂无数据</td>
                                 </tr>
                             }
                             </tbody>
@@ -204,15 +210,15 @@ const mapStateToProps = (state, ownProps) => {
     }
     return {
         adminUserSettingReducer: state.AdminUserSettingReducer,
-        commonReducer: state.CommonReducer,
+        // commonReducer: state.CommonReducer,
         fromDetail: fromDetail
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getDepartmentList: () => {
-        dispatch(commonAction.getDepartmentList())
-    },
+    // getDepartmentList: () => {
+    //     dispatch(commonAction.getDepartmentList())
+    // },
     getAdminList: () => {
         dispatch(adminUserSettingAction.getAdminList())
     },
@@ -225,11 +231,14 @@ const mapDispatchToProps = (dispatch) => ({
     setConditionAdminName: (value) => {
         dispatch(AdminUserSettingActionType.setConditionAdminName(value))
     },
-    changeConditionDepartment: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionDepartment(value))
+    setConditionAdminPhone: (value) => {
+        dispatch(AdminUserSettingActionType.setConditionPhone(value))
     },
     changeConditionStatus: (value) => {
         dispatch(AdminUserSettingActionType.setConditionStatus(value))
+    },
+    initModalData: () => {
+        dispatch(newAdminModalAction.initNewAdminModal());
     }
 });
 

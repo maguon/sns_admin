@@ -8,8 +8,10 @@ import * as UserManagerActionType  from './main/UserManagerActionType';
 import * as UserManagerDetailActionType  from './main/UserManagerDetailActionType';
 
 
+import * as AdminUserSettingActionType  from './main/AdminUserSettingActionType';
+import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetailActionType';
 
-
+import * as NewAdminModalActionType  from './modules/NewAdminModalActionType';
 
 
 
@@ -21,8 +23,7 @@ import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
 
 import * as CitySettingActionType  from './main/CitySettingActionType';
 import * as RouteSettingActionType  from './main/RouteSettingActionType';
-import * as AdminUserSettingActionType  from './main/AdminUserSettingActionType';
-import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetailActionType';
+
 import * as RecommendBusinessManagerActionType  from './main/RecommendBusinessManagerActionType';
 import * as RecommendBusinessManagerDetailActionType  from './main/RecommendBusinessManagerDetailActionType';
 
@@ -37,7 +38,7 @@ export  {
     UserManagerActionType,
     UserManagerDetailActionType,
 
-
+    NewAdminModalActionType,
 
 
     InquiryModalActionType,

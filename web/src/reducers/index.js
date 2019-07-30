@@ -22,6 +22,9 @@ import RecommendBusinessManagerReducer from './main/RecommendBusinessManagerRedu
 import RecommendBusinessManagerDetailReducer from './main/RecommendBusinessManagerDetailReducer';
 
 
+import NewAdminModalReducer from './modules/NewAdminModalReducer';
+
+
 export default combineReducers({
     form: reduxFormReducer,
     LoginReducer,
@@ -29,10 +32,18 @@ export default combineReducers({
 
 
     UserManagerReducer,
+    AdminUserSettingReducer,
+    AdminUserSettingDetailReducer,
 
-
-
+    NewAdminModalReducer,
     InquiryModalReducer,
+
+
+
+
+
+
+
 
     CommonReducer,
     FinancePanelReducer,
@@ -40,8 +51,7 @@ export default combineReducers({
 
     CitySettingReducer,
     RouteSettingReducer,
-    AdminUserSettingReducer,
-    AdminUserSettingDetailReducer,
+
     RecommendBusinessManagerReducer,
     RecommendBusinessManagerDetailReducer,
 })
