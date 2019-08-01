@@ -22,9 +22,9 @@ export const getUserList = () => async (dispatch, getState) => {
         const conditionStatus = getState().UserManagerReducer.conditionStatus;
 
         // 基本检索URL
-        // let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
-        //     + '/achievement?start=' + start + '&size=' + size;
-        let url = apiHost + '/api/user?start=' + start + '&size=' + size;
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+            + '/user?start=' + start + '&size=' + size;
+
         // 检索条件
         let conditionsObj = {
             userId: conditionUserId,
