@@ -3,19 +3,31 @@ import {NewAdminModalActionType} from '../../types';
 
 // 画面用初期数据
 const initialState = {
+    // 管理员名称
+    name: '',
+    // 真实姓名
+    realName: '',
     // 手机
     phone: '',
     // 密码
     password: '',
-    // 姓名
-    adminName: '',
     // 性别 默认为男：1
-    gender: 1,
-    // 部门
-    department: null
+    gender: 1
 };
 
 export default handleActions({
+    [NewAdminModalActionType.setAdminName]: (state, action) => {
+        return {
+            ...state,
+            name: action.payload
+        }
+    },
+    [NewAdminModalActionType.setAdminRealName]: (state, action) => {
+        return {
+            ...state,
+            realName: action.payload
+        }
+    },
     [NewAdminModalActionType.setPhone]: (state, action) => {
         return {
             ...state,
@@ -28,22 +40,10 @@ export default handleActions({
             password: action.payload
         }
     },
-    [NewAdminModalActionType.setAdminName]: (state, action) => {
-        return {
-            ...state,
-            adminName: action.payload
-        }
-    },
     [NewAdminModalActionType.setAdminGender]: (state, action) => {
         return {
             ...state,
             gender: action.payload
-        }
-    },
-    [NewAdminModalActionType.setDepartment]: (state, action) => {
-        return {
-            ...state,
-            department: action.payload
         }
     }
 }, initialState)

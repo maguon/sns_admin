@@ -2,6 +2,8 @@ import {apiHost} from '../../config/HostConfig';
 import {AdminUserSettingActionType} from '../../types';
 
 const httpUtil = require('../../utils/HttpUtil');
+const localUtil = require('../../utils/LocalUtil');
+const sysConst = require('../../utils/SysConst');
 
 export const getAdminList = () => async (dispatch, getState) => {
     try {
@@ -10,30 +12,27 @@ export const getAdminList = () => async (dispatch, getState) => {
         // 检索条件：每页数量
         const size = getState().AdminUserSettingReducer.size;
 
-        // 检索条件：员工编号
-        const conditionNo = getState().AdminUserSettingReducer.conditionNo.trim();
-        // 检索条件：姓名
+        // 检索条件：手机
+        const conditionPhone = getState().AdminUserSettingReducer.conditionPhone.trim();
+        // 检索条件：管理员名称
         const conditionAdminName = getState().AdminUserSettingReducer.conditionAdminName.trim();
-        // // 检索条件：部门
-        // const conditionDepartment = getState().AdminUserSettingReducer.conditionDepartment;
-        // 检索条件：电话
-        const conditionPhone = getState().AdminUserSettingReducer.conditionPhone;
+        // 检索条件：真实姓名
+        const conditionRealName = getState().AdminUserSettingReducer.conditionRealName.trim();
         // 检索条件：状态
         const conditionStatus = getState().AdminUserSettingReducer.conditionStatus;
 
         // 基本检索URL
-        let url = apiHost + '/api/adminUser?type=0&start=' + start + '&size=' + size;
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+            + '/adminUser?type=0&start=' + start + '&size=' + size;
 
         // 检索条件
         let conditionsObj = {
-            // 检索条件：员工编号
-            adminUserId: conditionNo,
-            // 检索条件：姓名
-            name: conditionAdminName,
-            // // 检索条件：部门
-            // department: conditionDepartment === null ? '' : conditionDepartment.value,
             // 检索条件：电话
             phone: conditionPhone,
+            // 检索条件：姓名
+            name: conditionAdminName,
+            // 检索条件：员工编号
+            realname: conditionRealName,
             // 检索条件：状态
             status: conditionStatus === null ? '' : conditionStatus.value
         };

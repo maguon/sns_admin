@@ -6,7 +6,6 @@ import {TextInput} from 'react-materialize';
 import {AdminUserSettingActionType} from '../../types';
 import {NewAdminModal} from '../modules/index';
 
-// const commonAction = require('../../actions/main/CommonAction');
 const adminUserSettingAction = require('../../actions/main/AdminUserSettingAction');
 const newAdminModalAction = require('../../actions/modules/NewAdminModalAction');
 
@@ -28,34 +27,33 @@ class AdminUserSetting extends React.Component {
     componentDidMount() {
         if (!this.props.fromDetail) {
             this.props.setStartNumber(0);
-            this.props.setConditionNo('');
-            this.props.setConditionAdminName('');
             this.props.setConditionAdminPhone('');
+            this.props.setConditionAdminName('');
+            this.props.setConditionRealName('');
             this.props.changeConditionStatus(null);
         }
-        // this.props.getDepartmentList();
         this.props.getAdminList();
     }
 
     /**
-     * 更新 检索条件：员工编号
+     * 更新 检索条件：手机
      */
-    changeConditionNo = (event) => {
-        this.props.setConditionNo(event.target.value);
+    changeConditionAdminPhone = (event) => {
+        this.props.setConditionAdminPhone(event.target.value);
     };
 
     /**
-     * 更新 检索条件：姓名
+     * 更新 检索条件：管理员名称
      */
     changeConditionAdminName = (event) => {
         this.props.setConditionAdminName(event.target.value);
     };
 
     /**
-     * 更新 检索条件：电话
+     * 更新 检索条件：真实姓名
      */
-    changeConditionAdminPhone = (event) => {
-        this.props.setConditionAdminPhone(event.target.value);
+    changeConditionRealName = (event) => {
+        this.props.setConditionRealName(event.target.value);
     };
 
     /**
@@ -106,11 +104,11 @@ class AdminUserSetting extends React.Component {
                 {/* 上部分：检索条件输入区域 */}
                 <div className="row grey-text text-darken-1">
                     <div className="col s10 search-condition-box">
-                        <TextInput s={3} label="员工编号" value={adminUserSettingReducer.conditionNo} onChange={this.changeConditionNo}/>
+                        <TextInput s={3} label="手机" value={adminUserSettingReducer.conditionPhone} onChange={this.changeConditionAdminPhone}/>
 
-                        <TextInput s={3} label="姓名" value={adminUserSettingReducer.conditionAdminName} onChange={this.changeConditionAdminName}/>
+                        <TextInput s={3} label="管理员名称" value={adminUserSettingReducer.conditionAdminName} onChange={this.changeConditionAdminName}/>
 
-                        <TextInput s={3} label="电话" value={adminUserSettingReducer.conditionPhone} onChange={this.changeConditionAdminPhone}/>
+                        <TextInput s={3} label="真实姓名" value={adminUserSettingReducer.conditionRealName} onChange={this.changeConditionRealName}/>
 
                         <div className="input-field col s3">
                             <Select
@@ -148,11 +146,10 @@ class AdminUserSetting extends React.Component {
                         <table className="bordered striped">
                             <thead className="custom-dark-grey table-top-line">
                             <tr className="grey-text text-darken-2">
-                                <th>员工编号</th>
                                 <th>手机</th>
-                                <th>姓名</th>
+                                <th>管理员名称</th>
+                                <th>真实姓名</th>
                                 <th>性别</th>
-                                {/*<th>部门</th>*/}
                                 <th>状态</th>
                                 <th className="center">操作</th>
                             </tr>
@@ -161,14 +158,13 @@ class AdminUserSetting extends React.Component {
                             {adminUserSettingReducer.adminArray.map(function (item) {
                                 return (
                                     <tr className="grey-text text-darken-1">
-                                        <td>{item._id}</td>
                                         <td>{item.phone}</td>
                                         <td>{item.name}</td>
+                                        <td>{item.realname}</td>
                                         <td>{commonUtil.getJsonValue(sysConst.GENDER, item.gender)}</td>
-                                        {/*<td>{item.department_name}</td>*/}
                                         <td>{commonUtil.getJsonValue(sysConst.USE_FLAG, item.status)}</td>
                                         <td className="operation center">
-                                            <Link to={{pathname: '/admin_user_setting/' + item.id}}>
+                                            <Link to={{pathname: '/admin_user_setting/' + item._id}}>
                                                 <i className="mdi mdi-table-search purple-font"/>
                                             </Link>
                                         </td>
@@ -210,29 +206,25 @@ const mapStateToProps = (state, ownProps) => {
     }
     return {
         adminUserSettingReducer: state.AdminUserSettingReducer,
-        // commonReducer: state.CommonReducer,
         fromDetail: fromDetail
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    // getDepartmentList: () => {
-    //     dispatch(commonAction.getDepartmentList())
-    // },
     getAdminList: () => {
         dispatch(adminUserSettingAction.getAdminList())
     },
     setStartNumber: (start) => {
         dispatch(AdminUserSettingActionType.setStartNumber(start))
     },
-    setConditionNo: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionNo(value))
+    setConditionAdminPhone: (value) => {
+        dispatch(AdminUserSettingActionType.setConditionPhone(value))
     },
     setConditionAdminName: (value) => {
         dispatch(AdminUserSettingActionType.setConditionAdminName(value))
     },
-    setConditionAdminPhone: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionPhone(value))
+    setConditionRealName: (value) => {
+        dispatch(AdminUserSettingActionType.setConditionRealName(value))
     },
     changeConditionStatus: (value) => {
         dispatch(AdminUserSettingActionType.setConditionStatus(value))

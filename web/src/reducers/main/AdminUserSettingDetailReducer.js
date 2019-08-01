@@ -8,12 +8,12 @@ const initialState = {
     adminStatus: '',
     // 手机
     phone: '',
-    // 姓名
+    // 管理员名称
     adminName: '',
+    // 管理员名称
+    realName: '',
     // 性别 默认为男：1
-    gender: 1,
-    // 部门
-    department: null
+    gender: 1
 };
 
 export default handleActions({
@@ -41,16 +41,16 @@ export default handleActions({
             adminName: action.payload
         }
     },
+    [AdminUserSettingDetailActionType.setAdminRealName]: (state, action) => {
+        return {
+            ...state,
+            realName: action.payload
+        }
+    },
     [AdminUserSettingDetailActionType.setAdminGender]: (state, action) => {
         return {
             ...state,
             gender: action.payload
-        }
-    },
-    [AdminUserSettingDetailActionType.setDepartment]: (state, action) => {
-        return {
-            ...state,
-            department: action.payload
         }
     }
 }, initialState)

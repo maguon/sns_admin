@@ -1,13 +1,10 @@
 import React from 'react';
-import Select from 'react-select';
 import {TextInput} from 'react-materialize';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {AdminUserSettingDetailActionType} from "../../types";
 
-const commonAction = require('../../actions/main/CommonAction');
 const adminUserSettingDetailAction = require('../../actions/main/AdminUserSettingDetailAction');
-const sysConst = require('../../utils/SysConst');
 
 class AdminUserSettingDetail extends React.Component {
 
@@ -22,8 +19,6 @@ class AdminUserSettingDetail extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        // 取得部门列表
-        this.props.getDepartmentList();
         // 取得员工信息
         this.props.getAdminInfo();
     }
@@ -35,8 +30,15 @@ class AdminUserSettingDetail extends React.Component {
         this.props.setAdminName(event.target.value);
     };
 
+    /**
+     * 更新 姓名
+     */
+    changeRealName = (event) => {
+        this.props.setRealName(event.target.value);
+    };
+
     render() {
-        const {adminUserSettingDetailReducer, commonReducer, changeStatus, changeDepartment, setAdminGender, saveAdmin} = this.props;
+        const {adminUserSettingDetailReducer, changeStatus, setAdminGender, saveAdmin} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -70,22 +72,24 @@ class AdminUserSettingDetail extends React.Component {
 
                     <div className="col s12 padding-top20 padding-bottom20">
                         <TextInput s={6} label="手机" maxLength="20" value={adminUserSettingDetailReducer.phone} disabled/>
-                        <div className="input-field col s6">
-                            <Select
-                                options={commonReducer.departmentList}
-                                onChange={changeDepartment}
-                                value={adminUserSettingDetailReducer.department}
-                                isSearchable={false}
-                                placeholder={"请选择"}
-                                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
-                                backspaceRemovesValue={false}
-                                isClearable={false}
-                            />
-                            <label className="active">部门</label>
-                        </div>
+                        <TextInput s={6} label="管理员名称" maxLength="20" value={adminUserSettingDetailReducer.adminName} onChange={this.changeAdminName}/>
 
-                        <TextInput s={6} label="姓名" maxLength="20" value={adminUserSettingDetailReducer.adminName} onChange={this.changeAdminName}/>
-                        <div className="custom-input-field col s6">
+                        {/*<div className="input-field col s6">*/}
+                        {/*    <Select*/}
+                        {/*        options={commonReducer.departmentList}*/}
+                        {/*        onChange={changeDepartment}*/}
+                        {/*        value={adminUserSettingDetailReducer.department}*/}
+                        {/*        isSearchable={false}*/}
+                        {/*        placeholder={"请选择"}*/}
+                        {/*        styles={sysConst.CUSTOM_REACT_SELECT_STYLE}*/}
+                        {/*        backspaceRemovesValue={false}*/}
+                        {/*        isClearable={false}*/}
+                        {/*    />*/}
+                        {/*    <label className="active">部门</label>*/}
+                        {/*</div>*/}
+
+                        <TextInput s={6} label="真实姓名" maxLength="20" value={adminUserSettingDetailReducer.realName} onChange={this.changeRealName}/>
+                        <div className="col s6 no-padding">
                             <div className="input-field col s12 fz30">
                                 <i className={`pointer mdi mdi-human-male ${adminUserSettingDetailReducer.gender === 1 ? "blue-text" : ""}`} onClick={() => {setAdminGender(1)}}/>
                                 <i className={`pointer mdi mdi-human-female margin-left10 ${adminUserSettingDetailReducer.gender === 0 ? "pink-font" : ""}`} onClick={() => {setAdminGender(0)}}/>
@@ -104,26 +108,22 @@ class AdminUserSettingDetail extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        adminUserSettingDetailReducer: state.AdminUserSettingDetailReducer,
-        commonReducer: state.CommonReducer
+        adminUserSettingDetailReducer: state.AdminUserSettingDetailReducer
     }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    getDepartmentList: () => {
-        dispatch(commonAction.getDepartmentList())
-    },
     getAdminInfo: () => {
         dispatch(adminUserSettingDetailAction.getAdminInfo(ownProps.match.params.id));
     },
     changeStatus: (id, status) => {
         dispatch(adminUserSettingDetailAction.changeAdminStatus(id, status))
     },
-    changeDepartment: (value) => {
-        dispatch(AdminUserSettingDetailActionType.setDepartment(value));
-    },
     setAdminName: (value) => {
         dispatch(AdminUserSettingDetailActionType.setAdminName(value));
+    },
+    setRealName: (value) => {
+        dispatch(AdminUserSettingDetailActionType.setAdminRealName(value));
     },
     setAdminGender: (value) => {
         dispatch(AdminUserSettingDetailActionType.setAdminGender(value));

@@ -9,14 +9,12 @@ const initialState = {
     // 检索结果数量
     dataSize: 0,
 
-    // 检索条件：员工编号
-    conditionNo: '',
-    // 检索条件：姓名
-    conditionAdminName: '',
-    // // 检索条件：部门
-    // conditionDepartment: null,
-    // 检索条件：电话
+    // 检索条件：手机
     conditionPhone: '',
+    // 检索条件：管理员名称
+    conditionAdminName: '',
+    // 检索条件：真实姓名
+    conditionRealName: '',
     // 检索条件：状态
     conditionStatus: null,
 
@@ -43,10 +41,10 @@ export default handleActions({
             dataSize: action.payload
         }
     },
-    [AdminUserSettingActionType.setConditionNo]: (state, action) => {
+    [AdminUserSettingActionType.setConditionPhone]: (state, action) => {
         return {
             ...state,
-            conditionNo: action.payload
+            conditionPhone: action.payload
         }
     },
     [AdminUserSettingActionType.setConditionAdminName]: (state, action) => {
@@ -55,10 +53,10 @@ export default handleActions({
             conditionAdminName: action.payload
         }
     },
-    [AdminUserSettingActionType.setConditionPhone]: (state, action) => {
+    [AdminUserSettingActionType.setConditionRealName]: (state, action) => {
         return {
             ...state,
-            conditionPhone: action.payload
+            conditionRealName: action.payload
         }
     },
     [AdminUserSettingActionType.setConditionStatus]: (state, action) => {

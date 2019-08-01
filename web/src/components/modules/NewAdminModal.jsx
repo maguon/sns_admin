@@ -1,12 +1,9 @@
 import React from 'react';
-import Select from 'react-select';
 import {TextInput} from 'react-materialize';
 import {connect} from 'react-redux';
 import {NewAdminModalActionType} from "../../types";
 
-const commonAction = require('../../actions/main/CommonAction');
 const newAdminModalAction = require('../../actions/modules/NewAdminModalAction');
-const sysConst = require('../../utils/SysConst');
 
 class NewAdminModal extends React.Component {
 
@@ -22,8 +19,21 @@ class NewAdminModal extends React.Component {
      */
     componentDidMount() {
         $('.modal').modal();
-        // this.props.getDepartmentList();
     }
+
+    /**
+     * 更新 管理员名称
+     */
+    changeAdminName = (event) => {
+        this.props.setAdminName(event.target.value);
+    };
+
+    /**
+     * 更新 真实姓名
+     */
+    changeRealName = (event) => {
+        this.props.setRealName(event.target.value);
+    };
 
     /**
      * 更新 手机
@@ -39,19 +49,11 @@ class NewAdminModal extends React.Component {
         this.props.setPassword(event.target.value);
     };
 
-
-    /**
-     * 更新 姓名
-     */
-    changeAdminName = (event) => {
-        this.props.setAdminName(event.target.value);
-    };
-
     /**
      * 渲染(挂载)画面。
      */
     render() {
-        const {newAdminModalReducer, commonReducer, setAdminGender, changeDepartment,closeModal, saveAdmin} = this.props;
+        const {newAdminModalReducer, setAdminGender, closeModal, saveAdmin} = this.props;
         return (
             <div id="newAdminModal" className="modal modal-fixed-footer row">
 
@@ -61,30 +63,31 @@ class NewAdminModal extends React.Component {
                 {/** Modal主体 */}
                 <div className="modal-content white grey-text text-darken-2">
                     <div className="row margin-top40">
-                        <TextInput s={6} label="手机" maxLength="20" value={newAdminModalReducer.phone} onChange={this.changePhone}/>
-                        <TextInput s={6} label={<span><span className="must-input">*</span>密码</span>} maxLength="20" value={newAdminModalReducer.password} onChange={this.changePassword}/>
+                        <TextInput s={6} label="管理员名称" maxLength="20" value={newAdminModalReducer.name} onChange={this.changeAdminName}/>
+                        <TextInput s={6} label="真实姓名" maxLength="20" value={newAdminModalReducer.realName} onChange={this.changeRealName}/>
 
-                        <div className="custom-input-field col s6">
-                            <TextInput s={9} label="姓名" maxLength="20" value={newAdminModalReducer.adminName} onChange={this.changeAdminName}/>
+                        <div className="col s6 no-padding">
+                            <TextInput s={9} label="手机" maxLength="20" value={newAdminModalReducer.phone} onChange={this.changePhone}/>
                             <div className="input-field col s3 fz30 right-align">
                                 <i className={`pointer mdi mdi-human-male ${newAdminModalReducer.gender === 1 ? "blue-text" : ""}`} onClick={() => {setAdminGender(1)}}/>
                                 <i className={`pointer mdi mdi-human-female margin-left10 ${newAdminModalReducer.gender === 0 ? "pink-font" : ""}`} onClick={() => {setAdminGender(0)}}/>
                             </div>
                         </div>
+                        <TextInput s={6} label="密码" maxLength="20" value={newAdminModalReducer.password} onChange={this.changePassword}/>
 
-                        <div className="input-field col s6">
-                            <Select
-                                options={commonReducer.departmentList}
-                                onChange={changeDepartment}
-                                value={newAdminModalReducer.department}
-                                isSearchable={false}
-                                placeholder={"请选择"}
-                                styles={sysConst.CUSTOM_REACT_SELECT_STYLE_FOR_MODAL}
-                                backspaceRemovesValue={false}
-                                isClearable={false}
-                            />
-                            <label className="active">部门</label>
-                        </div>
+                        {/*<div className="input-field col s6">*/}
+                        {/*    <Select*/}
+                        {/*        options={commonReducer.departmentList}*/}
+                        {/*        onChange={changeDepartment}*/}
+                        {/*        value={newAdminModalReducer.department}*/}
+                        {/*        isSearchable={false}*/}
+                        {/*        placeholder={"请选择"}*/}
+                        {/*        styles={sysConst.CUSTOM_REACT_SELECT_STYLE_FOR_MODAL}*/}
+                        {/*        backspaceRemovesValue={false}*/}
+                        {/*        isClearable={false}*/}
+                        {/*    />*/}
+                        {/*    <label className="active">部门</label>*/}
+                        {/*</div>*/}
                     </div>
 
                 </div>
@@ -105,8 +108,7 @@ class NewAdminModal extends React.Component {
  */
 const mapStateToProps = (state) => {
     return {
-        newAdminModalReducer: state.NewAdminModalReducer,
-        commonReducer: state.CommonReducer,
+        newAdminModalReducer: state.NewAdminModalReducer
     }
 };
 
@@ -114,23 +116,20 @@ const mapStateToProps = (state) => {
  * 输出逻辑：用户发出的动作变为 Action 对象，从 UI 组件传出去。
  */
 const mapDispatchToProps = (dispatch) => ({
-    // getDepartmentList: () => {
-    //     dispatch(commonAction.getDepartmentList())
-    // },
+    setAdminName: (value) => {
+        dispatch(NewAdminModalActionType.setAdminName(value));
+    },
+    setRealName: (value) => {
+        dispatch(NewAdminModalActionType.setAdminRealName(value));
+    },
     setPhone: (value) => {
         dispatch(NewAdminModalActionType.setPhone(value));
     },
     setPassword: (value) => {
         dispatch(NewAdminModalActionType.setPassword(value));
     },
-    setAdminName: (value) => {
-        dispatch(NewAdminModalActionType.setAdminName(value));
-    },
     setAdminGender: (value) => {
         dispatch(NewAdminModalActionType.setAdminGender(value));
-    },
-    changeDepartment: (value) => {
-        dispatch(NewAdminModalActionType.setDepartment(value));
     },
     saveAdmin: () => {
         dispatch(newAdminModalAction.saveAdmin());
