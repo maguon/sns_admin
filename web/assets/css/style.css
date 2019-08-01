@@ -532,18 +532,7 @@ table.striped > tbody > tr:nth-child(odd) {
 }
 
 
-/** Material样式 变更部分 start */
-
-
-/** Material样式 变更部分 end */
-
-
 /** Material补充样式 start */
-.custom-input-field {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-top: 0 !important;
-}
 
 .custom-label-field {
     background-color: transparent;

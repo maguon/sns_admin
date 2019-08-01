@@ -42,7 +42,7 @@ export const CUSTOM_REACT_SELECT_STYLE = {
         borderLeft: '0',
         borderRight: '0',
         background: '#FFFFFF',
-        margin: "0 0 20px 0",
+        margin: "0 0 26px 0",
         borderColor: isFocused ? '#26a69a' : '#ACACAC',
         ':hover': {
             borderColor: "#26a69a"
@@ -97,7 +97,7 @@ export const CUSTOM_REACT_SELECT_STYLE_FOR_MODAL = {
         borderLeft: '0',
         borderRight: '0',
         background: '#FFFFFF',
-        margin: "0 0 20px 0",
+        margin: "0 0 26px 0",
         borderColor: isFocused ? '#26a69a' : '#ACACAC',
         ':hover': {
             borderColor: "#26a69a"

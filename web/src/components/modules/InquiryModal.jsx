@@ -149,7 +149,7 @@ class InquiryModal extends React.Component {
                             </div>
                         </div>
 
-                        <div className="custom-input-field col s6">
+                        <div className="col s6 no-padding">
                             <TextInput s={12} label="估值" type="number" value={inquiryModalReducer.valuation} onChange={this.changeValuation}/>
                         </div>
                     </div>
