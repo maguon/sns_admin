@@ -111,18 +111,6 @@ const routes = [
 
     // 设置模块
     {
-        // 城市
-        path: "/city_setting",
-        exact: true,
-        component: CitySetting
-    },
-    {
-        // 线路
-        path: "/route_setting",
-        exact: true,
-        component: RouteSetting
-    },
-    {
         // 员工管理
         path: "/admin_user_setting",
         exact: true,
@@ -219,14 +207,6 @@ class Container extends React.Component {
                 "label": '系统设置',
                 "icon": 'mdi-settings-outline',
                 "children": [
-                    {
-                        "link": '/city_setting',
-                        "name": '城市'
-                    },
-                    {
-                        "link": '/route_setting',
-                        "name": '线路'
-                    },
                     {
                         "link": '/admin_user_setting',
                         "name": '员工管理'

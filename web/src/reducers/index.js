@@ -14,8 +14,6 @@ import FinancePanelReducer from './main/FinancePanelReducer';
 
 import OrderStatisticReducer from './main/OrderStatisticReducer';
 
-import CitySettingReducer from './main/CitySettingReducer';
-import RouteSettingReducer from './main/RouteSettingReducer';
 import AdminUserSettingReducer from './main/AdminUserSettingReducer';
 import AdminUserSettingDetailReducer from './main/AdminUserSettingDetailReducer';
 import RecommendBusinessManagerReducer from './main/RecommendBusinessManagerReducer';
@@ -40,17 +38,9 @@ export default combineReducers({
 
 
 
-
-
-
-
-
     CommonReducer,
     FinancePanelReducer,
     OrderStatisticReducer,
-
-    CitySettingReducer,
-    RouteSettingReducer,
 
     RecommendBusinessManagerReducer,
     RecommendBusinessManagerDetailReducer,

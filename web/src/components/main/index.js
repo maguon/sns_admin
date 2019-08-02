@@ -12,7 +12,5 @@ export FormElements from "./FormElements";
 export BasicTable from "./BasicTable";
 export ReactTablePivoting from "./ReactTablePivoting";
 
-export CitySetting from "./CitySetting";
-export RouteSetting from "./RouteSetting";
 export AdminUserSetting from "./AdminUserSetting";
 export AdminUserSettingDetail from "./AdminUserSettingDetail";

@@ -21,9 +21,6 @@ import * as FinancePanelActionType  from './main/FinancePanelActionType';
 
 import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
 
-import * as CitySettingActionType  from './main/CitySettingActionType';
-import * as RouteSettingActionType  from './main/RouteSettingActionType';
-
 import * as RecommendBusinessManagerActionType  from './main/RecommendBusinessManagerActionType';
 import * as RecommendBusinessManagerDetailActionType  from './main/RecommendBusinessManagerDetailActionType';
 
@@ -47,8 +44,6 @@ export  {
     FinancePanelActionType,
     OrderStatisticActionType,
 
-    CitySettingActionType,
-    RouteSettingActionType,
     AdminUserSettingActionType,
     AdminUserSettingDetailActionType,
     RecommendBusinessManagerActionType,
