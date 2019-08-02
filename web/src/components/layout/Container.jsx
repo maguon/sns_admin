@@ -23,8 +23,6 @@ import {
     ReactTablePivoting,
 
     // 系统设置
-    CitySetting,
-    RouteSetting,
     AdminUserSetting,
     AdminUserSettingDetail
 
