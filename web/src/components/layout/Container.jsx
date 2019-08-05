@@ -8,10 +8,6 @@ import {
     RecommendBusinessManager,
     RecommendBusinessManagerDetail,
 
-    // 用户信息
-    UserManager,
-    UserManagerDetail,
-
     // 统计
     OrderStatistic,
 
@@ -22,10 +18,14 @@ import {
     BasicTable,
     ReactTablePivoting,
 
+    // 用户信息
+    UserManager,
+    UserManagerDetail,
+    MessageManager,
+
     // 系统设置
     AdminUserSetting,
     AdminUserSettingDetail
-
 } from '../main/index';
 
 const routes = [
@@ -35,9 +35,6 @@ const routes = [
         exact: true,
         component: UserManager
     },
-
-
-
     // 财务主控面板 TODO
     {
         path: "/finance_panel",
@@ -55,21 +52,6 @@ const routes = [
         exact: true,
         component: RecommendBusinessManagerDetail
     },
-
-    // 用户信息
-    {
-        // 用户信息
-        path: "/user",
-        exact: true,
-        component: UserManager
-    },
-    {
-        // 用户信息-详情
-        path: "/user/:id",
-        exact: true,
-        component: UserManagerDetail
-    },
-
     // 统计
     {
         // 订单统计
@@ -77,8 +59,6 @@ const routes = [
         exact: true,
         component: OrderStatistic
     },
-
-
     // Forms （表单）
     {
         // 表单组件
@@ -92,7 +72,6 @@ const routes = [
         exact: true,
         component: FormValidation
     },
-
     // Tables （表格）
     {
         // material table
@@ -107,6 +86,26 @@ const routes = [
         component: ReactTablePivoting
     },
 
+
+    // 用户信息
+    {
+        // 用户信息
+        path: "/user",
+        exact: true,
+        component: UserManager
+    },
+    {
+        // 用户信息-详情
+        path: "/user/:id",
+        exact: true,
+        component: UserManagerDetail
+    },
+    {
+        // 消息管理
+        path: "/message",
+        exact: true,
+        component: MessageManager
+    },
     // 设置模块
     {
         // 员工管理
@@ -161,6 +160,10 @@ class Container extends React.Component {
                     {
                         "link": '/user',
                         "name": '用户信息'
+                    },
+                    {
+                        "link": '/message',
+                        "name": '消息管理'
                     }
                 ]
             }, {

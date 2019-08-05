@@ -142,6 +142,18 @@ export const USE_FLAG = [
     }
 ];
 
+// 消息类型
+export const MSG_TYPE = [
+    {
+        value: 1,
+        label: "系统消息"
+    },
+    {
+        value: 2,
+        label: "用户消息"
+    }
+];
+
 // 性别
 export const GENDER = [
     {
