@@ -3,6 +3,18 @@ import * as HeaderActionType  from './layout/HeaderActionType';
 
 import * as CommonActionType  from './main/CommonActionType';
 
+import * as MainPanelActionType  from './main/MainPanelActionType';
+
+
+
+
+
+
+
+
+
+
+
 import * as UserManagerActionType  from './main/UserManagerActionType';
 import * as UserManagerDetailActionType  from './main/UserManagerDetailActionType';
 
@@ -14,7 +26,7 @@ import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetai
 import * as NewAdminModalActionType  from './modules/NewAdminModalActionType';
 
 
-import * as FinancePanelActionType  from './main/FinancePanelActionType';
+
 import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
 import * as RecommendBusinessManagerActionType  from './main/RecommendBusinessManagerActionType';
 import * as RecommendBusinessManagerDetailActionType  from './main/RecommendBusinessManagerDetailActionType';
@@ -26,6 +38,19 @@ export  {
 
     CommonActionType,
 
+    MainPanelActionType,
+
+
+
+
+
+
+
+
+
+
+
+
     UserManagerActionType,
     UserManagerDetailActionType,
     MessageManagerActionType,
@@ -35,7 +60,7 @@ export  {
 
 
     InquiryModalActionType,
-    FinancePanelActionType,
+
     OrderStatisticActionType,
     RecommendBusinessManagerActionType,
     RecommendBusinessManagerDetailActionType,

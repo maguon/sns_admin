@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 const formatUtil = require('../../utils/FormatUtil');
-const financePanelAction = require('../../actions/main/FinancePanelAction');
+const financePanelAction = require('../../actions/main/MainPanelAction');
 
-class FinancePanel extends React.Component {
+class MainPanel extends React.Component {
 
     /**
      * 组件准备要挂载的最一开始，调用执行
@@ -21,7 +21,7 @@ class FinancePanel extends React.Component {
     }
 
     render() {
-        const {financePanelReducer} = this.props;
+        const {mainPanelReducer} = this.props;
         return (
             <div>
                 {/* 上： 本月收入 本月利润 本月支付供应商 */}
@@ -34,7 +34,7 @@ class FinancePanel extends React.Component {
                             </div>
                             <div className="col s9 no-padding">
                                 <div className="col s12 fz16">本月收入</div>
-                                <div className="col s12 right-align">¥ <span className="margin-left5 fz24">{formatUtil.formatNumber(financePanelReducer.income,2)}</span></div>
+                                <div className="col s12 right-align">¥ <span className="margin-left5 fz24">{formatUtil.formatNumber(mainPanelReducer.income,2)}</span></div>
                             </div>
                         </div>
                     </div>
@@ -47,7 +47,7 @@ class FinancePanel extends React.Component {
                             </div>
                             <div className="col s9 no-padding">
                                 <div className="col s12 fz16">本月利润</div>
-                                <div className="col s12 right-align">¥ <span className="margin-left5 fz24">{formatUtil.formatNumber(financePanelReducer.profit,2)}</span></div>
+                                <div className="col s12 right-align">¥ <span className="margin-left5 fz24">{formatUtil.formatNumber(mainPanelReducer.profit,2)}</span></div>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ class FinancePanel extends React.Component {
                             </div>
                             <div className="col s9 no-padding">
                                 <div className="col s12 fz16">本月支付供应商</div>
-                                <div className="col s12 right-align">¥ <span className="margin-left5 fz24">{formatUtil.formatNumber(financePanelReducer.pay,2)}</span></div>
+                                <div className="col s12 right-align">¥ <span className="margin-left5 fz24">{formatUtil.formatNumber(mainPanelReducer.pay,2)}</span></div>
                             </div>
                         </div>
                     </div>
@@ -84,11 +84,11 @@ class FinancePanel extends React.Component {
                             <div className="col s12 margin-top15">
                                 <div className="col s6 center border-right-pink-line">
                                     <div className="margin-top5 grey-text text-darken-2">笔数</div>
-                                    <div className="margin-top10">{formatUtil.formatNumber(financePanelReducer.waitForPayCnt)}</div>
+                                    <div className="margin-top10">{formatUtil.formatNumber(mainPanelReducer.waitForPayCnt)}</div>
                                 </div>
                                 <div className="col s6 center">
                                     <div className="margin-top5 grey-text text-darken-2">金额</div>
-                                    <div className="margin-top10">{formatUtil.formatNumber(financePanelReducer.waitForPayMoney,2)}</div>
+                                    <div className="margin-top10">{formatUtil.formatNumber(mainPanelReducer.waitForPayMoney,2)}</div>
                                 </div>
                             </div>
                         </div>
@@ -109,11 +109,11 @@ class FinancePanel extends React.Component {
                             <div className="col s12 margin-top15">
                                 <div className="col s6 center border-right-pink-line">
                                     <div className="margin-top5 grey-text text-darken-2">笔数</div>
-                                    <div className="margin-top10">{formatUtil.formatNumber(financePanelReducer.waitForRefundCnt)}</div>
+                                    <div className="margin-top10">{formatUtil.formatNumber(mainPanelReducer.waitForRefundCnt)}</div>
                                 </div>
                                 <div className="col s6 center">
                                     <div className="margin-top5 grey-text text-darken-2">金额</div>
-                                    <div className="margin-top10">{formatUtil.formatNumber(financePanelReducer.waitForRefundMoney,2)}</div>
+                                    <div className="margin-top10">{formatUtil.formatNumber(mainPanelReducer.waitForRefundMoney,2)}</div>
                                 </div>
                             </div>
                         </div>
@@ -134,11 +134,11 @@ class FinancePanel extends React.Component {
                             <div className="col s12 margin-top15">
                                 <div className="col s6 center border-right-pink-line">
                                     <div className="margin-top5 grey-text text-darken-2">笔数</div>
-                                    <div className="margin-top10">{formatUtil.formatNumber(financePanelReducer.waitForInvoiceCnt)}</div>
+                                    <div className="margin-top10">{formatUtil.formatNumber(mainPanelReducer.waitForInvoiceCnt)}</div>
                                 </div>
                                 <div className="col s6 center">
                                     <div className="margin-top5 grey-text text-darken-2">金额</div>
-                                    <div className="margin-top10">{formatUtil.formatNumber(financePanelReducer.waitForInvoiceMoney,2)}</div>
+                                    <div className="margin-top10">{formatUtil.formatNumber(mainPanelReducer.waitForInvoiceMoney,2)}</div>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +158,7 @@ class FinancePanel extends React.Component {
                             </div>
                             <div className="col s10 no-padding">
                                 <div className="col s12 fz16 grey-text text-darken-2">待支付线路</div>
-                                <div className="col s12 right-align fz24">{formatUtil.formatNumber(financePanelReducer.waitForPayLoadTask)}</div>
+                                <div className="col s12 right-align fz24">{formatUtil.formatNumber(mainPanelReducer.waitForPayLoadTask)}</div>
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@ class FinancePanel extends React.Component {
                             </div>
                             <div className="col s10 no-padding">
                                 <div className="col s12 fz16 grey-text text-darken-2">待支付供应商金额</div>
-                                <div className="col s12 right-align fz24">{formatUtil.formatNumber(financePanelReducer.waitForPaySupplier,2)}</div>
+                                <div className="col s12 right-align fz24">{formatUtil.formatNumber(mainPanelReducer.waitForPaySupplier,2)}</div>
                             </div>
                         </div>
                     </div>
@@ -185,7 +185,7 @@ class FinancePanel extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        financePanelReducer: state.FinancePanelReducer
+        mainPanelReducer: state.MainPanelReducer
     }
 };
 
@@ -198,4 +198,4 @@ const mapDispatchToProps = (dispatch) => ({
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FinancePanel)
+export default connect(mapStateToProps, mapDispatchToProps)(MainPanel)

@@ -3,8 +3,18 @@ import {HashRouter as Router, Route, Link, NavLink} from "react-router-dom";
 import {connect} from 'react-redux';
 import {fileHost} from '../../config/HostConfig';
 import {
-    // 主控面板
-    FinancePanel,
+    // 综合页面
+    MainPanel,
+    // 用户管理
+    UserManager,
+    UserManagerDetail,
+
+    // 消息管理
+    MessageManager,
+
+
+
+
     RecommendBusinessManager,
     RecommendBusinessManagerDetail,
 
@@ -18,29 +28,20 @@ import {
     BasicTable,
     ReactTablePivoting,
 
-    // 用户信息
-    UserManager,
-    UserManagerDetail,
-    MessageManager,
-
     // 系统设置
     AdminUserSetting,
     AdminUserSettingDetail
 } from '../main/index';
 
 const routes = [
-    // 默认打开画面 - 暂定财务主控面板
+    // 默认打开画面 - 暂定综合页面
     {
         path: "/",
         exact: true,
-        component: UserManager
+        component: MainPanel
     },
-    // 财务主控面板 TODO
-    {
-        path: "/finance_panel",
-        exact: true,
-        component: FinancePanel
-    },
+
+
     // 推广业绩
     {
         path: "/recommend_business",
@@ -85,7 +86,6 @@ const routes = [
         exact: true,
         component: ReactTablePivoting
     },
-
 
     // 用户信息
     {
@@ -141,69 +141,97 @@ class Container extends React.Component {
         // TODO 后期可以根据登录用户权限 动态生成 不同的菜单数组
         let menuItem = [
             {
-                "label": '主控面板',
+                "label": '综合页面',
                 "icon": 'mdi-speedometer',
-                "children": [
-                    {
-                        "link": '/finance_panel',
-                        "name": '财务主控'
-                    },
-                    {
-                        "link": '/recommend_business',
-                        "name": '推广业绩'
-                    }
-                ]
-            }, {
-                "label": '用户信息',
+                "link": '/',
+                "children": []
+            },
+            {
+                "label": '用户管理',
+                "icon": 'mdi-account-group',
+                "link": '/user',
+                "children": []
+            },
+            {
+                "label": '文章管理',
                 "icon": 'mdi-account-group',
                 "children": [
                     {
                         "link": '/user',
-                        "name": '用户信息'
+                        "name": '文章'
                     },
                     {
                         "link": '/message',
-                        "name": '消息管理'
-                    }
-                ]
-            }, {
-                "label": '数据统计',
-                "icon": 'mdi-chart-line',
-                "children": [
-                    {
-                        "link": '/order_statistic',
-                        "name": '订单统计'
+                        "name": '投票'
                     }
                 ]
             },
             {
-                "label": 'Form表单',
+                "label": '评论管理',
                 "icon": 'mdi-account-group',
-                "children": [
-                    {
-                        "link": '/form_elements',
-                        "name": 'Form表单组件'
-                    },
-                    {
-                        "link": '/form_validation',
-                        "name": 'Form表单验证'
-                    }
-                ]
+                "link": '/message',
+                "children": []
             },
             {
-                "label": 'Table表格',
+                "label": '消息管理',
                 "icon": 'mdi-account-group',
-                "children": [
-                    {
-                        "link": '/basic_table',
-                        "name": '基本表格'
-                    },
-                    {
-                        "link": '/react_table',
-                        "name": 'React 表格'
-                    }
-                ]
+                "link": '/message',
+                "children": []
             },
+
+
+
+
+
+
+
+
+
+
+            {
+                "label": '推广业绩',
+                "icon": 'mdi-speedometer',
+                "link": '/recommend_business',
+                "children": []
+            },
+            // {
+            //     "label": '数据统计',
+            //     "icon": 'mdi-chart-line',
+            //     "children": [
+            //         {
+            //             "link": '/order_statistic',
+            //             "name": '订单统计'
+            //         }
+            //     ]
+            // },
+            // {
+            //     "label": 'Form表单',
+            //     "icon": 'mdi-account-group',
+            //     "children": [
+            //         {
+            //             "link": '/form_elements',
+            //             "name": 'Form表单组件'
+            //         },
+            //         {
+            //             "link": '/form_validation',
+            //             "name": 'Form表单验证'
+            //         }
+            //     ]
+            // },
+            // {
+            //     "label": 'Table表格',
+            //     "icon": 'mdi-account-group',
+            //     "children": [
+            //         {
+            //             "link": '/basic_table',
+            //             "name": '基本表格'
+            //         },
+            //         {
+            //             "link": '/react_table',
+            //             "name": 'React 表格'
+            //         }
+            //     ]
+            // },
             {
                 "label": '系统设置',
                 "icon": 'mdi-settings-outline',
@@ -231,6 +259,17 @@ class Container extends React.Component {
                         {menuItem.map(function (item) {
                             return (
                                 <div>
+                                    {/* 不含子菜单的样式 */}
+                                    {item.children.length === 0 &&
+                                    <li>
+                                        <NavLink exact to={item.link} className="collapsible-header sidenav-close" activeClassName="selected-menu">
+                                            <i className={`mdi ${item.icon}`}/>{item.label}
+                                        </NavLink>
+                                    </li>
+                                    }
+
+                                    {/* 含子菜单的样式 */}
+                                    {item.children.length > 0 &&
                                     <li>
                                         <ul className="collapsible collapsible-accordion">
                                             <li>
@@ -240,7 +279,7 @@ class Container extends React.Component {
                                                         return (
                                                             <ul>
                                                                 <li>
-                                                                    <NavLink to={menu.link} className="sidenav-close" activeClassName="active">
+                                                                    <NavLink exact to={menu.link} className="sidenav-close" activeClassName="selected-menu">
                                                                         <i className="mdi mdi-chevron-right"/>{menu.name}
                                                                     </NavLink>
                                                                 </li>
@@ -250,7 +289,8 @@ class Container extends React.Component {
                                                 </div>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li>}
+
                                     <li><div className="divider"/></li>
                                 </div>
                             )

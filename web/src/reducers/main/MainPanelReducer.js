@@ -1,5 +1,5 @@
 import {handleActions} from 'redux-actions';
-import {FinancePanelActionType} from '../../types';
+import {MainPanelActionType} from '../../types';
 
 const initialState = {
     // 本月收入
@@ -29,67 +29,67 @@ const initialState = {
 };
 
 export default handleActions({
-    [FinancePanelActionType.setIncome]: (state, action) => {
+    [MainPanelActionType.setIncome]: (state, action) => {
         return {
             ...state,
             income: action.payload
         }
     },
-    [FinancePanelActionType.setProfit]: (state, action) => {
+    [MainPanelActionType.setProfit]: (state, action) => {
         return {
             ...state,
             profit: action.payload
         }
     },
-    [FinancePanelActionType.setPayment]: (state, action) => {
+    [MainPanelActionType.setPayment]: (state, action) => {
         return {
             ...state,
             pay: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForPayCnt]: (state, action) => {
+    [MainPanelActionType.setWaitForPayCnt]: (state, action) => {
         return {
             ...state,
             waitForPayCnt: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForPayMoney]: (state, action) => {
+    [MainPanelActionType.setWaitForPayMoney]: (state, action) => {
         return {
             ...state,
             waitForPayMoney: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForRefundCnt]: (state, action) => {
+    [MainPanelActionType.setWaitForRefundCnt]: (state, action) => {
         return {
             ...state,
             waitForRefundCnt: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForRefundMoney]: (state, action) => {
+    [MainPanelActionType.setWaitForRefundMoney]: (state, action) => {
         return {
             ...state,
             waitForRefundMoney: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForInvoiceCnt]: (state, action) => {
+    [MainPanelActionType.setWaitForInvoiceCnt]: (state, action) => {
         return {
             ...state,
             waitForInvoiceCnt: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForInvoiceMoney]: (state, action) => {
+    [MainPanelActionType.setWaitForInvoiceMoney]: (state, action) => {
         return {
             ...state,
             waitForInvoiceMoney: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForPayLoadTask]: (state, action) => {
+    [MainPanelActionType.setWaitForPayLoadTask]: (state, action) => {
         return {
             ...state,
             waitForPayLoadTask: action.payload
         }
     },
-    [FinancePanelActionType.setWaitForPaySupplier]: (state, action) => {
+    [MainPanelActionType.setWaitForPaySupplier]: (state, action) => {
         return {
             ...state,
             waitForPaySupplier: action.payload
