@@ -9,14 +9,22 @@ const initialState = {
     // 检索结果数量
     dataSize: 0,
 
-    // 检索条件：用户ID
+    // 检索条件：用户编号
     conditionUserId: '',
-    // 检索条件：用户电话
+    // 检索条件：注册手机
     conditionPhone: '',
-    // 检索条件：用户昵称
+    // 检索条件：性别
+    conditionGender: null,
+    // 检索条件：昵称
     conditionNickname: '',
-    // 检索条件：状态
-    conditionStatus: null,
+    // 检索条件：城市
+    conditionCity: '',
+    // 检索条件：驾照类型
+    conditionDrivingType: null,
+    // 检索条件：注册时间(始)
+    conditionCreatedOnStart: '',
+    // 检索条件：注册时间(终)
+    conditionCreatedOnEnd: '',
 
     // 结果列表
     userArray: []
@@ -53,16 +61,40 @@ export default handleActions({
             conditionPhone: action.payload
         }
     },
+    [UserManagerActionType.setConditionGender]: (state, action) => {
+        return {
+            ...state,
+            conditionGender: action.payload
+        }
+    },
     [UserManagerActionType.setConditionNickname]: (state, action) => {
         return {
             ...state,
             conditionNickname: action.payload
         }
     },
-    [UserManagerActionType.setConditionStatus]: (state, action) => {
+    [UserManagerActionType.setConditionCity]: (state, action) => {
         return {
             ...state,
-            conditionStatus: action.payload
+            conditionCity: action.payload
+        }
+    },
+    [UserManagerActionType.setConditionDrivingType]: (state, action) => {
+        return {
+            ...state,
+            conditionDrivingType: action.payload
+        }
+    },
+    [UserManagerActionType.setConditionCreatedOnStart]: (state, action) => {
+        return {
+            ...state,
+            conditionCreatedOnStart: action.payload
+        }
+    },
+    [UserManagerActionType.setConditionCreatedOnEnd]: (state, action) => {
+        return {
+            ...state,
+            conditionCreatedOnEnd: action.payload
         }
     }
 }, initialState)

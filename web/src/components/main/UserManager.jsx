@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import {TextInput} from 'react-materialize';
-import {AdminUserSettingActionType, UserManagerActionType} from '../../types';
+import {DatePicker, TextInput} from 'react-materialize';
+import {UserManagerActionType} from '../../types';
 import Select from "react-select";
 
 const UserManagerAction = require('../../actions/main/UserManagerAction');
@@ -27,31 +27,62 @@ class UserManager extends React.Component {
             this.props.setStartNumber(0);
             this.props.setConditionUserId('');
             this.props.setConditionPhone('');
+            this.props.changeConditionGender(null);
             this.props.setConditionNickname('');
-            this.props.changeConditionStatus(null);
+            this.props.setConditionCity('');
+            this.props.changeConditionDrivingType(null);
+            this.props.setConditionCreatedOnStart('');
+            this.props.setConditionCreatedOnEnd('');
         }
         this.props.getUserList();
     }
 
     /**
-     * 更新 检索条件：用户ID
+     * 更新 检索条件：用户编号
      */
     changeConditionUserId = (event) => {
         this.props.setConditionUserId(event.target.value);
     };
 
     /**
-     * 更新 检索条件：用户电话
+     * 更新 检索条件：注册手机
      */
     changeConditionPhone = (event) => {
         this.props.setConditionPhone(event.target.value);
     };
 
     /**
-     * 更新 检索条件：用户昵称
+     * 更新 检索条件：昵称
      */
     changeConditionNickname = (event) => {
         this.props.setConditionNickname(event.target.value);
+    };
+
+    /**
+     * 更新 检索条件：城市
+     */
+    changeConditionCity = (event) => {
+        this.props.setConditionCity(event.target.value);
+    };
+
+    /**
+     * 更新 检索条件：注册时间(始)
+     */
+    changeConditionCreatedOnStart = (value) => {
+        this.props.setConditionCreatedOnStart(formatUtil.getDate(value));
+    };
+    clearConditionCreatedOnStart = () => {
+        this.props.setConditionCreatedOnStart('');
+    };
+
+    /**
+     * 更新 检索条件：注册时间(始)
+     */
+    changeConditionCreatedOnEnd = (value) => {
+        this.props.setConditionCreatedOnEnd(formatUtil.getDate(value));
+    };
+    clearConditionCreatedOnEnd = () => {
+        this.props.setConditionCreatedOnEnd('');
     };
 
     /**
@@ -80,7 +111,7 @@ class UserManager extends React.Component {
     };
 
     render() {
-        const {userManagerReducer, changeConditionStatus} = this.props;
+        const {userManagerReducer, changeConditionGender, changeConditionDrivingType} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -94,29 +125,55 @@ class UserManager extends React.Component {
                 {/* 上部分：检索条件输入区域 */}
                 <div className="row grey-text text-darken-1">
                     <div className="col s11 search-condition-box">
-                        <TextInput s={3} label="用户编号" value={userManagerReducer.conditionUserId} onChange={this.changeConditionUserId}/>
-
-                        <TextInput s={3} label="用户电话" value={userManagerReducer.conditionPhone} onChange={this.changeConditionPhone}/>
-
-                        <TextInput s={3} label="用户昵称" value={userManagerReducer.conditionNickname} onChange={this.changeConditionNickname}/>
-
+                        <TextInput s={3} label="编号" value={userManagerReducer.conditionUserId} onChange={this.changeConditionUserId}/>
+                        <TextInput s={3} label="注册手机" value={userManagerReducer.conditionPhone} onChange={this.changeConditionPhone}/>
                         <div className="input-field col s3">
                             <Select
-                                options={sysConst.USE_FLAG}
-                                onChange={changeConditionStatus}
-                                value={userManagerReducer.conditionStatus}
+                                options={sysConst.GENDER}
+                                onChange={changeConditionGender}
+                                value={userManagerReducer.conditionGender}
                                 isSearchable={false}
                                 placeholder={"请选择"}
                                 styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
                                 isClearable={true}
                             />
-                            <label className="active">状态</label>
+                            <label className="active">性别</label>
+                        </div>
+                        <TextInput s={3} label="昵称" value={userManagerReducer.conditionNickname} onChange={this.changeConditionNickname}/>
+
+                        <TextInput s={3} label="城市" value={userManagerReducer.conditionCity} onChange={this.changeConditionCity}/>
+                        <div className="input-field col s3">
+                            <Select
+                                options={sysConst.GENDER}
+                                onChange={changeConditionDrivingType}
+                                value={userManagerReducer.conditionDrivingType}
+                                isSearchable={false}
+                                placeholder={"请选择"}
+                                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
+                                isClearable={true}
+                            />
+                            <label className="active">驾照类型</label>
+                        </div>
+                        {/* 查询条件：注册时间(始) */}
+                        <div className="input-field col s3 custom-input-field">
+                            <DatePicker s={12} label="注册时间(始)" options={sysConst.DATE_PICKER_OPTION}
+                                        value={userManagerReducer.conditionCreatedOnStart} onChange={this.changeConditionCreatedOnStart} />
+                            {userManagerReducer.conditionCreatedOnStart !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnStart}/>}
+                            <span className="mdi data-icon mdi-table-large"/>
+                        </div>
+
+                        {/* 查询条件：注册时间(终) */}
+                        <div className="input-field col s3 custom-input-field">
+                            <DatePicker s={12} label="注册时间(终)" options={sysConst.DATE_PICKER_OPTION}
+                                        value={userManagerReducer.conditionCreatedOnEnd} onChange={this.changeConditionCreatedOnEnd} />
+                            {userManagerReducer.conditionCreatedOnEnd !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnEnd}/>}
+                            <span className="mdi data-icon mdi-table-large"/>
                         </div>
                     </div>
 
                     {/* 查询按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryUser}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn query-btn margin-top40" onClick={this.queryUser}>
                             <i className="mdi mdi-magnify"/>
                         </a>
                     </div>
@@ -197,17 +254,31 @@ const mapDispatchToProps = (dispatch) => ({
     setStartNumber: (start) => {
         dispatch(UserManagerActionType.setStartNumber(start))
     },
+
     setConditionUserId: (value) => {
         dispatch(UserManagerActionType.setConditionUserId(value))
     },
     setConditionPhone: (value) => {
         dispatch(UserManagerActionType.setConditionPhone(value))
     },
+    changeConditionGender: (value) => {
+        dispatch(UserManagerActionType.setConditionGender(value))
+    },
     setConditionNickname: (value) => {
         dispatch(UserManagerActionType.setConditionNickname(value))
     },
-    changeConditionStatus: (value) => {
-        dispatch(UserManagerActionType.setConditionStatus(value))
+
+    setConditionCity: (value) => {
+        dispatch(UserManagerActionType.setConditionCity(value))
+    },
+    changeConditionDrivingType: (value) => {
+        dispatch(UserManagerActionType.setConditionDrivingType(value))
+    },
+    setConditionCreatedOnStart: (value) => {
+        dispatch(UserManagerActionType.setConditionCreatedOnStart(value))
+    },
+    setConditionCreatedOnEnd: (value) => {
+        dispatch(UserManagerActionType.setConditionCreatedOnEnd(value))
     }
 });
 

@@ -18,8 +18,8 @@ export const getUserList = () => async (dispatch, getState) => {
         const conditionPhone = getState().UserManagerReducer.conditionPhone.trim();
         // 检索条件：用户昵称
         const conditionNickname = getState().UserManagerReducer.conditionNickname.trim();
-        // 检索条件：状态
-        const conditionStatus = getState().UserManagerReducer.conditionStatus;
+        // // 检索条件：状态
+        // const conditionStatus = getState().UserManagerReducer.conditionStatus;
 
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
@@ -30,8 +30,8 @@ export const getUserList = () => async (dispatch, getState) => {
             userId: conditionUserId,
             phone: conditionPhone,
             nikename: conditionNickname,
-            // 检索条件：状态
-            status: conditionStatus === null ? '' : conditionStatus.value
+            // // 检索条件：状态
+            // status: conditionStatus === null ? '' : conditionStatus.value
         };
 
         let conditions = httpUtil.objToUrl(conditionsObj);
