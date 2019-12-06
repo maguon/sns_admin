@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 const formatUtil = require('../../utils/FormatUtil');
-const financePanelAction = require('../../actions/main/MainPanelAction');
+const mainPanelAction = require('../../actions/main/MainPanelAction');
 
 class MainPanel extends React.Component {
 
@@ -24,8 +24,16 @@ class MainPanel extends React.Component {
         const {mainPanelReducer} = this.props;
         return (
             <div>
+                {/* 标题部分 */}
+                <div className="row">
+                    <div className="input-field col s12 page-title">
+                        <span className="margin-left10">综合页面</span>
+                        <div className="divider custom-divider margin-top10"/>
+                    </div>
+                </div>
+
                 {/* 上： 本月收入 本月利润 本月支付供应商 */}
-                <div className="row margin-top20 padding-left20 padding-right20 white-text">
+                <div className="row margin-top20 white-text">
                     {/* 本月收入 */}
                     <div className="col s4 padding-left20 padding-right20">
                         <div className="col s12 custom-pink z-depth-2 padding-top20 padding-bottom15">
@@ -67,7 +75,7 @@ class MainPanel extends React.Component {
                 </div>
 
                 {/* 中： 支付待审核 待退款 待开票 */}
-                <div className="row margin-top40 padding-left20 padding-right20 pink-font">
+                <div className="row margin-top40 pink-font">
 
                     {/* 支付待审核 */}
                     <div className="col s4 padding-left20 padding-right20">
@@ -146,7 +154,7 @@ class MainPanel extends React.Component {
                 </div>
 
                 {/* 下： 待支付线路 待支付供应商金额 */}
-                <div className="row margin-top40 padding-left20 padding-right20 pink-font">
+                <div className="row margin-top40 pink-font">
 
                     {/* 待支付线路 */}
                     <div className="col s6 padding-left20 padding-right20">
@@ -191,10 +199,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     initData: () => {
-        dispatch(financePanelAction.getPaymentInMonth());
-        dispatch(financePanelAction.getRefundInMonth());
-        dispatch(financePanelAction.getPrice());
-        dispatch(financePanelAction.getUnInvoice());
+        // dispatch(mainPanelAction.getPaymentInMonth());
+        // dispatch(mainPanelAction.getRefundInMonth());
+        // dispatch(mainPanelAction.getPrice());
+        // dispatch(mainPanelAction.getUnInvoice());
     }
 });
 

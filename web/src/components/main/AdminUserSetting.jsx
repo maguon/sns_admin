@@ -82,7 +82,7 @@ class AdminUserSetting extends React.Component {
     };
 
     /**
-     * 显示 新建/编辑 供应商信息
+     * 显示 新建 管理员模态
      */
     showNewAdminModal = () => {
         this.props.initModalData();

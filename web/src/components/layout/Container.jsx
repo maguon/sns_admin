@@ -265,8 +265,7 @@ class Container extends React.Component {
                                         <NavLink exact to={item.link} className="collapsible-header sidenav-close" activeClassName="selected-menu">
                                             <i className={`mdi ${item.icon}`}/>{item.label}
                                         </NavLink>
-                                    </li>
-                                    }
+                                    </li>}
 
                                     {/* 含子菜单的样式 */}
                                     {item.children.length > 0 &&
