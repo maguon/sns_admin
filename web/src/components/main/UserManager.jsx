@@ -10,6 +10,7 @@ const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 const commonUtil = require('../../utils/CommonUtil');
 
+// 用户管理
 class UserManager extends React.Component {
 
     /**

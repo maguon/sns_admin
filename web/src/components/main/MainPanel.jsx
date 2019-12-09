@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 const formatUtil = require('../../utils/FormatUtil');
 const mainPanelAction = require('../../actions/main/MainPanelAction');
 
+// 综合页面
 class MainPanel extends React.Component {
 
     /**

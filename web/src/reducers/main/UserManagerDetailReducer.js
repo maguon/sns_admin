@@ -1,5 +1,5 @@
 import {handleActions} from 'redux-actions';
-import {RecommendBusinessManagerDetailActionType} from '../../types';
+import {UserManagerDetailActionType} from '../../types';
 
 const initialState = {
     // 推广人基本信息
@@ -21,37 +21,37 @@ const initialState = {
 };
 
 export default handleActions({
-    [RecommendBusinessManagerDetailActionType.getRecommendInfo]: (state, action) => {
+    [UserManagerDetailActionType.getRecommendInfo]: (state, action) => {
         return {
             ...state,
             recommendInfo: action.payload
         }
     },
-    [RecommendBusinessManagerDetailActionType.getUserList]: (state, action) => {
+    [UserManagerDetailActionType.getUserList]: (state, action) => {
         return {
             ...state,
             userArray: action.payload
         }
     },
-    [RecommendBusinessManagerDetailActionType.setDetailStartNumber]: (state, action) => {
+    [UserManagerDetailActionType.setDetailStartNumber]: (state, action) => {
         return {
             ...state,
             detailStart: action.payload
         }
     },
-    [RecommendBusinessManagerDetailActionType.setDetailDataSize]: (state, action) => {
+    [UserManagerDetailActionType.setDetailDataSize]: (state, action) => {
         return {
             ...state,
             detailDataSize: action.payload
         }
     },
-    [RecommendBusinessManagerDetailActionType.setConditionCreatedOnStart]: (state, action) => {
+    [UserManagerDetailActionType.setConditionCreatedOnStart]: (state, action) => {
         return {
             ...state,
             conditionCreatedOnStart: action.payload
         }
     },
-    [RecommendBusinessManagerDetailActionType.setConditionCreatedOnEnd]: (state, action) => {
+    [UserManagerDetailActionType.setConditionCreatedOnEnd]: (state, action) => {
         return {
             ...state,
             conditionCreatedOnEnd: action.payload

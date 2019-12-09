@@ -8,31 +8,28 @@ import CommonReducer from './main/CommonReducer';
 
 import MainPanelReducer from './main/MainPanelReducer';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import UserManagerReducer from './main/UserManagerReducer'
+import UserManagerDetailReducer from './main/UserManagerDetailReducer'
+
+import CommentManagerReducer from './main/CommentManagerReducer';
+import CommentManagerDetailReducer from './main/CommentManagerDetailReducer';
+
 import MessageManagerReducer from './main/MessageManagerReducer'
+
+
+
+
+
+
+
+
+
+
+
 import AdminUserSettingReducer from './main/AdminUserSettingReducer';
 import AdminUserSettingDetailReducer from './main/AdminUserSettingDetailReducer';
-
 import NewAdminModalReducer from './modules/NewAdminModalReducer';
-
-
-
 import OrderStatisticReducer from './main/OrderStatisticReducer';
-import RecommendBusinessManagerReducer from './main/RecommendBusinessManagerReducer';
-import RecommendBusinessManagerDetailReducer from './main/RecommendBusinessManagerDetailReducer';
 import InquiryModalReducer from './modules/InquiryModalReducer';
 
 export default combineReducers({
@@ -44,32 +41,27 @@ export default combineReducers({
 
     MainPanelReducer,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     UserManagerReducer,
+    UserManagerDetailReducer,
+
+    CommentManagerReducer,
+    CommentManagerDetailReducer,
+
     MessageManagerReducer,
+
+
+
+
+
+
+
+
+
+
+
     AdminUserSettingReducer,
     AdminUserSettingDetailReducer,
-
     NewAdminModalReducer,
-
-
     InquiryModalReducer,
-
     OrderStatisticReducer,
-    RecommendBusinessManagerReducer,
-    RecommendBusinessManagerDetailReducer,
 })

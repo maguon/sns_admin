@@ -13,6 +13,7 @@ const sysConst = require('../../utils/SysConst');
 const commonUtil = require('../../utils/CommonUtil');
 const formatUtil = require('../../utils/FormatUtil');
 
+// 消息管理
 class MessageManager extends React.Component {
 
     /**

@@ -1,5 +1,5 @@
 import {apiHost} from '../../config/HostConfig';
-import {RecommendBusinessManagerDetailActionType} from '../../types';
+import {UserManagerDetailActionType} from '../../types';
 
 const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
@@ -8,8 +8,8 @@ const sysConst = require('../../utils/SysConst');
 export const getRecommendInfo = (recommendId) => async (dispatch, getState) => {
     try {
         // 检索条件：选择时间
-        const conditionCreatedOnStart = getState().RecommendBusinessManagerDetailReducer.conditionCreatedOnStart;
-        const conditionCreatedOnEnd = getState().RecommendBusinessManagerDetailReducer.conditionCreatedOnEnd;
+        const conditionCreatedOnStart = getState().UserManagerDetailReducer.conditionCreatedOnStart;
+        const conditionCreatedOnEnd = getState().UserManagerDetailReducer.conditionCreatedOnEnd;
 
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
@@ -25,7 +25,7 @@ export const getRecommendInfo = (recommendId) => async (dispatch, getState) => {
         url = conditions.length > 0 ? url + "&" + conditions : url;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
-            dispatch({type: RecommendBusinessManagerDetailActionType.getRecommendInfo, payload: res.result});
+            dispatch({type: UserManagerDetailActionType.getRecommendInfo, payload: res.result});
         } else if (res.success === false) {
             swal('获取推广人基本信息失败', res.msg, 'warning');
         }
@@ -37,12 +37,12 @@ export const getRecommendInfo = (recommendId) => async (dispatch, getState) => {
 export const getUserList = (recommendId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
-        const start = getState().RecommendBusinessManagerDetailReducer.detailStart;
+        const start = getState().UserManagerDetailReducer.detailStart;
         // 检索条件：每页数量
-        const size = getState().RecommendBusinessManagerDetailReducer.detailSize;
+        const size = getState().UserManagerDetailReducer.detailSize;
         // 检索条件：选择时间
-        const conditionCreatedOnStart = getState().RecommendBusinessManagerDetailReducer.conditionCreatedOnStart;
-        const conditionCreatedOnEnd = getState().RecommendBusinessManagerDetailReducer.conditionCreatedOnEnd;
+        const conditionCreatedOnStart = getState().UserManagerDetailReducer.conditionCreatedOnStart;
+        const conditionCreatedOnEnd = getState().UserManagerDetailReducer.conditionCreatedOnEnd;
 
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
@@ -59,8 +59,8 @@ export const getUserList = (recommendId) => async (dispatch, getState) => {
         url = conditions.length > 0 ? url + "&" + conditions : url;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
-            dispatch({type: RecommendBusinessManagerDetailActionType.setDetailDataSize, payload: res.result.length});
-            dispatch({type: RecommendBusinessManagerDetailActionType.getUserList, payload: res.result.slice(0, size - 1)});
+            dispatch({type: UserManagerDetailActionType.setDetailDataSize, payload: res.result.length});
+            dispatch({type: UserManagerDetailActionType.getUserList, payload: res.result.slice(0, size - 1)});
         } else if (res.success === false) {
             swal('获取用户列表信息失败', res.msg, 'warning');
         }

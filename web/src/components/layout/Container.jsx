@@ -9,14 +9,17 @@ import {
     UserManager,
     UserManagerDetail,
 
+    // 评论管理
+    CommentManager,
+    CommentManagerDetail,
+
     // 消息管理
     MessageManager,
 
 
 
 
-    RecommendBusinessManager,
-    RecommendBusinessManagerDetail,
+
 
     // 统计
     OrderStatistic,
@@ -40,65 +43,31 @@ const routes = [
         exact: true,
         component: MainPanel
     },
-
-
-    // 推广业绩
+    // 用户管理
     {
-        path: "/recommend_business",
-        exact: true,
-        component: RecommendBusinessManager
-    },
-    {
-        path: '/recommend_business/:id',
-        exact: true,
-        component: RecommendBusinessManagerDetail
-    },
-    // 统计
-    {
-        // 订单统计
-        path: "/order_statistic",
-        exact: true,
-        component: OrderStatistic
-    },
-    // Forms （表单）
-    {
-        // 表单组件
-        path: "/form_elements",
-        exact: true,
-        component: FormElements
-    },
-    {
-        // 表单验证
-        path: '/form_validation',
-        exact: true,
-        component: FormValidation
-    },
-    // Tables （表格）
-    {
-        // material table
-        path: '/basic_table',
-        exact: true,
-        component: BasicTable
-    },
-    {
-        // react table （第三方）
-        path: '/react_table',
-        exact: true,
-        component: ReactTablePivoting
-    },
-
-    // 用户信息
-    {
-        // 用户信息
+        // 用户管理
         path: "/user",
         exact: true,
         component: UserManager
     },
     {
-        // 用户信息-详情
+        // 用户管理-详情
         path: "/user/:id",
         exact: true,
         component: UserManagerDetail
+    },
+
+
+    // 评论管理
+    {
+        path: "/comment",
+        exact: true,
+        component: CommentManager
+    },
+    {
+        path: '/comment/:id',
+        exact: true,
+        component: CommentManagerDetail
     },
     {
         // 消息管理
@@ -106,6 +75,42 @@ const routes = [
         exact: true,
         component: MessageManager
     },
+
+
+    // // 统计
+    // {
+    //     // 订单统计
+    //     path: "/order_statistic",
+    //     exact: true,
+    //     component: OrderStatistic
+    // },
+    // // Forms （表单）
+    // {
+    //     // 表单组件
+    //     path: "/form_elements",
+    //     exact: true,
+    //     component: FormElements
+    // },
+    // {
+    //     // 表单验证
+    //     path: '/form_validation',
+    //     exact: true,
+    //     component: FormValidation
+    // },
+    // // Tables （表格）
+    // {
+    //     // material table
+    //     path: '/basic_table',
+    //     exact: true,
+    //     component: BasicTable
+    // },
+    // {
+    //     // react table （第三方）
+    //     path: '/react_table',
+    //     exact: true,
+    //     component: ReactTablePivoting
+    // },
+
     // 设置模块
     {
         // 员工管理
@@ -157,11 +162,11 @@ class Container extends React.Component {
                 "icon": 'mdi-account-group',
                 "children": [
                     {
-                        "link": '/user',
+                        "link": '/article',
                         "name": '文章'
                     },
                     {
-                        "link": '/message',
+                        "link": '/vote',
                         "name": '投票'
                     }
                 ]
@@ -169,7 +174,7 @@ class Container extends React.Component {
             {
                 "label": '评论管理',
                 "icon": 'mdi-account-group',
-                "link": '/message',
+                "link": '/comment',
                 "children": []
             },
             {

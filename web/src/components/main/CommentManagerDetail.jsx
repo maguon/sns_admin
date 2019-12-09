@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {TextInput} from 'react-materialize';
-import {RecommendBusinessManagerDetailActionType} from '../../types';
+import {CommentManagerDetailActionType} from '../../types';
 
-const recommendBusinessManagerDetailAction = require('../../actions/main/RecommendBusinessManagerDetailAction');
+const commentManagerDetailAction = require('../../actions/main/CommentManagerDetailAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 
-class RecommendBusinessManagerDetail extends React.Component {
+class CommentManagerDetail extends React.Component {
 
     /**
      * 组件准备要挂载的最一开始，调用执行
@@ -63,7 +63,7 @@ class RecommendBusinessManagerDetail extends React.Component {
      * 上一页
      */
     preBtn = () => {
-        this.props.setDetailStartNumber(this.props.recommendBusinessManagerDetailReducer.detailStart - (this.props.recommendBusinessManagerDetailReducer.detailSize - 1));
+        this.props.setDetailStartNumber(this.props.commentManagerDetailReducer.detailStart - (this.props.commentManagerDetailReducer.detailSize - 1));
         this.props.getUserList();
     };
 
@@ -71,12 +71,12 @@ class RecommendBusinessManagerDetail extends React.Component {
      * 下一页
      */
     nextBtn = () => {
-        this.props.setDetailStartNumber(this.props.recommendBusinessManagerDetailReducer.detailStart + (this.props.recommendBusinessManagerDetailReducer.detailSize - 1));
+        this.props.setDetailStartNumber(this.props.commentManagerDetailReducer.detailStart + (this.props.commentManagerDetailReducer.detailSize - 1));
         this.props.getUserList();
     };
 
     render() {
-        const {recommendBusinessManagerDetailReducer} = this.props;
+        const {commentManagerDetailReducer} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -96,16 +96,16 @@ class RecommendBusinessManagerDetail extends React.Component {
                     {/* TAB 头部 */}
                     <div className="col s12">
                         {/* 用户详情：基本信息 */}
-                        {recommendBusinessManagerDetailReducer.recommendInfo.length > 0 &&
+                        {commentManagerDetailReducer.recommendInfo.length > 0 &&
                         <div className="recommend-business-detail-header grey-text text-darken-1">
                             {/* 推广人ID，姓名 */}
                             <div className="col s6">
-                                <div className="margin-top15">{recommendBusinessManagerDetailReducer.recommendInfo[0].id}</div>
-                                <div className="margin-top10 fz18 purple-font">{recommendBusinessManagerDetailReducer.recommendInfo[0].name}</div>
+                                <div className="margin-top15">{commentManagerDetailReducer.recommendInfo[0].id}</div>
+                                <div className="margin-top10 fz18 purple-font">{commentManagerDetailReducer.recommendInfo[0].name}</div>
                             </div>
                             {/* 推广码 */}
                             <div className="col s6 right-align padding-top5">
-                                <img className="img-size-80" src={recommendBusinessManagerDetailReducer.recommendInfo[0].mp_url}/>
+                                <img className="img-size-80" src={commentManagerDetailReducer.recommendInfo[0].mp_url}/>
                             </div>
                         </div>}
                     </div>
@@ -117,14 +117,14 @@ class RecommendBusinessManagerDetail extends React.Component {
                         {/* 查询条件：选择时间(始) */}
                         <div className="input-field col s3 custom-input-field">
                             <TextInput s={12} label="选择时间(始)" type='date' options={sysConst.DATE_PICKER_OPTION}
-                                   value={recommendBusinessManagerDetailReducer.conditionCreatedOnStart} onChange={this.changeConditionCreatedOnStart} />
+                                   value={commentManagerDetailReducer.conditionCreatedOnStart} onChange={this.changeConditionCreatedOnStart} />
                             <span className="mdi data-icon mdi-table-large"/>
                         </div>
 
                         {/* 查询条件：选择时间(终) */}
                         <div className="input-field col s3 custom-input-field">
                             <TextInput s={12} label="选择时间(终)" type='date' options={sysConst.DATE_PICKER_OPTION}
-                                   value={recommendBusinessManagerDetailReducer.conditionCreatedOnEnd} onChange={this.changeConditionCreatedOnEnd} />
+                                   value={commentManagerDetailReducer.conditionCreatedOnEnd} onChange={this.changeConditionCreatedOnEnd} />
                             <span className="mdi data-icon mdi-table-large"/>
                         </div>
                     </div>
@@ -140,11 +140,11 @@ class RecommendBusinessManagerDetail extends React.Component {
                 {/* 下部分：检索结果显示区域 */}
                 <div className="row">
                     {/* 用户统计数据 */}
-                    {recommendBusinessManagerDetailReducer.recommendInfo.length > 0 &&
+                    {commentManagerDetailReducer.recommendInfo.length > 0 &&
                     <div className="col s12 grey-text text-darken-1">
                         <div className="col s12 custom-grey grey-text text-darken-1 border-top-line border-bottom-line padding-top15 padding-bottom15">
-                            <div className="col s6">授权用户：<span className="pink-font">{formatUtil.formatNumber(recommendBusinessManagerDetailReducer.recommendInfo[0].user_count)}</span></div>
-                            <div className="col s6 right-align">认证用户：<span className="pink-font">{formatUtil.formatNumber(recommendBusinessManagerDetailReducer.recommendInfo[0].auth_count)}</span></div>
+                            <div className="col s6">授权用户：<span className="pink-font">{formatUtil.formatNumber(commentManagerDetailReducer.recommendInfo[0].user_count)}</span></div>
+                            <div className="col s6 right-align">认证用户：<span className="pink-font">{formatUtil.formatNumber(commentManagerDetailReducer.recommendInfo[0].auth_count)}</span></div>
                         </div>
                     </div>}
                     <div className="col s12">
@@ -159,7 +159,7 @@ class RecommendBusinessManagerDetail extends React.Component {
                             </tr>
                             </thead>
                             <tbody>
-                            {recommendBusinessManagerDetailReducer.userArray.map(function (item) {
+                            {commentManagerDetailReducer.userArray.map(function (item) {
                                 return (
                                     <tr className="grey-text text-darken-1">
                                         <td className="padding-left20">{item.id}</td>
@@ -170,7 +170,7 @@ class RecommendBusinessManagerDetail extends React.Component {
                                     </tr>
                                 )
                             },this)}
-                            { recommendBusinessManagerDetailReducer.userArray.length === 0 &&
+                            { commentManagerDetailReducer.userArray.length === 0 &&
                             <tr className="grey-text text-darken-1">
                                 <td className="no-data-tr" colSpan="5">暂无数据</td>
                             </tr>
@@ -182,11 +182,11 @@ class RecommendBusinessManagerDetail extends React.Component {
                     {/* 上下页按钮 */}
                     <div className="col s12 margin-top10">
                         <div className="right">
-                            {recommendBusinessManagerDetailReducer.detailStart > 0 && recommendBusinessManagerDetailReducer.detailDataSize > 0 &&
+                            {commentManagerDetailReducer.detailStart > 0 && commentManagerDetailReducer.detailDataSize > 0 &&
                             <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.preBtn}>
                                 上一页
                             </a>}
-                            {recommendBusinessManagerDetailReducer.detailDataSize >= recommendBusinessManagerDetailReducer.detailSize &&
+                            {commentManagerDetailReducer.detailDataSize >= commentManagerDetailReducer.detailSize &&
                             <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.nextBtn}>
                                 下一页
                             </a>}
@@ -200,27 +200,27 @@ class RecommendBusinessManagerDetail extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        recommendBusinessManagerDetailReducer: state.RecommendBusinessManagerDetailReducer
+        commentManagerDetailReducer: state.CommentManagerDetailReducer
     }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     // 基本信息
     getRecommendInfo: () => {
-        dispatch(recommendBusinessManagerDetailAction.getRecommendInfo(ownProps.match.params.id))
+        dispatch(commentManagerDetailAction.getRecommendInfo(ownProps.match.params.id))
     },
     getUserList: () => {
-        dispatch(recommendBusinessManagerDetailAction.getUserList(ownProps.match.params.id))
+        dispatch(commentManagerDetailAction.getUserList(ownProps.match.params.id))
     },
     setDetailStartNumber: (start) => {
-        dispatch(RecommendBusinessManagerDetailActionType.setDetailStartNumber(start))
+        dispatch(CommentManagerDetailActionType.setDetailStartNumber(start))
     },
     setConditionCreatedOnStart: (value) => {
-        dispatch(RecommendBusinessManagerDetailActionType.setConditionCreatedOnStart(value))
+        dispatch(CommentManagerDetailActionType.setConditionCreatedOnStart(value))
     },
     setConditionCreatedOnEnd: (value) => {
-        dispatch(RecommendBusinessManagerDetailActionType.setConditionCreatedOnEnd(value))
+        dispatch(CommentManagerDetailActionType.setConditionCreatedOnEnd(value))
     }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecommendBusinessManagerDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentManagerDetail)
