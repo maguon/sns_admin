@@ -21,6 +21,8 @@ import {
 
 
 
+
+
     // 统计
     OrderStatistic,
 
@@ -184,21 +186,12 @@ class Container extends React.Component {
                 "children": []
             },
 
-
-
-
-
-
-
-
-
-
-            {
-                "label": '推广业绩',
-                "icon": 'mdi-speedometer',
-                "link": '/recommend_business',
-                "children": []
-            },
+            // {
+            //     "label": '推广业绩',
+            //     "icon": 'mdi-speedometer',
+            //     "link": '/recommend_business',
+            //     "children": []
+            // },
             // {
             //     "label": '数据统计',
             //     "icon": 'mdi-chart-line',

@@ -22,7 +22,7 @@ export const getAdminList = () => async (dispatch, getState) => {
         const conditionStatus = getState().AdminUserSettingReducer.conditionStatus;
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/adminUser?type=0&start=' + start + '&size=' + size;
 
         // 检索条件

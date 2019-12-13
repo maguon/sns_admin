@@ -12,7 +12,7 @@ export const getRecommendInfo = (recommendId) => async (dispatch, getState) => {
         const conditionCreatedOnEnd = getState().CommentManagerDetailReducer.conditionCreatedOnEnd;
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/achievement?recommendId=' + recommendId;
         // 检索条件
         let conditionsObj = {
@@ -45,7 +45,7 @@ export const getUserList = (recommendId) => async (dispatch, getState) => {
         const conditionCreatedOnEnd = getState().CommentManagerDetailReducer.conditionCreatedOnEnd;
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/user?start=' + start + '&size=' + size + '&recommendId=' + recommendId;
 
         // 检索条件

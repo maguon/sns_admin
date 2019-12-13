@@ -26,12 +26,12 @@ class Header extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        const userId = localUtil.getSessionItem(sysConst.USER_ID);
-        const userType = localUtil.getSessionItem(sysConst.USER_TYPE);
+        const userId = localUtil.getSessionItem(sysConst.LOGIN_USER_ID);
+        const userType = localUtil.getSessionItem(sysConst.LOGIN_USER_TYPE);
         const token = localUtil.getSessionItem(sysConst.AUTH_TOKEN);
 
-        httpHeaders.set(sysConst.USER_ID, userId);
-        httpHeaders.set(sysConst.USER_TYPE, userType);
+        httpHeaders.set(sysConst.LOGIN_USER_ID, userId);
+        httpHeaders.set(sysConst.LOGIN_USER_TYPE, userType);
         httpHeaders.set(sysConst.AUTH_TOKEN, token);
         if (userId == null || userType == null || token == null) {
             window.location.href = '/login.html';

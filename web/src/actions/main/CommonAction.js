@@ -8,7 +8,7 @@ const sysConst = require('../../utils/SysConst');
 // 取得系统 城市列表
 export const getCityList = () => async (dispatch) => {
     try {
-        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + '/city';
+        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/city';
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommonActionType.getCityList, payload: res.result})
@@ -23,7 +23,7 @@ export const getCityList = () => async (dispatch) => {
 // 取得系统 供应商列表
 export const getSupplierList = () => async (dispatch) => {
     try {
-        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + '/supplier';
+        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/supplier';
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommonActionType.getSupplierList, payload: res.result})
@@ -39,7 +39,7 @@ export const getSupplierList = () => async (dispatch) => {
 export const getDepartmentList = () => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + '/department?status=0';
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/department?status=0';
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommonActionType.getDepartmentList, payload: res.result})
@@ -71,7 +71,7 @@ export const getAdminUserList = () => async (dispatch) => {
 export const getOrderInfo = (orderId) => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/order?orderId=' + orderId;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
@@ -87,7 +87,7 @@ export const getOrderInfo = (orderId) => async (dispatch) => {
 export const getOrderCarList = (orderId) => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/orderItem?orderId=' + orderId;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
@@ -118,7 +118,7 @@ export const getOrderCarList = (orderId) => async (dispatch) => {
 export const getOrderPaymentList = (orderId) => async (dispatch) => {
     try {
         // 基本检索URL 已支付
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/payment?orderId=' + orderId + '&status=' + sysConst.PAYMENT_STATUS[1].value;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {

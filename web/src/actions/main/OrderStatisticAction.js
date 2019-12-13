@@ -19,7 +19,7 @@ export const getOrderStatByMonth = () => async (dispatch, getState) => {
         }
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/statisticsOrderMsgByMonth?startMonth=' + monthStart + '&endMonth=' + monthEnd;
         let res = await httpUtil.httpGet(url);
         if (res.success === true) {
@@ -91,7 +91,7 @@ export const getOrderStatByDay = () => async (dispatch, getState) => {
         let daySize = getState().OrderStatisticReducer.daySize.value;
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/statisticsOrderMsgByDay?selectDays=' + daySize;
         let res = await httpUtil.httpGet(url);
         if (res.success === true) {

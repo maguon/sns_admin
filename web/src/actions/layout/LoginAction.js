@@ -8,8 +8,8 @@ export const login = (params) => async () => {
     try {
         const res = await httpUtil.httpPost(apiHost + '/api/adminLogin', params);
         if (res.success === true) {
-            localUtil.setSessionItem(sysConst.USER_ID, res.result.adminId);
-            localUtil.setSessionItem(sysConst.USER_TYPE, res.result.type);
+            localUtil.setSessionItem(sysConst.LOGIN_USER_ID, res.result.adminId);
+            localUtil.setSessionItem(sysConst.LOGIN_USER_TYPE, res.result.type);
             localUtil.setSessionItem(sysConst.AUTH_TOKEN, res.result.accessToken);
             window.location.href = '/index.html';
         } else if (res.success === false) {

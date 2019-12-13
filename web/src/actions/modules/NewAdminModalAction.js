@@ -48,7 +48,7 @@ export const saveAdmin = () => async (dispatch, getState) => {
                 type: 0
             };
             // 基本url
-            let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + "/adminUser";
+            let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + "/adminUser";
             let res = await httpUtil.httpPost(url, params);
             if (res.success === true) {
                 $('#newAdminModal').modal('close');

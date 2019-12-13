@@ -87,7 +87,7 @@ class CommentManagerDetail extends React.Component {
                                 <i className="mdi mdi-arrow-left-bold"/>
                             </a>
                         </Link>
-                        <span className="page-title margin-left30">推广业绩 - 详情</span>
+                        <span className="page-title margin-left30">评论管理 - 评论详情</span>
                         <div className="divider custom-divider margin-top10"/>
                     </div>
                 </div>

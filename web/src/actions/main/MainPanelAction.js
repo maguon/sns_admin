@@ -8,7 +8,7 @@ const sysConst = require('../../utils/SysConst');
 export const getPaymentInMonth = () => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + '/paymentInMonth';
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/paymentInMonth';
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             if (res.result.length > 0) {
@@ -30,7 +30,7 @@ export const getPaymentInMonth = () => async (dispatch) => {
 export const getRefundInMonth = () => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + '/refundInMonth';
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/refundInMonth';
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             if (res.result.length > 0) {
@@ -50,7 +50,7 @@ export const getRefundInMonth = () => async (dispatch) => {
 export const getPrice = () => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + '/price';
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/price';
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             if (res.result.length > 0) {
@@ -74,7 +74,7 @@ export const getPrice = () => async (dispatch) => {
 export const getUnInvoice = () => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID) + '/unInvoice';
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/unInvoice';
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             if (res.result.length > 0) {

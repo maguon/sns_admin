@@ -14,24 +14,35 @@ export const getUserList = () => async (dispatch, getState) => {
 
         // 检索条件：用户编号
         const conditionUserId = getState().UserManagerReducer.conditionUserId.trim();
-        // 检索条件：用户电话
+        // 检索条件：注册手机
         const conditionPhone = getState().UserManagerReducer.conditionPhone.trim();
-        // 检索条件：用户昵称
+        // 检索条件：性别
+        const conditionGender = getState().UserManagerReducer.conditionGender;
+        // 检索条件：昵称
         const conditionNickname = getState().UserManagerReducer.conditionNickname.trim();
-        // // 检索条件：状态
-        // const conditionStatus = getState().UserManagerReducer.conditionStatus;
+        // 检索条件：城市
+        const conditionCity = getState().UserManagerReducer.conditionCity.trim();
+        // // 检索条件：驾照类型
+        // const conditionDrivingType = getState().UserManagerReducer.conditionDrivingType;
+        // 检索条件：注册时间(始)
+        const conditionCreatedOnStart = getState().UserManagerReducer.conditionCreatedOnStart;
+        // 检索条件：注册时间(终)
+        const conditionCreatedOnEnd = getState().UserManagerReducer.conditionCreatedOnEnd;
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/user?start=' + start + '&size=' + size;
 
         // 检索条件
         let conditionsObj = {
             userId: conditionUserId,
             phone: conditionPhone,
-            nikename: conditionNickname,
-            // // 检索条件：状态
-            // status: conditionStatus === null ? '' : conditionStatus.value
+            sex: conditionGender === null ? '' : conditionGender.value,
+            nickName: conditionNickname,
+            cityName: conditionCity,
+            // drivingType: conditionDrivingType === null ? '' : conditionDrivingType.value,
+            createDateStart: conditionCreatedOnStart,
+            createDateEnd: conditionCreatedOnEnd
         };
 
         let conditions = httpUtil.objToUrl(conditionsObj);

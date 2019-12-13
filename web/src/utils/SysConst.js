@@ -1,8 +1,8 @@
 'use strict'
 
-export const USER_ID ='user-id';
-export const USER_TYPE ='user-type';
-export const USER_STATUS='user-status';
+export const LOGIN_USER_ID ='user-id';
+export const LOGIN_USER_TYPE ='user-type';
+export const LOGIN_USER_STATUS='user-status';
 export const AUTH_TOKEN ='auth-token';
 
 /**
@@ -165,4 +165,32 @@ export const GENDER = [
         value: 1,
         label: "男"
     }
+];
+
+// 驾照类型
+export const DRIVING_TYPE = [
+    {value: 1, label: "A1"},
+    {value: 2, label: "A2"},
+    {value: 3, label: "A3"},
+    {value: 4, label: "B1"},
+    {value: 5, label: "B2"},
+    {value: 6, label: "C1"},
+    {value: 7, label: "C2"},
+    {value: 8, label: "C3"},
+    {value: 9, label: "C4"},
+    {value: 10, label: "C5"},
+    {value: 11, label: "D"},
+    {value: 12, label: "E"},
+    {value: 13, label: "F"},
+    {value: 14, label: "M"},
+    {value: 15, label: "N"},
+    {value: 16, label: "P"}
+];
+
+// 用户状态
+export const USER_STATUS = [
+    {value: 1, label: "正常"},
+    {value: 2, label: "禁言"},
+    {value: 3, label: "停用"},
+    {value: 4, label: "注销"}
 ];

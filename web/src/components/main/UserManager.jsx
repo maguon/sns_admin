@@ -143,18 +143,18 @@ class UserManager extends React.Component {
                         <TextInput s={3} label="昵称" value={userManagerReducer.conditionNickname} onChange={this.changeConditionNickname}/>
 
                         <TextInput s={3} label="城市" value={userManagerReducer.conditionCity} onChange={this.changeConditionCity}/>
-                        <div className="input-field col s3">
-                            <Select
-                                options={sysConst.GENDER}
-                                onChange={changeConditionDrivingType}
-                                value={userManagerReducer.conditionDrivingType}
-                                isSearchable={false}
-                                placeholder={"请选择"}
-                                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
-                                isClearable={true}
-                            />
-                            <label className="active">驾照类型</label>
-                        </div>
+                        {/*<div className="input-field col s3">*/}
+                        {/*    <Select*/}
+                        {/*        options={sysConst.DRIVING_TYPE}*/}
+                        {/*        onChange={changeConditionDrivingType}*/}
+                        {/*        value={userManagerReducer.conditionDrivingType}*/}
+                        {/*        isSearchable={false}*/}
+                        {/*        placeholder={"请选择"}*/}
+                        {/*        styles={sysConst.CUSTOM_REACT_SELECT_STYLE}*/}
+                        {/*        isClearable={true}*/}
+                        {/*    />*/}
+                        {/*    <label className="active">驾照类型</label>*/}
+                        {/*</div>*/}
                         {/* 查询条件：注册时间(始) */}
                         <div className="input-field col s3 custom-input-field">
                             <DatePicker s={12} label="注册时间(始)" options={sysConst.DATE_PICKER_OPTION}
@@ -186,10 +186,23 @@ class UserManager extends React.Component {
                         <table className="bordered striped">
                             <thead className="custom-dark-grey table-top-line">
                             <tr className="grey-text text-darken-2">
-                                <th>用户编号</th>
-                                <th>用户电话</th>
+                                <th>编号</th>
                                 <th>昵称</th>
-                                <th>状态</th>
+                                <th>手机</th>
+                                <th>城市</th>
+
+                                {/*<th>驾照类型</th>*/}
+                                <th>发布文章</th>
+                                <th>关注</th>
+                                <th>被关注</th>
+
+                                <th>评论数</th>
+                                <th>参与投票</th>
+                                <th>收藏文章</th>
+                                <th>收藏位置</th>
+
+                                <th className="center">注册时间</th>
+                                <th className="center">状态</th>
                                 <th className="center">操作</th>
                             </tr>
                             </thead>
@@ -197,12 +210,39 @@ class UserManager extends React.Component {
                             {userManagerReducer.userArray.map(function (item) {
                                 return (
                                     <tr className="grey-text text-darken-1">
-                                        <td>{item._id}</td>
-                                        <td>{item.phone}</td>
-                                        <td>{item.nikename}</td>
-                                        <td>{commonUtil.getJsonValue(sysConst.USE_FLAG, item.status)}</td>
+                                        {/* 编号 */}
+                                        <td>{item._userId}</td>
+                                        {/* 昵称 */}
+                                        <td>{item.nick_name}</td>
+                                        {/* 手机 */}
+                                        <td>{item.user_login_info[0].phone}</td>
+                                        {/* 城市 */}
+                                        <td>{item.city_name}</td>
+
+                                        {/*/!* 驾照类型 *!/*/}
+                                        {/*<td>{commonUtil.getJsonValue(sysConst.DRIVING_TYPE, item._userDriveId.driving_type)}</td>*/}
+                                        {/* 发布文章 */}
+                                        <td>{item.messagesNum}</td>
+                                        {/* 关注 */}
+                                        <td>{item.followNum}</td>
+                                        {/* 被关注 */}
+                                        <td>{item.attentionNum}</td>
+
+                                        {/* 评论数 */}
+                                        <td>{item.commentsNum}</td>
+                                        {/* 参与投票 */}
+                                        <td>{item.voteNum}</td>
+                                        {/* 收藏文章 */}
+                                        <td>{item.messageCollectionNum}</td>
+                                        {/* 收藏位置 */}
+                                        <td>{item.locationCollectionNum}</td>
+
+                                        {/* 注册时间 */}
+                                        <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
+                                        {/* 状态 */}
+                                        <td>{commonUtil.getJsonValue(sysConst.USER_STATUS, item.user_login_info[0].status)}</td>
                                         <td className="operation center">
-                                            <Link to={{pathname: '/user/' + item.id}}>
+                                            <Link to={{pathname: '/user/' + item._userId}}>
                                                 <i className="mdi mdi-table-search purple-font"/>
                                             </Link>
                                         </td>
@@ -211,9 +251,8 @@ class UserManager extends React.Component {
                             })}
                             {userManagerReducer.userArray.length === 0 &&
                             <tr className="grey-text text-darken-1">
-                                <td className="no-data-tr" colSpan="5">暂无数据</td>
-                            </tr>
-                            }
+                                <td className="no-data-tr" colSpan="14">暂无数据</td>
+                            </tr>}
                             </tbody>
                         </table>
                     </div>
@@ -255,7 +294,6 @@ const mapDispatchToProps = (dispatch) => ({
     setStartNumber: (start) => {
         dispatch(UserManagerActionType.setStartNumber(start))
     },
-
     setConditionUserId: (value) => {
         dispatch(UserManagerActionType.setConditionUserId(value))
     },
@@ -268,7 +306,6 @@ const mapDispatchToProps = (dispatch) => ({
     setConditionNickname: (value) => {
         dispatch(UserManagerActionType.setConditionNickname(value))
     },
-
     setConditionCity: (value) => {
         dispatch(UserManagerActionType.setConditionCity(value))
     },

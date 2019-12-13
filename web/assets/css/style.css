@@ -107,6 +107,10 @@ body {
     width: 10%;
 }
 
+.s-percent-1-8 {
+    width: 12.5%;
+}
+
 .s-percent-20 {
     width: 20%;
 }
@@ -171,6 +175,10 @@ body {
 
 .margin-left10 {
     margin-left: 10px;
+}
+
+.margin-left20 {
+    margin-left: 30px !important;
 }
 
 .margin-left30 {
@@ -302,6 +310,17 @@ body {
     font-size: 30px;
 }
 
+.height-90 {
+    height: 90px !important;
+}
+
+.user-title-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    font-size: 40px;
+}
+
 /** 数据过长时，隐藏部分内容 */
 .text-ellipsis {
     overflow: hidden;
@@ -341,61 +360,66 @@ body {
 }
 
 /** Material Tab 组件 样式 */
-.tabs {
-    position: relative;
-    overflow-x: auto;
-    overflow-y: hidden;
-    height: 48px;
-    width: 100%;
-    background-color: #fff;
-    margin: 0 auto;
-    white-space: nowrap;
-    border-bottom: 1px solid #D9BEDD;
-}
+/*.tabs {*/
+/*    position: relative;*/
+/*    overflow-x: auto;*/
+/*    overflow-y: hidden;*/
+/*    height: 48px;*/
+/*    width: 100%;*/
+/*    background-color: #fff;*/
+/*    margin: 0 auto;*/
+/*    white-space: nowrap;*/
+/*    border-bottom: 1px solid #D9BEDD;*/
+/*}*/
 
-.tabs .tab {
-    display: inline-block;
-    text-align: center;
-    line-height: 48px;
-    height: 48px;
-    padding: 0;
-    margin: 0;
-}
+/*.tabs .tab {*/
+/*    display: inline-block;*/
+/*    text-align: center;*/
+/*    line-height: 48px;*/
+/*    height: 48px;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
 
-.tabs .tab a {
-    color: grey;
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 0 24px;
-    font-size: 14px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    -webkit-transition: color .28s ease;
-    transition: color .28s ease;
-}
+/*.tabs .tab a {*/
+/*    color: grey;*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    padding: 0 24px;*/
+/*    font-size: 14px;*/
+/*    text-overflow: ellipsis;*/
+/*    overflow: hidden;*/
+/*    -webkit-transition: color .28s ease;*/
+/*    transition: color .28s ease;*/
+/*}*/
 
-.tabs .tab a:hover {
-    background-color: transparent;
-    color: #724278;
-}
+/*.tabs .tab:hover {*/
+/*    background-color: transparent;*/
+/*    color: #724278;*/
+/*}*/
 
-.tabs .tab a.active {
-    background-color: #724278;
-    color: white !important;
-}
+/*.tabs .tab.active {*/
+/*    background-color: #724278;*/
+/*    color: white !important;*/
+/*}*/
 
-.tabs .tab.disabled a,
-.tabs .tab.disabled a:hover {
-    color: grey;
-    cursor: default;
-}
+/*.tabs .tab.disabled a,*/
+/*.tabs .tab.disabled a:hover {*/
+/*    color: grey;*/
+/*    cursor: default;*/
+/*}*/
 
-.tabs .indicator {
-    position: absolute;
-    bottom: 0;
-    height: 0;
-    will-change: left, right;
+/*.tabs .indicator {*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    height: 0;*/
+/*    will-change: left, right;*/
+/*}*/
+
+.tabs .tab.active {
+    background-color: rgba(246,178,181,0.2);
+    outline: none;
 }
 
 table.striped > tbody > tr:nth-child(odd) {
@@ -531,15 +555,15 @@ table.striped > tbody > tr:nth-child(odd) {
     height: 90px;
 }
 
-.detail-box-header, .user-detail-header, .inquiry-detail-header,
-.order-detail-header, .trans-demand-header, .supplier-business-detail-header, .recommend-business-detail-header {
-    background-color: #F0EFF4;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    border-bottom: 2px solid #D9BEDD;
-    color: #724278;
-    font-weight: bold;
-}
+/*.detail-box-header, .user-detail-header, .inquiry-detail-header,*/
+/*.order-detail-header, .trans-demand-header, .supplier-business-detail-header, .recommend-business-detail-header {*/
+/*    background-color: #F0EFF4;*/
+/*    padding-left: 1.5rem;*/
+/*    padding-right: 1.5rem;*/
+/*    border-bottom: 2px solid #D9BEDD;*/
+/*    color: #724278;*/
+/*    font-weight: bold;*/
+/*}*/
 
 
 /** Material补充样式 start */

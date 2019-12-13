@@ -49,7 +49,7 @@ export const getCommentList = () => async (dispatch, getState) => {
 
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/achievement?start=' + start + '&size=' + size;
         // 检索条件
         // let conditionsObj = {

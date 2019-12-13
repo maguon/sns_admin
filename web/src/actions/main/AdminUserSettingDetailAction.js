@@ -8,7 +8,7 @@ const sysConst = require('../../utils/SysConst');
 export const getAdminInfo = (adminId) => async (dispatch) => {
     try {
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/adminUser?type=0&adminUserId=' + adminId;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
@@ -47,7 +47,7 @@ export const changeAdminStatus = (id, status) => async (dispatch) => {
                 newStatus = 0
             }
 
-            const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+            const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
                 + '/adminUser/' + id + '/status';
             const res = await httpUtil.httpPut(url, {status: newStatus});
             if (res.success === true) {
@@ -77,7 +77,7 @@ export const saveAdmin = () => async (dispatch, getState) => {
             gender: gender,
         };
         // 基本url
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/adminUser/' + adminId;
         let res = await httpUtil.httpPut(url, params);
         if (res.success === true) {

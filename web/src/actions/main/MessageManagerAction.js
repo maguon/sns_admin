@@ -46,7 +46,7 @@ export const getMessageList = () => async (dispatch, getState) => {
         console.log('conditionCreatedOnEnd',conditionCreatedOnEnd);
 
         // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.USER_ID)
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
             + '/messages?start=' + start + '&size=' + size;
 
         // 检索条件
