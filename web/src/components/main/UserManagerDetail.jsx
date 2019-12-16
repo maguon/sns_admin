@@ -194,7 +194,7 @@ class UserManagerDetail extends React.Component {
                             <div className="col s1 margin-top10 center">
                                 {/* 用户头像 */}
                                 {userManagerDetailReducer.userInfo[0].avatar !== null && userManagerDetailReducer.userInfo[0].avatar !== '' &&
-                                <img className="circle height-90" src={userManagerDetailReducer.userInfo[0]._userDetailId.avatar}/>}
+                                <img className="circle height-90" src={userManagerDetailReducer.userInfo[0].avatar}/>}
                                 {/* 用户默认头像 */}
                                 {(userManagerDetailReducer.userInfo[0].avatar === null || userManagerDetailReducer.userInfo[0].avatar === '') &&
                                 <div className="user-title-icon grey lighten-1 vc-center">

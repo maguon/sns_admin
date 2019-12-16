@@ -178,9 +178,9 @@ class CommentManager extends React.Component {
                             <TextInput s={12} label="文章编号" value={commentManagerReducer.conditionArticleId} onChange={this.changeConditionArticleId}/>
                         </div>
 
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="回复的评论编号" value={commentManagerReducer.conditionReplyCommentId} onChange={this.changeConditionReplyCommentId}/>
-                        </div>
+                        {/*<div className="custom-input-field col s-percent-20">*/}
+                        {/*    <TextInput s={12} label="回复的评论编号" value={commentManagerReducer.conditionReplyCommentId} onChange={this.changeConditionReplyCommentId}/>*/}
+                        {/*</div>*/}
 
                         {/* 查询条件：评论时间(始) */}
                         <div className="custom-input-field col s-percent-20 input-field">
