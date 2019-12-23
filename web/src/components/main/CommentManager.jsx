@@ -8,6 +8,7 @@ import Select from "react-select";
 const commentManagerAction = require('../../actions/main/CommentManagerAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
+const commonUtil = require('../../utils/CommonUtil');
 
 // 评论管理
 class CommentManager extends React.Component {
@@ -28,12 +29,8 @@ class CommentManager extends React.Component {
 
             this.props.setConditionCommentId('');
             this.props.changeConditionType(null);
-            this.props.setConditionCommentUserId('');
-            this.props.setConditionCommentUserName('');
             this.props.setConditionCommentUserPhone('');
-
             this.props.setConditionArticleId('');
-            this.props.setConditionReplyCommentId('');
             this.props.setConditionCreatedOnStart('');
             this.props.setConditionCreatedOnEnd('');
             this.props.changeConditionStatus(null);
@@ -49,20 +46,6 @@ class CommentManager extends React.Component {
     };
 
     /**
-     * 更新 检索条件：评论人ID
-     */
-    changeConditionCommentUserId = (event) => {
-        this.props.setConditionCommentUserId(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：昵称
-     */
-    changeConditionCommentUserName = (event) => {
-        this.props.setConditionCommentUserName(event.target.value);
-    };
-
-    /**
      * 更新 检索条件：注册手机
      */
     changeConditionCommentUserPhone = (event) => {
@@ -74,13 +57,6 @@ class CommentManager extends React.Component {
      */
     changeConditionArticleId = (event) => {
         this.props.setConditionArticleId(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：回复的评论编号
-     */
-    changeConditionReplyCommentId = (event) => {
-        this.props.setConditionReplyCommentId(event.target.value);
     };
 
     /**
@@ -128,6 +104,20 @@ class CommentManager extends React.Component {
         this.props.getCommentList();
     };
 
+    /**
+     * 删除评论
+     */
+    deleteComment = (messageCommentsId) => {
+        this.props.deleteComment(messageCommentsId);
+    };
+
+    /**
+     * 修改评论状态
+     */
+    changeCommentStatus = (messageCommentsId, status) => {
+        this.props.changeCommentStatus(messageCommentsId, status);
+    };
+
     render() {
         const {commentManagerReducer, changeConditionType, changeConditionStatus} = this.props;
         return (
@@ -143,13 +133,10 @@ class CommentManager extends React.Component {
                 {/* 上部分：检索条件输入区域 */}
                 <div className="row grey-text text-darken-1">
                     <div className="col s11 search-condition-box">
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="评论编号" value={commentManagerReducer.conditionCommentId} onChange={this.changeConditionCommentId}/>
-                        </div>
-
-                        <div className="input-field col s-percent-20">
+                        <TextInput s={3} label="评论编号" value={commentManagerReducer.conditionCommentId} onChange={this.changeConditionCommentId}/>
+                        <div className="input-field col s3">
                             <Select
-                                options={sysConst.MSG_TYPE}
+                                options={sysConst.COMMENT_TYPE}
                                 onChange={changeConditionType}
                                 value={commentManagerReducer.conditionType}
                                 isSearchable={false}
@@ -159,31 +146,12 @@ class CommentManager extends React.Component {
                             />
                             <label className="active">评论类型</label>
                         </div>
+                        <TextInput s={3} label="注册手机" value={commentManagerReducer.conditionCommentUserPhone} onChange={this.changeConditionCommentUserPhone}/>
+                        <TextInput s={3} label="文章编号" value={commentManagerReducer.conditionArticleId} onChange={this.changeConditionArticleId}/>
 
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="评论人ID" value={commentManagerReducer.conditionCommentUserId} onChange={this.changeConditionCommentUserId}/>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="昵称" value={commentManagerReducer.conditionCommentUserName} onChange={this.changeConditionCommentUserName}/>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="注册手机" value={commentManagerReducer.conditionCommentUserPhone} onChange={this.changeConditionCommentUserPhone}/>
-                        </div>
-
-
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="文章编号" value={commentManagerReducer.conditionArticleId} onChange={this.changeConditionArticleId}/>
-                        </div>
-
-                        {/*<div className="custom-input-field col s-percent-20">*/}
-                        {/*    <TextInput s={12} label="回复的评论编号" value={commentManagerReducer.conditionReplyCommentId} onChange={this.changeConditionReplyCommentId}/>*/}
-                        {/*</div>*/}
 
                         {/* 查询条件：评论时间(始) */}
-                        <div className="custom-input-field col s-percent-20 input-field">
+                        <div className="custom-input-field col s3 input-field">
                             <DatePicker s={12} label="评论时间(始)" options={sysConst.DATE_PICKER_OPTION}
                                         value={commentManagerReducer.conditionCreatedOnStart} onChange={this.changeConditionCreatedOnStart} />
                             {commentManagerReducer.conditionCreatedOnStart !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnStart}/>}
@@ -191,16 +159,16 @@ class CommentManager extends React.Component {
                         </div>
 
                         {/* 查询条件：评论时间(终) */}
-                        <div className="custom-input-field col s-percent-20 input-field">
+                        <div className="custom-input-field col s3 input-field">
                             <DatePicker s={12} label="评论时间(终)" options={sysConst.DATE_PICKER_OPTION}
                                         value={commentManagerReducer.conditionCreatedOnEnd} onChange={this.changeConditionCreatedOnEnd} />
                             {commentManagerReducer.conditionCreatedOnEnd !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnEnd}/>}
                             <span className="mdi data-icon mdi-table-large"/>
                         </div>
 
-                        <div className="input-field col s-percent-20">
+                        <div className="input-field col s3">
                             <Select
-                                options={sysConst.MSG_TYPE}
+                                options={sysConst.COMMENT_STATUS}
                                 onChange={changeConditionStatus}
                                 value={commentManagerReducer.conditionStatus}
                                 isSearchable={false}
@@ -226,10 +194,15 @@ class CommentManager extends React.Component {
                         <table className="bordered striped">
                             <thead className="custom-dark-grey table-top-line">
                             <tr className="grey-text text-darken-2">
-                                <th>推荐人编号</th>
-                                <th>推荐人</th>
-                                <th>授权用户</th>
-                                <th>认证用户</th>
+                                <th>评论编号</th>
+                                <th>评论类型</th>
+                                <th>注册手机</th>
+                                <th>文章编号</th>
+                                <th>评论内容</th>
+                                <th>评论数</th>
+                                <th>点赞数</th>
+                                <th className="center">评论时间</th>
+                                <th className="center">状态</th>
                                 <th className="center">操作</th>
                             </tr>
                             </thead>
@@ -237,21 +210,45 @@ class CommentManager extends React.Component {
                             {commentManagerReducer.commentArray.map(function (item) {
                                 return (
                                     <tr className="grey-text text-darken-1">
-                                        <td>{item.id}</td>
-                                        <td>{item.name}</td>
-                                        <td>{formatUtil.formatNumber(item.user_count)}</td>
-                                        <td>{formatUtil.formatNumber(item.auth_count)}</td>
+                                        {/* 评论编号 */}
+                                        <td>{item._id}</td>
+                                        {/* 评论类型 */}
+                                        <td>{commonUtil.getJsonValue(sysConst.COMMENT_TYPE, item.type)}</td>
+                                        {/* 注册手机 */}
+                                        <td>{item.user_login_info[0].phone}</td>
+                                        {/* 文章编号 */}
+                                        <td>{item._messageId}</td>
+                                        {/* 评论内容 */}
+                                        <td>{item.commentsMsg}</td>
+                                        {/* 评论数 */}
+                                        <td>{formatUtil.formatNumber(item.commentsNum)}</td>
+                                        {/* 点赞数 */}
+                                        <td>{formatUtil.formatNumber(item.agreeNum)}</td>
+
+                                        {/* 评论时间 */}
+                                        <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
+                                        {/* 状态 */}
+                                        <td className="center">{commonUtil.getJsonValue(sysConst.COMMENT_STATUS, item.status)}</td>
+                                        {/* 操作 */}
                                         <td className="operation center">
-                                            <Link to={{pathname: '/recommend_business/' + item.id}}>
-                                                <i className="mdi mdi-table-search purple-font"/>
+                                            <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteComment(item._id)}}/>
+                                            {/* 状态：屏蔽 */}
+                                            {item.status === sysConst.COMMENT_STATUS[0].value &&
+                                            <i className="mdi mdi-eye purple-font pointer" onClick={() => {this.changeCommentStatus(item._id,item.status)}}/>}
+                                            {/* 状态：正常 */}
+                                            {item.status === sysConst.COMMENT_STATUS[1].value &&
+                                            <i className="mdi mdi-eye-off purple-font pointer" onClick={() => {this.changeCommentStatus(item._id,item.status)}}/>}
+
+                                            <Link to={{pathname: '/comment/' + item._id}}>
+                                                <i className="mdi mdi-table-search purple-font margin-left10"/>
                                             </Link>
                                         </td>
                                     </tr>
                                 )
-                            })}
+                            },this)}
                             {commentManagerReducer.commentArray.length === 0 &&
                             <tr className="grey-text text-darken-1">
-                                <td className="no-data-tr" colSpan="5">暂无数据</td>
+                                <td className="no-data-tr" colSpan="10">暂无数据</td>
                             </tr>}
                             </tbody>
                         </table>
@@ -301,21 +298,11 @@ const mapDispatchToProps = (dispatch) => ({
     changeConditionType: (value) => {
         dispatch(CommentManagerActionType.setConditionType(value))
     },
-    setConditionCommentUserId: (value) => {
-        dispatch(CommentManagerActionType.setConditionCommentUserId(value))
-    },
-    setConditionCommentUserName: (value) => {
-        dispatch(CommentManagerActionType.setConditionCommentUserName(value))
-    },
     setConditionCommentUserPhone: (value) => {
         dispatch(CommentManagerActionType.setConditionCommentUserPhone(value))
     },
-
     setConditionArticleId: (value) => {
         dispatch(CommentManagerActionType.setConditionArticleId(value))
-    },
-    setConditionReplyCommentId: (value) => {
-        dispatch(CommentManagerActionType.setConditionReplyCommentId(value))
     },
     setConditionCreatedOnStart: (value) => {
         dispatch(CommentManagerActionType.setConditionCreatedOnStart(value))
@@ -325,6 +312,13 @@ const mapDispatchToProps = (dispatch) => ({
     },
     changeConditionStatus: (value) => {
         dispatch(CommentManagerActionType.setConditionStatus(value))
+    },
+
+    deleteComment: (id) => {
+        dispatch(commentManagerAction.deleteComment(id));
+    },
+    changeCommentStatus: (id, status) => {
+        dispatch(commentManagerAction.changeCommentStatus(id, status));
     }
 });
 

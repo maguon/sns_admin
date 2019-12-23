@@ -13,17 +13,11 @@ const initialState = {
     conditionCommentId: '',
     // 检索条件：评论类型
     conditionType: null,
-    // 检索条件：评论人ID
-    conditionCommentUserId: '',
-    // 检索条件：昵称
-    conditionCommentUserName: '',
     // 检索条件：注册手机
     conditionCommentUserPhone: '',
 
     // 检索条件：文章编号
     conditionArticleId: '',
-    // 检索条件：回复的评论编号
-    conditionReplyCommentId: '',
     // 检索条件：评论时间(始)
     conditionCreatedOnStart: '',
     // 检索条件：评论时间(终)
@@ -66,18 +60,6 @@ export default handleActions({
             conditionType: action.payload
         }
     },
-    [CommentManagerActionType.setConditionCommentUserId]: (state, action) => {
-        return {
-            ...state,
-            conditionCommentUserId: action.payload
-        }
-    },
-    [CommentManagerActionType.setConditionCommentUserName]: (state, action) => {
-        return {
-            ...state,
-            conditionCommentUserName: action.payload
-        }
-    },
     [CommentManagerActionType.setConditionCommentUserPhone]: (state, action) => {
         return {
             ...state,
@@ -88,12 +70,6 @@ export default handleActions({
         return {
             ...state,
             conditionArticleId: action.payload
-        }
-    },
-    [CommentManagerActionType.setConditionReplyCommentId]: (state, action) => {
-        return {
-            ...state,
-            conditionReplyCommentId: action.payload
         }
     },
     [CommentManagerActionType.setConditionCreatedOnStart]: (state, action) => {

@@ -118,53 +118,41 @@ export const CUSTOM_REACT_SELECT_STYLE_FOR_MODAL = {
     })
 };
 
-// 按日统计-日数
-export const STATISTIC_DAYS = [
-    {
-        value: 10,
-        label: "近 10 天"
-    },
-    {
-        value: 30,
-        label: "近 30 天"
-    }
+// 性别
+export const GENDER = [
+    {value: 0, label: "女"},
+    {value: 1, label: "男"}
 ];
 
-// 可用/停用 标记
-export const USE_FLAG = [
-    {
-        value: 0,
-        label: "停用"
-    },
-    {
-        value: 1,
-        label: "可用"
-    }
+// 用户状态
+export const USER_STATUS = [
+    {value: 1, label: "正常"},
+    {value: 2, label: "禁言"},
+    {value: 3, label: "停用"},
+    {value: 4, label: "注销"}
+];
+
+
+
+
+
+
+// 评论类型
+export const COMMENT_TYPE = [
+    {value: 1, label: "文章"},
+    {value: 2, label: "求助"}
+];
+
+// 评论类型
+export const COMMENT_STATUS = [
+    {value: 0, label: "屏蔽"},
+    {value: 1, label: "正常"}
 ];
 
 // 消息类型
 export const MSG_TYPE = [
-    {
-        value: 1,
-        label: "系统消息"
-    },
-    {
-        value: 2,
-        label: "用户消息"
-    }
-];
-
-// 性别
-export const GENDER = [
-    {
-        value: 0,
-        label: "女"
-
-    },
-    {
-        value: 1,
-        label: "男"
-    }
+    {value: 1, label: "系统消息"},
+    {value: 2, label: "用户消息"}
 ];
 
 // 驾照类型
@@ -187,10 +175,19 @@ export const DRIVING_TYPE = [
     {value: 16, label: "P"}
 ];
 
-// 用户状态
-export const USER_STATUS = [
-    {value: 1, label: "正常"},
-    {value: 2, label: "禁言"},
-    {value: 3, label: "停用"},
-    {value: 4, label: "注销"}
+
+
+
+
+
+// 可用/停用 标记
+export const USE_FLAG = [
+    {value: 0, label: "停用"},
+    {value: 1, label: "可用"}
+];
+
+// 按日统计-日数
+export const STATISTIC_DAYS = [
+    {value: 10, label: "近 10 天"},
+    {value: 30, label: "近 30 天"}
 ];
