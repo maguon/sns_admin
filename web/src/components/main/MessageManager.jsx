@@ -1,13 +1,11 @@
 import React from 'react';
-import Select from 'react-select';
 import {connect} from 'react-redux';
-import {Link} from "react-router-dom";
 import {DatePicker, TextInput} from 'react-materialize';
 import {MessageManagerActionType} from '../../types';
-import {NewMessageModal} from '../modules/index';
+import {MessageModal} from '../modules/index';
 
 const messageManagerAction = require('../../actions/main/MessageManagerAction');
-const newAdminModalAction = require('../../actions/modules/NewAdminModalAction');
+const messageModalAction = require('../../actions/modules/MessageModalAction');
 
 const sysConst = require('../../utils/SysConst');
 const commonUtil = require('../../utils/CommonUtil');
@@ -29,14 +27,9 @@ class MessageManager extends React.Component {
     componentDidMount() {
         if (!this.props.fromDetail) {
             this.props.setStartNumber(0);
+            this.props.setShowMsgModalFlg(false);
             this.props.setConditionId('');
-            this.props.changeConditionType(null);
-            this.props.setConditionReceiverId('');
-            this.props.setConditionReceiverName('');
             this.props.setConditionReceiverPhone('');
-            this.props.setConditionArticleId('');
-            this.props.setConditionCommentId('');
-            this.props.setConditionConnectId('');
             this.props.setConditionCreatedOnStart('');
             this.props.setConditionCreatedOnEnd('');
         }
@@ -51,45 +44,10 @@ class MessageManager extends React.Component {
     };
 
     /**
-     * 更新 检索条件：接收人ID
-     */
-    changeConditionReceiverId = (event) => {
-        this.props.setConditionReceiverId(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：接收人昵称
-     */
-    changeConditionReceiverName = (event) => {
-        this.props.setConditionReceiverName(event.target.value);
-    };
-
-    /**
      * 更新 检索条件：接收人手机
      */
     changeConditionReceiverPhone = (event) => {
         this.props.setConditionReceiverPhone(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：文章编号
-     */
-    changeConditionArticleId = (event) => {
-        this.props.setConditionArticleId(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：评论编号
-     */
-    changeConditionCommentId = (event) => {
-        this.props.setConditionCommentId(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：相关人员ID
-     */
-    changeConditionConnectId = (event) => {
-        this.props.setConditionConnectId(event.target.value);
     };
 
     /**
@@ -140,13 +98,25 @@ class MessageManager extends React.Component {
     /**
      * 显示 新建 消息模态
      */
-    showNewMessageModal = () => {
-        this.props.initModalData();
-        $('#newAdminModal').modal('open');
+    showMessageModal = (pageType, messageDetail) => {
+        this.props.initMessageModalData(pageType, messageDetail);
+        // $('#messageModal').modal('open');
+
+        this.props.setShowMsgModalFlg(true);
+        $('#messageModal').modal('open',{
+            // 新增还款 模态打开时触发
+            onOpenStart : function () {
+                console.log('onOpenStart')
+            },
+            // 新增还款 模态关闭时触发
+            onCloseStart : function () {
+                console.log('onCloseEnd')
+            }
+        });
     };
 
     render() {
-        const {messageManagerReducer, changeConditionType} = this.props;
+        const {messageManagerReducer} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -160,49 +130,11 @@ class MessageManager extends React.Component {
                 {/* 上部分：检索条件输入区域 */}
                 <div className="row grey-text text-darken-1">
                     <div className="col s10 search-condition-box">
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="消息ID" value={messageManagerReducer.conditionId} onChange={this.changeConditionId}/>
-                        </div>
-
-                        <div className="input-field col s-percent-20">
-                            <Select
-                                options={sysConst.MSG_TYPE}
-                                onChange={changeConditionType}
-                                value={messageManagerReducer.conditionType}
-                                isSearchable={false}
-                                placeholder={"请选择"}
-                                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
-                                isClearable={true}
-                            />
-                            <label className="active">消息类型</label>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="接收人ID" value={messageManagerReducer.conditionReceiverId} onChange={this.changeConditionReceiverId}/>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="接收人昵称" value={messageManagerReducer.conditionReceiverName} onChange={this.changeConditionReceiverName}/>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="接收人手机" value={messageManagerReducer.conditionReceiverPhone} onChange={this.changeConditionReceiverPhone}/>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="文章编号" value={messageManagerReducer.conditionArticleId} onChange={this.changeConditionArticleId}/>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="评论编号" value={messageManagerReducer.conditionCommentId} onChange={this.changeConditionCommentId}/>
-                        </div>
-
-                        <div className="custom-input-field col s-percent-20">
-                            <TextInput s={12} label="相关人ID" value={messageManagerReducer.conditionConnectId} onChange={this.changeConditionConnectId}/>
-                        </div>
+                        <TextInput s={3} label="消息ID" value={messageManagerReducer.conditionId} onChange={this.changeConditionId}/>
+                        <TextInput s={3} label="接收人手机" value={messageManagerReducer.conditionReceiverPhone} onChange={this.changeConditionReceiverPhone}/>
 
                         {/* 查询条件：发送时间(始) */}
-                        <div className="custom-input-field col s-percent-20 input-field">
+                        <div className="custom-input-field col s3 input-field">
                             <DatePicker s={12} label="发送时间(始)" options={sysConst.DATE_PICKER_OPTION}
                                         value={messageManagerReducer.conditionCreatedOnStart} onChange={this.changeConditionCreatedOnStart} />
                             {messageManagerReducer.conditionCreatedOnStart !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnStart}/>}
@@ -210,7 +142,7 @@ class MessageManager extends React.Component {
                         </div>
 
                         {/* 查询条件：发送时间(终) */}
-                        <div className="custom-input-field col s-percent-20 input-field">
+                        <div className="custom-input-field col s3 input-field">
                             <DatePicker s={12} label="发送时间(终)" options={sysConst.DATE_PICKER_OPTION}
                                         value={messageManagerReducer.conditionCreatedOnEnd} onChange={this.changeConditionCreatedOnEnd} />
                             {messageManagerReducer.conditionCreatedOnEnd !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnEnd}/>}
@@ -227,11 +159,12 @@ class MessageManager extends React.Component {
 
                     {/* 追加按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={this.showNewMessageModal}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={() => {this.showMessageModal('new',null)}}>
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>
-                    <NewMessageModal/>
+                    {messageManagerReducer.showMsgModalFlg &&
+                    <MessageModal/>}
                 </div>
 
                 {/* 下部分：检索结果显示区域 */}
@@ -240,15 +173,12 @@ class MessageManager extends React.Component {
                         <table className="bordered striped">
                             <thead className="custom-dark-grey table-top-line">
                             <tr className="grey-text text-darken-2">
-                                <th>消息ID</th>
+                                <th>消息编号</th>
                                 <th>消息类型</th>
-                                <th>消息内容</th>
-
-                                <th>收藏次数</th>
-                                <th>评论次数</th>
-                                <th>阅读次数</th>
-                                <th>消息标签</th>
-                                <th>状态</th>
+                                <th>接收人昵称</th>
+                                <th>接收人手机</th>
+                                <th>相关人昵称</th>
+                                <th className="center">发送时间</th>
                                 <th className="center">操作</th>
                             </tr>
                             </thead>
@@ -256,28 +186,28 @@ class MessageManager extends React.Component {
                             {messageManagerReducer.messageArray.map(function (item) {
                                 return (
                                     <tr className="grey-text text-darken-1">
+                                        {/* 消息编号 */}
                                         <td>{item._id}</td>
-                                        <td>{commonUtil.getJsonValue(sysConst.MSG_TYPE, item.type)}</td>
-                                        <td>{item.info}</td>
-
-                                        <td>{item.collectnum}</td>
-                                        <td>{item.commentnum}</td>
-                                        <td>{item.readnum}</td>
-                                        <td>{item.label}</td>
-                                        <td>{commonUtil.getJsonValue(sysConst.USE_FLAG, item.status)}</td>
+                                        {/* 消息类型 */}
+                                        <td>{commonUtil.getJsonValue(sysConst.MSG_USER_TYPE, item.type)}</td>
+                                        {/* 接收人昵称 */}
+                                        <td>{item.user_detail_info[0].nick_name}</td>
+                                        {/* 接收人手机 */}
+                                        <td>{item.user_login_info[0].phone}</td>
+                                        {/* 相关人昵称 */}
+                                        <td>{item.admin_info[0].name}</td>
+                                        {/* 发送时间 */}
+                                        <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                         <td className="operation center">
-                                            <Link to={{pathname: '/message/' + item._id}}>
-                                                <i className="mdi mdi-table-search purple-font"/>
-                                            </Link>
+                                            <i className="mdi mdi-table-search purple-font"  onClick={() => {this.showMessageModal('edit',item)}}/>
                                         </td>
                                     </tr>
                                 )
                             })}
-                            { messageManagerReducer.messageArray.length === 0 &&
-                                <tr className="grey-text text-darken-1">
-                                    <td className="no-data-tr" colSpan="9">暂无数据</td>
-                                </tr>
-                            }
+                            {messageManagerReducer.messageArray.length === 0 &&
+                            <tr className="grey-text text-darken-1">
+                                <td className="no-data-tr" colSpan="7">暂无数据</td>
+                            </tr>}
                             </tbody>
                         </table>
                     </div>
@@ -320,32 +250,14 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(MessageManagerActionType.setStartNumber(start))
     },
 
-
+    setShowMsgModalFlg: (value) => {
+        dispatch(MessageManagerActionType.setShowMsgModalFlg(value))
+    },
     setConditionId: (value) => {
         dispatch(MessageManagerActionType.setConditionId(value))
     },
-    changeConditionType: (value) => {
-        dispatch(MessageManagerActionType.setConditionMsgType(value))
-    },
-    setConditionReceiverId: (value) => {
-        dispatch(MessageManagerActionType.setConditionReceiverId(value))
-    },
-    setConditionReceiverName: (value) => {
-        dispatch(MessageManagerActionType.setConditionReceiverName(value))
-    },
     setConditionReceiverPhone: (value) => {
         dispatch(MessageManagerActionType.setConditionReceiverPhone(value))
-    },
-
-
-    setConditionArticleId: (value) => {
-        dispatch(MessageManagerActionType.setConditionArticleId(value))
-    },
-    setConditionCommentId: (value) => {
-        dispatch(MessageManagerActionType.setConditionCommentId(value))
-    },
-    setConditionConnectId: (value) => {
-        dispatch(MessageManagerActionType.setConditionConnectId(value))
     },
     setConditionCreatedOnStart: (value) => {
         dispatch(MessageManagerActionType.setConditionCreatedOnStart(value))
@@ -354,9 +266,8 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(MessageManagerActionType.setConditionCreatedOnEnd(value))
     },
 
-
-    initModalData: () => {
-        dispatch(newAdminModalAction.initNewAdminModal());
+    initMessageModalData: (pageType, messageDetail) => {
+        dispatch(messageModalAction.initNewMessageModal(pageType, messageDetail));
     }
 });
 

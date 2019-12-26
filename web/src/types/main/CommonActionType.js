@@ -1,5 +1,15 @@
 import {createAction} from 'redux-actions';
 
+export const getUserByPhoneList = createAction('GET_USER_BY_PHONE_LIST');
+
+
+
+
+
+
+
+
+
 export const getCityList = createAction('GET_CITY_LIST');
 export const getSupplierList = createAction('GET_SUPPLIER_LIST');
 export const getDepartmentList = createAction('GET_DEPARTMENT_LIST');

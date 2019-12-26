@@ -155,6 +155,12 @@ export const MSG_TYPE = [
     {value: 2, label: "用户消息"}
 ];
 
+// 消息类型(用户)
+export const MSG_USER_TYPE = [
+    {value: 1, label: "所有用户"},
+    {value: 2, label: "单个用户"}
+];
+
 // 驾照类型
 export const DRIVING_TYPE = [
     {value: 1, label: "A1"},

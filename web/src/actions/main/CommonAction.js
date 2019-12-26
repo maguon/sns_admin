@@ -5,6 +5,40 @@ const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
 
+// 取得 用户列表 (根据电话模糊查询)
+export const getUserListByPhone = (phoneReg) => async (dispatch) => {
+    try {
+        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/user?phoneReg=' + phoneReg;
+        const res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            dispatch({type: CommonActionType.getUserByPhoneList, payload: res.result});
+        } else if (res.success === false) {
+            swal('获取用户信息失败', res.msg, 'warning');
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 取得系统 城市列表
 export const getCityList = () => async (dispatch) => {
     try {

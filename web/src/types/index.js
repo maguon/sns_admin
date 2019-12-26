@@ -12,7 +12,7 @@ import * as CommentManagerActionType  from './main/CommentManagerActionType';
 import * as CommentManagerDetailActionType  from './main/CommentManagerDetailActionType';
 
 import * as MessageManagerActionType  from './main/MessageManagerActionType';
-
+import * as MessageModalActionType  from './modules/MessageModalActionType';
 
 
 
@@ -43,12 +43,7 @@ export  {
     CommentManagerActionType,
     CommentManagerDetailActionType,
     MessageManagerActionType,
-
-
-
-
-
-
+    MessageModalActionType,
 
 
 

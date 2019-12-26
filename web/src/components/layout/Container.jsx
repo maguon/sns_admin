@@ -161,7 +161,7 @@ class Container extends React.Component {
             },
             {
                 "label": '文章管理',
-                "icon": 'mdi-account-group',
+                "icon": 'mdi-message-text',
                 "children": [
                     {
                         "link": '/article',
@@ -175,13 +175,13 @@ class Container extends React.Component {
             },
             {
                 "label": '评论管理',
-                "icon": 'mdi-account-group',
+                "icon": 'mdi-comment-text-multiple',
                 "link": '/comment',
                 "children": []
             },
             {
                 "label": '消息管理',
-                "icon": 'mdi-account-group',
+                "icon": 'mdi-message-processing',
                 "link": '/message',
                 "children": []
             },

@@ -14,51 +14,25 @@ export const getMessageList = () => async (dispatch, getState) => {
 
         // 检索条件：消息编号
         const conditionId = getState().MessageManagerReducer.conditionId.trim();
-        // 检索条件：消息类型
-        const conditionType = getState().MessageManagerReducer.conditionType;
-        // 检索条件：接收人ID
-        const conditionReceiverId = getState().MessageManagerReducer.conditionReceiverId.trim();
-        // 检索条件：接收人昵称
-        const conditionReceiverName = getState().MessageManagerReducer.conditionReceiverName.trim();
         // 检索条件：接收人手机
         const conditionReceiverPhone = getState().MessageManagerReducer.conditionReceiverPhone.trim();
-
-        // 检索条件：文章编号
-        const conditionArticleId = getState().MessageManagerReducer.conditionArticleId.trim();
-        // 检索条件：评论编号
-        const conditionCommentId = getState().MessageManagerReducer.conditionCommentId.trim();
-        // 检索条件：相关人ID
-        const conditionConnectId = getState().MessageManagerReducer.conditionConnectId.trim();
         // 检索条件：发送时间
         const conditionCreatedOnStart = getState().MessageManagerReducer.conditionCreatedOnStart;
         const conditionCreatedOnEnd = getState().MessageManagerReducer.conditionCreatedOnEnd;
 
-        console.log('conditionId',conditionId);
-        console.log('conditionType',conditionType);
-        console.log('conditionReceiverId',conditionReceiverId);
-        console.log('conditionReceiverName',conditionReceiverName);
-        console.log('conditionReceiverPhone',conditionReceiverPhone);
-
-        console.log('conditionArticleId',conditionArticleId);
-        console.log('conditionCommentId',conditionCommentId);
-        console.log('conditionConnectId',conditionConnectId);
-        console.log('conditionCreatedOnStart',conditionCreatedOnStart);
-        console.log('conditionCreatedOnEnd',conditionCreatedOnEnd);
-
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/messages?start=' + start + '&size=' + size;
+            + '/systemMessage?start=' + start + '&size=' + size;
 
         // 检索条件
         let conditionsObj = {
-            // 检索条件：电话
-            messagesId: conditionId,
-            // 检索条件：姓名
-            // user_id: conditionUserId,
-            // 检索条件：员工编号
-            type: conditionType === null ? '' : conditionType.value,
-            // 检索条件：状态
-            // status: conditionStatus === null ? '' : conditionStatus.value
+            // 检索条件：消息编号
+            systemMessageId: conditionId,
+            // 检索条件：接收人手机
+            phone: conditionReceiverPhone,
+            // 检索条件：发送时间
+            createDateStart: conditionCreatedOnStart,
+            createDateEnd: conditionCreatedOnEnd
         };
         let conditions = httpUtil.objToUrl(conditionsObj);
         // 检索URL

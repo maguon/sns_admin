@@ -149,7 +149,6 @@ class CommentManager extends React.Component {
                         <TextInput s={3} label="注册手机" value={commentManagerReducer.conditionCommentUserPhone} onChange={this.changeConditionCommentUserPhone}/>
                         <TextInput s={3} label="文章编号" value={commentManagerReducer.conditionArticleId} onChange={this.changeConditionArticleId}/>
 
-
                         {/* 查询条件：评论时间(始) */}
                         <div className="custom-input-field col s3 input-field">
                             <DatePicker s={12} label="评论时间(始)" options={sysConst.DATE_PICKER_OPTION}
@@ -213,7 +212,7 @@ class CommentManager extends React.Component {
                                         {/* 评论编号 */}
                                         <td>{item._id}</td>
                                         {/* 评论类型 */}
-                                        <td>{commonUtil.getJsonValue(sysConst.COMMENT_TYPE, item.type)}</td>
+                                        <td>{commonUtil.getJsonValue(sysConst.COMMENT_TYPE, item.messages_type)}</td>
                                         {/* 注册手机 */}
                                         <td>{item.user_login_info[0].phone}</td>
                                         {/* 文章编号 */}

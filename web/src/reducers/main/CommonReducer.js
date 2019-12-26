@@ -2,6 +2,9 @@ import {handleActions} from 'redux-actions';
 import {CommonActionType} from '../../types';
 
 const initialState = {
+    // 用户列表 (根据电话模糊查询)
+    userList: [],
+
     // 城市列表
     cityList: [],
     // 供应商列表
@@ -33,6 +36,30 @@ const initialState = {
 };
 
 export default handleActions({
+    [CommonActionType.getUserByPhoneList]: (state, action) => {
+        let userList = [];
+        action.payload.forEach((value) => {
+            userList[value.user_login_info[0].phone + "  " + value.real_name + " " + value.user_login_info[0]._id] = null;
+        });
+
+        return {
+            ...state,
+            userList: userList
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
     [CommonActionType.getCityList]: (state, action) => {
         let cityList = [];
         action.payload.forEach((value) => {
