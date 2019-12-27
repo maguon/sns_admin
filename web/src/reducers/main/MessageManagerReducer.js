@@ -9,9 +9,6 @@ const initialState = {
     // 检索结果数量
     dataSize: 0,
 
-    // 模态画面显示标记
-    showMsgModalFlg: false,
-
     // 检索条件：消息编号
     conditionId: '',
     // 检索条件：接收人手机
@@ -42,12 +39,6 @@ export default handleActions({
         return {
             ...state,
             dataSize: action.payload
-        }
-    },
-    [MessageManagerActionType.setShowMsgModalFlg]: (state, action) => {
-        return {
-            ...state,
-            showMsgModalFlg: action.payload
         }
     },
     [MessageManagerActionType.setConditionId]: (state, action) => {

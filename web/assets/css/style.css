@@ -265,6 +265,10 @@ body {
     padding-bottom: 0 !important;
 }
 
+.padding-bottom10 {
+    padding-bottom: 10px !important;
+}
+
 .padding-bottom15 {
     padding-bottom: 15px !important;
 }
@@ -925,48 +929,14 @@ table.striped > tbody > tr:nth-child(odd) {
     max-height: 616px;
 }
 
-#newLoadTaskModal {
-    width: 1200px;
-    max-height: 716px;
-}
-
-#loadTaskCarDetailModal, #supplierPaymentDetailModal, #orderPaymentDetailModal {
-    width: 1200px;
-    max-height: 606px;
-}
-
-#newRefundModal, #orderInfoModal, #syncInfoModal, #loadTaskInfoModal {
-    width: 1200px;
-    max-height: 616px;
-}
-
-#newInvoiceModal, #editLogAddressModal {
-    max-height: 580px;
-}
-
-#editOrderCarModal {
-    max-height: 550px;
-}
 
 #inquiryModal {
     max-height: 538px;
 }
 
-#newOrderModal {
-    max-height: 500px;
+#messageModal {
+    max-height: 450px;
 }
-
-#newSupplierModal, #newOfferModal, #cancelInquiryModal, #newPaymentModal, #newPaymentModal, #editLoginUserModal,
-#editCompanyBankModal, #newAdminModal {
-    max-height: 456px;
-}
-
-#routeModal, #newSupplierContactModal, #newSupplierBankModal, #newLogSiteContactModal,
-#cancelOrderModal, #editUserAddressModal, #confirmPaymentModal, #confirmRefundModal, #refuseRefundModal,
-#refuseInvoiceModal, #editDepartmentModal, #newReCommendModal, #advertisingModal, #editCustomerPhoneModal {
-    max-height: 360px;
-}
-
 .modal-content {
     height: calc(100% - 106px) !important;
 }

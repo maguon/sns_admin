@@ -39,21 +39,15 @@ export default handleActions({
     [CommonActionType.getUserByPhoneList]: (state, action) => {
         let userList = [];
         action.payload.forEach((value) => {
-            userList[value.user_login_info[0].phone + "  " + value.real_name + " " + value.user_login_info[0]._id] = null;
+            // userList.push(value.user_login_info[0].phone + "  " + value.real_name + " " + value.user_login_info[0]._id);
+            userList[value.user_login_info[0]._id + "  " + value.nick_name + "  " + value.user_login_info[0].phone] =null;
         });
-
+        // userList = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
         return {
             ...state,
             userList: userList
         }
     },
-
-
-
-
-
-
-
 
 
 

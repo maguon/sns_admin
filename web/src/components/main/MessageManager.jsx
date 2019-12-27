@@ -27,7 +27,6 @@ class MessageManager extends React.Component {
     componentDidMount() {
         if (!this.props.fromDetail) {
             this.props.setStartNumber(0);
-            this.props.setShowMsgModalFlg(false);
             this.props.setConditionId('');
             this.props.setConditionReceiverPhone('');
             this.props.setConditionCreatedOnStart('');
@@ -100,19 +99,7 @@ class MessageManager extends React.Component {
      */
     showMessageModal = (pageType, messageDetail) => {
         this.props.initMessageModalData(pageType, messageDetail);
-        // $('#messageModal').modal('open');
-
-        this.props.setShowMsgModalFlg(true);
-        $('#messageModal').modal('open',{
-            // 新增还款 模态打开时触发
-            onOpenStart : function () {
-                console.log('onOpenStart')
-            },
-            // 新增还款 模态关闭时触发
-            onCloseStart : function () {
-                console.log('onCloseEnd')
-            }
-        });
+        $('#messageModal').modal('open');
     };
 
     render() {
@@ -163,8 +150,7 @@ class MessageManager extends React.Component {
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>
-                    {messageManagerReducer.showMsgModalFlg &&
-                    <MessageModal/>}
+                    <MessageModal/>
                 </div>
 
                 {/* 下部分：检索结果显示区域 */}
@@ -199,11 +185,11 @@ class MessageManager extends React.Component {
                                         {/* 发送时间 */}
                                         <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                         <td className="operation center">
-                                            <i className="mdi mdi-table-search purple-font"  onClick={() => {this.showMessageModal('edit',item)}}/>
+                                            <i className="mdi mdi-table-search purple-font pointer"  onClick={() => {this.showMessageModal('edit',item)}}/>
                                         </td>
                                     </tr>
                                 )
-                            })}
+                            },this)}
                             {messageManagerReducer.messageArray.length === 0 &&
                             <tr className="grey-text text-darken-1">
                                 <td className="no-data-tr" colSpan="7">暂无数据</td>
@@ -250,9 +236,6 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(MessageManagerActionType.setStartNumber(start))
     },
 
-    setShowMsgModalFlg: (value) => {
-        dispatch(MessageManagerActionType.setShowMsgModalFlg(value))
-    },
     setConditionId: (value) => {
         dispatch(MessageManagerActionType.setConditionId(value))
     },

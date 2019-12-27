@@ -15,7 +15,7 @@ import CommentManagerReducer from './main/CommentManagerReducer';
 import CommentManagerDetailReducer from './main/CommentManagerDetailReducer';
 
 import MessageManagerReducer from './main/MessageManagerReducer'
-
+import MessageModalReducer from './modules/MessageModalReducer';
 
 
 
@@ -48,7 +48,7 @@ export default combineReducers({
     CommentManagerDetailReducer,
 
     MessageManagerReducer,
-
+    MessageModalReducer,
 
 
 
