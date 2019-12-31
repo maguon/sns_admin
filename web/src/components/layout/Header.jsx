@@ -1,10 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {InquiryModal} from '../modules/index';
 
 const headerAction = require('../../actions/layout/HeaderAction');
 const commonAction = require('../../actions/main/CommonAction');
-// const inquiryModalAction = require('../../actions/modules/InquiryModalAction');
 const httpHeaders = require('../../utils/HttpHeaders');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
@@ -48,7 +46,7 @@ class Header extends React.Component {
      */
     render() {
         //
-        const {openInquiryModal, openEditLoginUserModal, logout} = this.props;
+        const {openEditLoginUserModal, logout} = this.props;
         return (
             <div>
                 <nav>
@@ -72,11 +70,6 @@ class Header extends React.Component {
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li>
                                 <a className="right-align">
-                                    <i className="mdi mdi-home-currency-usd mdi-36px modal-trigger" data-target="inquiryModal" onClick={openInquiryModal}/>
-                                </a>
-                            </li>
-                            <li>
-                                <a className="right-align">
                                     <i className="mdi mdi-account mdi-36px modal-trigger" data-target="editLoginUserModal" onClick={openEditLoginUserModal}/>
                                 </a>
                             </li>
@@ -84,7 +77,6 @@ class Header extends React.Component {
                         </ul>
                     </div>
                 </nav>
-                <InquiryModal/>
             </div>
         )
     }
@@ -100,11 +92,6 @@ const mapDispatchToProps = (dispatch) => ({
     // 取得登录用户基本信息
     getUserDetail: (userId) => {
         dispatch(headerAction.getUserDetail({userId: userId}))
-    },
-    // 询价
-    openInquiryModal: () => {
-        dispatch(commonAction.getCityList());
-        // dispatch(inquiryModalAction.initInquiryModal());
     },
     // 修改密码
     openEditLoginUserModal: () => {

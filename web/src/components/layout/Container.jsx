@@ -8,34 +8,29 @@ import {
     // 用户管理
     UserManager,
     UserManagerDetail,
-
+    // 文章管理
+    ArticleManager,
+    ArticleManagerDetail,
+    // 投票管理
+    // VoteManager,
+    // VoteManagerDetail,
     // 评论管理
     CommentManager,
     CommentManagerDetail,
-
     // 消息管理
     MessageManager,
-
-
-
-
-
-
-
-
-    // 统计
-    OrderStatistic,
-
-    // 表单
-    FormElements,
-    FormValidation,
-    // 表格
-    BasicTable,
-    ReactTablePivoting,
-
     // 系统设置
     AdminUserSetting,
     AdminUserSettingDetail
+
+    // // 统计
+    // OrderStatistic,
+    // // 表单
+    // FormElements,
+    // FormValidation,
+    // // 表格
+    // BasicTable,
+    // ReactTablePivoting,
 } from '../main/index';
 
 const routes = [
@@ -58,7 +53,28 @@ const routes = [
         exact: true,
         component: UserManagerDetail
     },
-
+    // 文章管理
+    {
+        path: "/article",
+        exact: true,
+        component: ArticleManager
+    },
+    {
+        path: '/article/:id',
+        exact: true,
+        component: ArticleManagerDetail
+    },
+    // 投票管理
+    // {
+    //     path: "/vote",
+    //     exact: true,
+    //     component: VoteManager
+    // },
+    // {
+    //     path: '/vote/:id',
+    //     exact: true,
+    //     component: VoteManagerDetail
+    // },
 
     // 评论管理
     {
@@ -77,6 +93,19 @@ const routes = [
         exact: true,
         component: MessageManager
     },
+    // 设置模块
+    {
+        // 员工管理
+        path: "/admin_user_setting",
+        exact: true,
+        component: AdminUserSetting
+    },
+    {
+        path: '/admin_user_setting/:id',
+        exact: true,
+        component: AdminUserSettingDetail
+    }
+
 
 
     // // 统计
@@ -112,19 +141,6 @@ const routes = [
     //     exact: true,
     //     component: ReactTablePivoting
     // },
-
-    // 设置模块
-    {
-        // 员工管理
-        path: "/admin_user_setting",
-        exact: true,
-        component: AdminUserSetting
-    },
-    {
-        path: '/admin_user_setting/:id',
-        exact: true,
-        component: AdminUserSettingDetail
-    }
 ];
 
 class Container extends React.Component {
@@ -185,6 +201,19 @@ class Container extends React.Component {
                 "link": '/message',
                 "children": []
             },
+            {
+                "label": '系统设置',
+                "icon": 'mdi-settings-outline',
+                "children": [
+                    {
+                        "link": '/admin_user_setting',
+                        "name": '员工管理'
+                    }
+                ]
+            }
+
+
+
 
             // {
             //     "label": '推广业绩',
@@ -230,16 +259,6 @@ class Container extends React.Component {
             //         }
             //     ]
             // },
-            {
-                "label": '系统设置',
-                "icon": 'mdi-settings-outline',
-                "children": [
-                    {
-                        "link": '/admin_user_setting',
-                        "name": '员工管理'
-                    }
-                ]
-            }
         ];
 
         return (

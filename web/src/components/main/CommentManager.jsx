@@ -136,7 +136,7 @@ class CommentManager extends React.Component {
                         <TextInput s={3} label="评论编号" value={commentManagerReducer.conditionCommentId} onChange={this.changeConditionCommentId}/>
                         <div className="input-field col s3">
                             <Select
-                                options={sysConst.COMMENT_TYPE}
+                                options={sysConst.MESSAGE_TYPE}
                                 onChange={changeConditionType}
                                 value={commentManagerReducer.conditionType}
                                 isSearchable={false}
@@ -212,7 +212,7 @@ class CommentManager extends React.Component {
                                         {/* 评论编号 */}
                                         <td>{item._id}</td>
                                         {/* 评论类型 */}
-                                        <td>{commonUtil.getJsonValue(sysConst.COMMENT_TYPE, item.messages_type)}</td>
+                                        <td>{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.messages_type)}</td>
                                         {/* 注册手机 */}
                                         <td>{item.user_login_info[0].phone}</td>
                                         {/* 文章编号 */}

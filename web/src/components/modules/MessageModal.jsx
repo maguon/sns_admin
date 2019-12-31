@@ -75,8 +75,6 @@ class MessageModal extends React.Component {
      */
     changeMsgContent = (event) => {
         this.props.setMsgContent(event.target.value);
-        console.log('this.props.messageModalReducer.phone',this.props.messageModalReducer.phone);
-
     };
 
     /**
@@ -84,7 +82,6 @@ class MessageModal extends React.Component {
      */
     render() {
         const {messageModalReducer, changeMsgUserType, closeModal, saveMessage} = this.props;
-        console.log('messageModalReducer', messageModalReducer);
         return (
             <div id="messageModal" className="modal modal-fixed-footer row">
 

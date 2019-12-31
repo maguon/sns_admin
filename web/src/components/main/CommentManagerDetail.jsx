@@ -1,13 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import {TextInput} from 'react-materialize';
-import {CommentManagerDetailActionType} from '../../types';
 
 const commentManagerDetailAction = require('../../actions/main/CommentManagerDetailAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 
+// 评论管理 - 评论详情
 class CommentManagerDetail extends React.Component {
 
     /**
@@ -21,59 +20,9 @@ class CommentManagerDetail extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        // 默认第一页
-        this.props.setDetailStartNumber(0);
-        // 清空检索条件
-        this.props.setConditionCreatedOnStart('');
-        this.props.setConditionCreatedOnEnd('');
-
-        // 取得推广人基本信息
-        this.props.getRecommendInfo();
-        // 检索改推广人，推荐用户
-        this.props.getUserList();
+        // 取得基本信息
+        this.props.getCommentInfo();
     }
-
-    /**
-     * 更新 检索条件：选择时间(始)
-     */
-    changeConditionCreatedOnStart = (event, value) => {
-        this.props.setConditionCreatedOnStart(value);
-    };
-
-    /**
-     * 更新 检索条件：选择时间(始)
-     */
-    changeConditionCreatedOnEnd = (event, value) => {
-        this.props.setConditionCreatedOnEnd(value);
-    };
-
-    /**
-     * 查询线路列表
-     */
-    queryLoadTaskList = () => {
-        // 默认第一页
-        this.props.setDetailStartNumber(0);
-        // 取得推广人基本信息
-        this.props.getRecommendInfo();
-        // 检索改推广人，推荐用户
-        this.props.getUserList();
-    };
-
-    /**
-     * 上一页
-     */
-    preBtn = () => {
-        this.props.setDetailStartNumber(this.props.commentManagerDetailReducer.detailStart - (this.props.commentManagerDetailReducer.detailSize - 1));
-        this.props.getUserList();
-    };
-
-    /**
-     * 下一页
-     */
-    nextBtn = () => {
-        this.props.setDetailStartNumber(this.props.commentManagerDetailReducer.detailStart + (this.props.commentManagerDetailReducer.detailSize - 1));
-        this.props.getUserList();
-    };
 
     render() {
         const {commentManagerDetailReducer} = this.props;
@@ -82,7 +31,7 @@ class CommentManagerDetail extends React.Component {
                 {/* 标题部分 */}
                 <div className="row margin-bottom0">
                     <div className="input-field col s12">
-                        <Link to={{pathname: '/recommend_business', state: {fromDetail: true}}}>
+                        <Link to={{pathname: '/comment', state: {fromDetail: true}}}>
                             <a className="btn-floating btn waves-effect custom-blue waves-light fz15">
                                 <i className="mdi mdi-arrow-left-bold"/>
                             </a>
@@ -92,107 +41,57 @@ class CommentManagerDetail extends React.Component {
                     </div>
                 </div>
 
-                <div className="row">
-                    {/* TAB 头部 */}
+                {/* 文章 */}
+                {commentManagerDetailReducer.articleInfo.length > 0 &&
+                <div className="row margin-top20 margin-left20 margin-right20">
+
+                    {/* 文章作者 头像 */}
+                    <div className="col s1 margin-top10 center">
+                        {/*{commentManagerDetailReducer.articleInfo[0].user_detail_info[0].avatar !== null && commentManagerDetailReducer.articleInfo[0].user_detail_info[0].avatar !== '' &&*/}
+                        <img className="circle height-90" src={commentManagerDetailReducer.articleInfo[0].user_detail_info[0].avatar}/>
+                        {/*}*/}
+                    </div>
+
+                    {/* 文章作者 昵称 */}
+                    <div className="col s5">
+                        {commentManagerDetailReducer.articleInfo[0].user_detail_info[0].nick_name}
+                    </div>
+
+                    {/* 文章 发布时间 / 地址 */}
+                    <div className="col s6">
+                        发布时间：{formatUtil.getDateTime(commentManagerDetailReducer.articleInfo[0].created_at)}
+                        <div className="margin-top10">
+                            <i className="mdi mdi-map-marker margin-right10"/>
+                            {commentManagerDetailReducer.articleInfo[0].addressName}
+                        </div>
+                    </div>
+
+                    {/* 文章内容 */}
+                    <div className="col s12">{commentManagerDetailReducer.articleInfo[0].info}</div>
+                </div>}
+
+                {/* 评论 */}
+                {commentManagerDetailReducer.commentInfo.length > 0 &&
+                <div className="row margin-top20 margin-left20 margin-right20">
                     <div className="col s12">
-                        {/* 用户详情：基本信息 */}
-                        {commentManagerDetailReducer.recommendInfo.length > 0 &&
-                        <div className="recommend-business-detail-header grey-text text-darken-1">
-                            {/* 推广人ID，姓名 */}
+                        <div className="col s12 detail-box grey lighten-3 border-bottom-line">
+                            <div className="col s12">
+                                {commentManagerDetailReducer.commentInfo[0].user_detail_info[0].nick_name}
+                            </div>
+                            {/* 评论者 ID / 手机 */}
                             <div className="col s6">
-                                <div className="margin-top15">{commentManagerDetailReducer.recommendInfo[0].id}</div>
-                                <div className="margin-top10 fz18 purple-font">{commentManagerDetailReducer.recommendInfo[0].name}</div>
+                                ID：{commentManagerDetailReducer.commentInfo[0].user_login_info[0]._id}
+                                <span className="margin-left20">手机：{commentManagerDetailReducer.commentInfo[0].user_login_info[0].phone}</span>
                             </div>
-                            {/* 推广码 */}
-                            <div className="col s6 right-align padding-top5">
-                                <img className="img-size-80" src={commentManagerDetailReducer.recommendInfo[0].mp_url}/>
-                            </div>
-                        </div>}
-                    </div>
-                </div>
-
-                {/* 上部分：检索条件输入区域 */}
-                <div className="row grey-text text-darken-1 margin-bottom0">
-                    <div className="col s11 search-condition-box">
-                        {/* 查询条件：选择时间(始) */}
-                        <div className="input-field col s3 custom-input-field">
-                            <TextInput s={12} label="选择时间(始)" type='date' options={sysConst.DATE_PICKER_OPTION}
-                                   value={commentManagerDetailReducer.conditionCreatedOnStart} onChange={this.changeConditionCreatedOnStart} />
-                            <span className="mdi data-icon mdi-table-large"/>
+                            {/* 评论时间 */}
+                            <div className="col s6 right-align">评论时间：{formatUtil.getDateTime(commentManagerDetailReducer.commentInfo[0].created_at)}</div>
                         </div>
-
-                        {/* 查询条件：选择时间(终) */}
-                        <div className="input-field col s3 custom-input-field">
-                            <TextInput s={12} label="选择时间(终)" type='date' options={sysConst.DATE_PICKER_OPTION}
-                                   value={commentManagerDetailReducer.conditionCreatedOnEnd} onChange={this.changeConditionCreatedOnEnd} />
-                            <span className="mdi data-icon mdi-table-large"/>
+                        {/* 评论内容 */}
+                        <div className="col s12 detail-box">
+                            {commentManagerDetailReducer.commentInfo[0].commentsMsg}
                         </div>
                     </div>
-
-                    {/* 查询按钮 */}
-                    <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryLoadTaskList}>
-                            <i className="mdi mdi-magnify"/>
-                        </a>
-                    </div>
-                </div>
-
-                {/* 下部分：检索结果显示区域 */}
-                <div className="row">
-                    {/* 用户统计数据 */}
-                    {commentManagerDetailReducer.recommendInfo.length > 0 &&
-                    <div className="col s12 grey-text text-darken-1">
-                        <div className="col s12 custom-grey grey-text text-darken-1 border-top-line border-bottom-line padding-top15 padding-bottom15">
-                            <div className="col s6">授权用户：<span className="pink-font">{formatUtil.formatNumber(commentManagerDetailReducer.recommendInfo[0].user_count)}</span></div>
-                            <div className="col s6 right-align">认证用户：<span className="pink-font">{formatUtil.formatNumber(commentManagerDetailReducer.recommendInfo[0].auth_count)}</span></div>
-                        </div>
-                    </div>}
-                    <div className="col s12">
-                        <table className="bordered">
-                            <thead>
-                            <tr className="grey-text text-darken-2">
-                                <th className="padding-left20">用户ID</th>
-                                <th>昵称</th>
-                                <th>手机</th>
-                                <th className="center">授权时间</th>
-                                <th className="center">认证时间</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {commentManagerDetailReducer.userArray.map(function (item) {
-                                return (
-                                    <tr className="grey-text text-darken-1">
-                                        <td className="padding-left20">{item.id}</td>
-                                        <td>{item.wechat_name}</td>
-                                        <td>{item.phone}</td>
-                                        <td className="center">{formatUtil.getDateTime(item.created_on)}</td>
-                                        <td className="center">{formatUtil.getDateTime(item.auth_time)}</td>
-                                    </tr>
-                                )
-                            },this)}
-                            { commentManagerDetailReducer.userArray.length === 0 &&
-                            <tr className="grey-text text-darken-1">
-                                <td className="no-data-tr" colSpan="5">暂无数据</td>
-                            </tr>
-                            }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    {/* 上下页按钮 */}
-                    <div className="col s12 margin-top10">
-                        <div className="right">
-                            {commentManagerDetailReducer.detailStart > 0 && commentManagerDetailReducer.detailDataSize > 0 &&
-                            <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.preBtn}>
-                                上一页
-                            </a>}
-                            {commentManagerDetailReducer.detailDataSize >= commentManagerDetailReducer.detailSize &&
-                            <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.nextBtn}>
-                                下一页
-                            </a>}
-                        </div>
-                    </div>
-                </div>
+                </div>}
             </div>
         )
     }
@@ -206,20 +105,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     // 基本信息
-    getRecommendInfo: () => {
-        dispatch(commentManagerDetailAction.getRecommendInfo(ownProps.match.params.id))
-    },
-    getUserList: () => {
-        dispatch(commentManagerDetailAction.getUserList(ownProps.match.params.id))
-    },
-    setDetailStartNumber: (start) => {
-        dispatch(CommentManagerDetailActionType.setDetailStartNumber(start))
-    },
-    setConditionCreatedOnStart: (value) => {
-        dispatch(CommentManagerDetailActionType.setConditionCreatedOnStart(value))
-    },
-    setConditionCreatedOnEnd: (value) => {
-        dispatch(CommentManagerDetailActionType.setConditionCreatedOnEnd(value))
+    getCommentInfo: () => {
+        dispatch(commentManagerDetailAction.getCommentInfo(ownProps.match.params.id))
     }
 });
 

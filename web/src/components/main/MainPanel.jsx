@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-// import {Tab, Tabs} from "react-materialize";
 
 const formatUtil = require('../../utils/FormatUtil');
 const mainPanelAction = require('../../actions/main/MainPanelAction');
@@ -20,7 +19,6 @@ class MainPanel extends React.Component {
      */
     componentDidMount() {
         this.props.initData();
-        $('.tabs').tabs();
     }
 
     render() {
@@ -34,13 +32,6 @@ class MainPanel extends React.Component {
                         <div className="divider custom-divider margin-top10"/>
                     </div>
                 </div>
-
-                {/*<Tabs className='tab-demo z-depth-1' onChange={showFirst}>*/}
-                {/*    <Tab title="Test 1" idx="1000" className="first">Test 1222222222222222222</Tab>*/}
-                {/*    <Tab title="Test 2" idx="1001" className="second" active>Test 233333333333333333333</Tab>*/}
-                {/*    <Tab title="Test 3" idx="1002" className="third">Test 44444444444443</Tab>*/}
-                {/*    <Tab title="Test 4" idx="1003" className="fouth">Test 555555555555555554</Tab>*/}
-                {/*</Tabs>*/}
 
                 {/* 上： 本月收入 本月利润 本月支付供应商 */}
                 <div className="row margin-top20 white-text">

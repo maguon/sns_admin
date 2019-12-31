@@ -1,6 +1,6 @@
 import {createAction} from 'redux-actions';
 
-export const getCommentList = createAction('GET_COMMENT__DATA_LIST');
+export const getCommentList = createAction('GET_COMMENT_DATA_LIST');
 export const setStartNumber = createAction('SET_START_NUMBER');
 export const setDataSize = createAction('SET_DATA_SIZE');
 

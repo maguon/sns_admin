@@ -197,6 +197,10 @@ body {
     margin-right: 10px !important;
 }
 
+.margin-right20 {
+    margin-right: 20px !important;
+}
+
 .margin-right50 {
     margin-right: 50px !important;
 }
@@ -312,6 +316,10 @@ body {
 
 .fz30 {
     font-size: 30px;
+}
+
+.height-60 {
+    height: 60px !important;
 }
 
 .height-90 {

@@ -5,64 +5,37 @@ const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
 
-export const getRecommendInfo = (recommendId) => async (dispatch, getState) => {
+// 获取评论信息
+export const getCommentInfo = (id) => async (dispatch) => {
     try {
-        // 检索条件：选择时间
-        const conditionCreatedOnStart = getState().CommentManagerDetailReducer.conditionCreatedOnStart;
-        const conditionCreatedOnEnd = getState().CommentManagerDetailReducer.conditionCreatedOnEnd;
-
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/achievement?recommendId=' + recommendId;
-        // 检索条件
-        let conditionsObj = {
-            // 检索条件：推荐时间
-            recommendOnStart: conditionCreatedOnStart,
-            recommendOnEnd: conditionCreatedOnEnd
-        };
-        let conditions = httpUtil.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
+            + '/messageComments?messageCommentsId=' + id;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
-            dispatch({type: CommentManagerDetailActionType.getRecommendInfo, payload: res.result});
+            dispatch({type: CommentManagerDetailActionType.getCommentInfo, payload: res.result});
+            if (res.result.length > 0) {
+                dispatch(getArticleInfo(res.result[0].messages_info[0]._id));
+            }
         } else if (res.success === false) {
-            swal('获取推广人基本信息失败', res.msg, 'warning');
+            swal('获取评论信息失败', res.msg, 'warning');
         }
     } catch (err) {
         swal('操作失败', err.message, 'error');
     }
 };
 
-export const getUserList = (recommendId) => async (dispatch, getState) => {
+// 获取文章信息
+export const getArticleInfo = (articleId) => async (dispatch) => {
     try {
-        // 检索条件：开始位置
-        const start = getState().CommentManagerDetailReducer.detailStart;
-        // 检索条件：每页数量
-        const size = getState().CommentManagerDetailReducer.detailSize;
-        // 检索条件：选择时间
-        const conditionCreatedOnStart = getState().CommentManagerDetailReducer.conditionCreatedOnStart;
-        const conditionCreatedOnEnd = getState().CommentManagerDetailReducer.conditionCreatedOnEnd;
-
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/user?start=' + start + '&size=' + size + '&recommendId=' + recommendId;
-
-        // 检索条件
-        let conditionsObj = {
-            // 检索条件：创建时间
-            createdOnStart: conditionCreatedOnStart,
-            createdOnEnd: conditionCreatedOnEnd
-        };
-        let conditions = httpUtil.objToUrl(conditionsObj);
-        // 检索URL
-        url = conditions.length > 0 ? url + "&" + conditions : url;
+            + '/messages?messagesId=' + articleId;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
-            dispatch({type: CommentManagerDetailActionType.setDetailDataSize, payload: res.result.length});
-            dispatch({type: CommentManagerDetailActionType.getUserList, payload: res.result.slice(0, size - 1)});
+            dispatch({type: CommentManagerDetailActionType.getArticleInfo, payload: res.result});
         } else if (res.success === false) {
-            swal('获取用户列表信息失败', res.msg, 'warning');
+            swal('获取文章信息失败', res.msg, 'warning');
         }
     } catch (err) {
         swal('操作失败', err.message, 'error');

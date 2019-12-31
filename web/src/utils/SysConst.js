@@ -137,16 +137,30 @@ export const USER_STATUS = [
 
 
 
-// 评论类型
-export const COMMENT_TYPE = [
+// 消息类型 1.文章 2.求助
+export const MESSAGE_TYPE = [
     {value: 1, label: "文章"},
     {value: 2, label: "求助"}
 ];
 
-// 评论类型
+// 载体类型 1.文本 2.图片 3.视频 4.位置分享
+export const CARRIER_TYPE = [
+    {value: 1, label: "文本"},
+    {value: 2, label: "图片"},
+    {value: 3, label: "视频"},
+    {value: 4, label: "位置分享"}
+];
+
+// 评论状态
 export const COMMENT_STATUS = [
     {value: 0, label: "屏蔽"},
     {value: 1, label: "正常"}
+];
+
+// 文章状态 0-不可见，1-可见(默认)
+export const ARTICLE_STATUS = [
+    {value: 0, label: "不可见"},
+    {value: 1, label: "可见"}
 ];
 
 // 消息类型
