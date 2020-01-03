@@ -163,6 +163,13 @@ export const ARTICLE_STATUS = [
     {value: 1, label: "可见"}
 ];
 
+// 投票状态（0-未开启，1-进行中，3-已结束）
+export const VOTE_STATUS = [
+    {value: 0, label: "未开启"},
+    {value: 1, label: "进行中"},
+    {value: 2, label: "已结束"}
+];
+
 // 消息类型
 export const MSG_TYPE = [
     {value: 1, label: "系统消息"},

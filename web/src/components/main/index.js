@@ -8,13 +8,15 @@ export CommentManagerDetail from "./CommentManagerDetail";
 
 export ArticleManager from "./ArticleManager";
 export ArticleManagerDetail from "./ArticleManagerDetail";
-// export CommentManager from "./CommentManager";
-// export CommentManagerDetail from "./CommentManagerDetail";
+export VoteManager from "./VoteManager";
+export VoteManagerDetail from "./VoteManagerDetail";
 
 export MessageManager from "./MessageManager";
 
 export AdminUserSetting from "./AdminUserSetting";
 export AdminUserSettingDetail from "./AdminUserSettingDetail";
+
+
 
 
 export OrderStatistic from "./OrderStatistic";

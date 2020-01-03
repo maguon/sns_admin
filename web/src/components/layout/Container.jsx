@@ -12,8 +12,8 @@ import {
     ArticleManager,
     ArticleManagerDetail,
     // 投票管理
-    // VoteManager,
-    // VoteManagerDetail,
+    VoteManager,
+    VoteManagerDetail,
     // 评论管理
     CommentManager,
     CommentManagerDetail,
@@ -65,16 +65,16 @@ const routes = [
         component: ArticleManagerDetail
     },
     // 投票管理
-    // {
-    //     path: "/vote",
-    //     exact: true,
-    //     component: VoteManager
-    // },
-    // {
-    //     path: '/vote/:id',
-    //     exact: true,
-    //     component: VoteManagerDetail
-    // },
+    {
+        path: "/vote",
+        exact: true,
+        component: VoteManager
+    },
+    {
+        path: '/vote/:id',
+        exact: true,
+        component: VoteManagerDetail
+    },
 
     // 评论管理
     {
@@ -268,7 +268,7 @@ class Container extends React.Component {
                         <li>
                             <div className="user-view blue-grey">
                                 <img className="circle" src={avatarUrl}/>
-                                <span className="white-text name">Name:{headerReducer.userInfo.real_name}</span>
+                                <span className="white-text name">Name:{headerReducer.userInfo.name}</span>
                                 <span className="white-text email">Phone:{headerReducer.userInfo.phone}</span>
                             </div>
                         </li>

@@ -9,8 +9,8 @@ import * as UserManagerDetailActionType  from './main/UserManagerDetailActionTyp
 
 import * as ArticleManagerActionType  from './main/ArticleManagerActionType';
 import * as ArticleManagerDetailActionType  from './main/ArticleManagerDetailActionType';
-// import * as CommentManagerActionType  from './main/CommentManagerActionType';
-// import * as CommentManagerDetailActionType  from './main/CommentManagerDetailActionType';
+import * as VoteManagerActionType  from './main/VoteManagerActionType';
+import * as VoteManagerDetailActionType  from './main/VoteManagerDetailActionType';
 
 import * as CommentManagerActionType  from './main/CommentManagerActionType';
 import * as CommentManagerDetailActionType  from './main/CommentManagerDetailActionType';
@@ -39,8 +39,8 @@ export  {
 
     ArticleManagerActionType,
     ArticleManagerDetailActionType,
-    // ArticleManagerActionType,
-    // ArticleManagerDetailActionType,
+    VoteManagerActionType,
+    VoteManagerDetailActionType,
 
     CommentManagerActionType,
     CommentManagerDetailActionType,
