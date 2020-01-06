@@ -14,6 +14,7 @@ import ArticleManagerReducer from './main/ArticleManagerReducer';
 import ArticleManagerDetailReducer from './main/ArticleManagerDetailReducer';
 import VoteManagerReducer from './main/VoteManagerReducer';
 import VoteManagerDetailReducer from './main/VoteManagerDetailReducer';
+import NewVoteModalReducer from './modules/NewVoteModalReducer';
 
 import CommentManagerReducer from './main/CommentManagerReducer';
 import CommentManagerDetailReducer from './main/CommentManagerDetailReducer';
@@ -45,6 +46,7 @@ export default combineReducers({
     ArticleManagerDetailReducer,
     VoteManagerReducer,
     VoteManagerDetailReducer,
+    NewVoteModalReducer,
 
     CommentManagerReducer,
     CommentManagerDetailReducer,

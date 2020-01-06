@@ -4,14 +4,15 @@ import {Link} from "react-router-dom";
 import {TextInput, DatePicker} from 'react-materialize';
 import {VoteManagerActionType} from '../../types';
 import Select from "react-select";
-import {MessageModal} from "../modules";
+import {NewVoteModal} from "../modules";
 
 const voteManagerAction = require('../../actions/main/VoteManagerAction');
+const newVoteModalAction = require('../../actions/modules/NewVoteModalAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 const commonUtil = require('../../utils/CommonUtil');
 
-// 文章管理
+// 投票管理
 class VoteManager extends React.Component {
 
     /**
@@ -46,7 +47,7 @@ class VoteManager extends React.Component {
     };
 
     /**
-     * 更新 检索条件：内容检索
+     * 更新 检索条件：标题检索
      */
     changeConditionTitle = (event) => {
         this.props.setConditionTitle(event.target.value);
@@ -111,6 +112,14 @@ class VoteManager extends React.Component {
         this.props.deleteVote(messageCommentsId);
     };
 
+    /**
+     * 显示 新建 投票模态
+     */
+    showVoteModal = () => {
+        this.props.initVoteModalData();
+        $('#newVoteModal').modal('open');
+    };
+
     render() {
         const {voteManagerReducer, changeConditionStatus} = this.props;
         console.log('',voteManagerReducer);
@@ -119,7 +128,7 @@ class VoteManager extends React.Component {
                 {/* 标题部分 */}
                 <div className="row">
                     <div className="input-field col s12 page-title">
-                        <span className="margin-left10">文章管理</span>
+                        <span className="margin-left10">投票管理</span>
                         <div className="divider custom-divider margin-top10"/>
                     </div>
                 </div>
@@ -170,11 +179,11 @@ class VoteManager extends React.Component {
 
                     {/* 追加按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={() => {this.showMessageModal('new',null)}}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={() => {this.showVoteModal()}}>
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>
-                    {/*<MessageModal/>*/}
+                    <NewVoteModal/>
                 </div>
 
                 {/* 下部分：检索结果显示区域 */}
@@ -289,7 +298,9 @@ const mapDispatchToProps = (dispatch) => ({
     setConditionCreatedOnEnd: (value) => {
         dispatch(VoteManagerActionType.setConditionCreatedOnEnd(value))
     },
-
+    initVoteModalData: () => {
+        dispatch(newVoteModalAction.initNewVoteModal());
+    },
     deleteVote: (id) => {
         dispatch(voteManagerAction.deleteVote(id));
     }

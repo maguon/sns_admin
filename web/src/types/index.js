@@ -11,6 +11,7 @@ import * as ArticleManagerActionType  from './main/ArticleManagerActionType';
 import * as ArticleManagerDetailActionType  from './main/ArticleManagerDetailActionType';
 import * as VoteManagerActionType  from './main/VoteManagerActionType';
 import * as VoteManagerDetailActionType  from './main/VoteManagerDetailActionType';
+import * as NewVoteModalActionType  from './modules/NewVoteModalActionType';
 
 import * as CommentManagerActionType  from './main/CommentManagerActionType';
 import * as CommentManagerDetailActionType  from './main/CommentManagerDetailActionType';
@@ -41,6 +42,7 @@ export  {
     ArticleManagerDetailActionType,
     VoteManagerActionType,
     VoteManagerDetailActionType,
+    NewVoteModalActionType,
 
     CommentManagerActionType,
     CommentManagerDetailActionType,
