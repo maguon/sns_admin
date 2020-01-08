@@ -10,7 +10,7 @@ export const getCommentInfo = (id) => async (dispatch) => {
     try {
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/messageComments?messageCommentsId=' + id;
+            + '/msgComment?messageCommentsId=' + id;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommentManagerDetailActionType.getCommentInfo, payload: res.result});

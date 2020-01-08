@@ -212,17 +212,17 @@ class CommentManager extends React.Component {
                                         {/* 评论编号 */}
                                         <td>{item._id}</td>
                                         {/* 评论类型 */}
-                                        <td>{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.messages_type)}</td>
+                                        <td>{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.msg_type)}</td>
                                         {/* 注册手机 */}
                                         <td>{item.user_login_info[0].phone}</td>
                                         {/* 文章编号 */}
-                                        <td>{item._messageId}</td>
+                                        <td>{item._msg_id}</td>
                                         {/* 评论内容 */}
-                                        <td>{item.commentsMsg}</td>
+                                        <td>{item.comments}</td>
                                         {/* 评论数 */}
-                                        <td>{formatUtil.formatNumber(item.commentsNum)}</td>
+                                        <td>{formatUtil.formatNumber(item.comments_num)}</td>
                                         {/* 点赞数 */}
-                                        <td>{formatUtil.formatNumber(item.agreeNum)}</td>
+                                        <td>{formatUtil.formatNumber(item.agree_num)}</td>
 
                                         {/* 评论时间 */}
                                         <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
