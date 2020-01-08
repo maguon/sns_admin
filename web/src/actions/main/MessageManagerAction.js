@@ -22,12 +22,12 @@ export const getMessageList = () => async (dispatch, getState) => {
 
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/systemMessage?start=' + start + '&size=' + size;
+            + '/sysMsg?start=' + start + '&size=' + size;
 
         // 检索条件
         let conditionsObj = {
             // 检索条件：消息编号
-            systemMessageId: conditionId,
+            sysMsgId: conditionId,
             // 检索条件：接收人手机
             phone: conditionReceiverPhone,
             // 检索条件：发送时间

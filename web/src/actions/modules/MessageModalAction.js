@@ -57,12 +57,12 @@ export const saveMessage = () => async (dispatch, getState) => {
             const params = {
                 type: msgUserType === null ? '' : msgUserType.value,
                 // 用户ID
-                _userId: userId,
+                userId: userId,
                 // 消息内容
                 info: msgContent
             };
             // 基本url
-            let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + "/systemMessage";
+            let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + "/sysMsg";
             let res = await httpUtil.httpPost(url, params);
             if (res.success === true) {
                 $('#messageModal').modal('close');
