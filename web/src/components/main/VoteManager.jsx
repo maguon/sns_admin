@@ -201,18 +201,18 @@ class VoteManager extends React.Component {
                                         {/* 投票编号 */}
                                         <td>{item._id}</td>
                                         {/* 最多选项数 */}
-                                        <td>{formatUtil.formatNumber(item.maxNum)}</td>
+                                        <td>{formatUtil.formatNumber(item.max_num)}</td>
                                         {/* 投票标题 */}
                                         <td>{item.title}</td>
                                         {/* 参与人数 */}
-                                        <td>{formatUtil.formatNumber(item.participantsNum)}</td>
+                                        <td>{formatUtil.formatNumber(item.participants_num)}</td>
                                         {/* 发布人 */}
                                         <td>{item.admin_info[0].name}</td>
 
                                         {/* 发布时间 */}
                                         <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                         {/* 截止时间 */}
-                                        <td className="center">{formatUtil.getDateTime(item.endTime)}</td>
+                                        <td className="center">{formatUtil.getDateTime(item.end_time)}</td>
                                         {/* 状态 */}
                                         <td className="center">{commonUtil.getJsonValue(sysConst.VOTE_STATUS, item.status)}</td>
                                         {/* 操作 */}

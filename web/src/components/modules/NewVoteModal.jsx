@@ -1,11 +1,10 @@
 import React from 'react';
-import {DatePicker, Textarea, TextInput, Modal, Button} from 'react-materialize';
+import {DatePicker, Textarea, TextInput, Modal} from 'react-materialize';
 import {connect} from 'react-redux';
 import {NewVoteModalActionType} from "../../types";
 
 const newVoteModalAction = require('../../actions/modules/NewVoteModalAction');
 const sysConst = require('../../utils/SysConst');
-const commonUtil = require('../../utils/CommonUtil');
 const formatUtil = require('../../utils/FormatUtil');
 
 class NewVoteModal extends React.Component {
@@ -74,13 +73,30 @@ class NewVoteModal extends React.Component {
     /**
      * 添加 输入投票选项
      */
-    addVoteOption = (event) => {
-        //
+    addVoteOption = () => {
+        // 输入投票选项列表
         let options = this.props.newVoteModalReducer.options;
-        console.log('options',options);
-        console.log('inputOption',this.props.newVoteModalReducer.inputOption);
-        options.push({txt: this.props.newVoteModalReducer.inputOption});
-        console.log('options',options);
+        // 输入投票选项内容
+        let inputOption = this.props.newVoteModalReducer.inputOption.trim();
+        if (inputOption === '') {
+            swal('', '投票选项内容不能为空！', 'warning');
+        } else {
+            // 将当前 输入投票选项 添加到数组
+            options.push({txt: inputOption});
+            // 清空 输入投票选项
+            this.props.setVoteInputOption('');
+            // 更新 输入投票选项列表
+            this.props.setVoteOptions(options);
+        }
+    };
+
+    /**
+     * 删除指定 输入投票选项
+     * @param index 删除数组索引
+     */
+    deleteVote = (index) => {
+        let options = this.props.newVoteModalReducer.options;
+        options.splice(index, 1);
         this.props.setVoteOptions(options);
     };
 
@@ -89,7 +105,6 @@ class NewVoteModal extends React.Component {
      */
     render() {
         const {newVoteModalReducer, saveVote} = this.props;
-        console.log('newVoteModalReducer',newVoteModalReducer);
         return (
             <Modal
                 actions={[
@@ -115,7 +130,7 @@ class NewVoteModal extends React.Component {
                     startingTop: '4%'
                 }}
             >
-                <div className="row margin-top40 padding-left20 padding-right20">
+                <div className="row margin-top20 padding-left20 padding-right20">
                     <TextInput s={12} label="标题" maxLength="20" value={newVoteModalReducer.title} onChange={this.changeVoteTitle}/>
                     <Textarea s={12} label="内容" maxLength="200" value={newVoteModalReducer.info} onChange={this.changeVoteInfo}/>
 
@@ -133,24 +148,25 @@ class NewVoteModal extends React.Component {
                         <span className="mdi data-icon mdi-table-large"/>
                     </div>
 
-
-                    <TextInput s={9} label="输入投票选项" maxLength="30" value={newVoteModalReducer.inputOption} onChange={this.changeVoteInputOption}/>
+                    <TextInput s={11} label="投票选项" maxLength="30" value={newVoteModalReducer.inputOption} onChange={this.changeVoteInputOption}/>
                     {/* 追加按钮 */}
-                    <div className="col s3">
-                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={() => {this.addVoteOption()}}>
+                    <div className="input-field col s1 right-align">
+                        <a className="btn-floating btn-small waves-light waves-effect btn add-btn" onClick={() => {this.addVoteOption()}}>
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>
 
                     {newVoteModalReducer.options.map(function (item, key) {
                         return (
-                            <div className="col s12 grey-text text-darken-1">
+                            <div className="col s12 grey-text text-darken-1 margin-top10">
                                 {/* 投票选项内容 */}
-                                <div className="col s9">{item.txt} / {item.key}</div>
+                                <div className="col s11">{item.txt}</div>
                                 {/* 删除按钮 */}
-                                <div className="col s3">
-                                    <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteVote(item._id)}}/>
+                                <div className="col s1 no-padding right-align">
+                                    <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteVote(key)}}/>
                                 </div>
+                                {/* 分割线 */}
+                                <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
                             </div>
                         )
                     },this)}

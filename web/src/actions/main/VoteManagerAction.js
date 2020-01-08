@@ -45,12 +45,10 @@ export const getVoteList = () => async (dispatch, getState) => {
         let conditions = httpUtil.objToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
-        console.log('',url);
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: VoteManagerActionType.setDataSize, payload: res.result.length});
             dispatch({type: VoteManagerActionType.getVoteList, payload: res.result.slice(0, size - 1)});
-            console.log('',res.result);
         } else if (res.success === false) {
             swal('获取投票列表信息失败', res.msg, 'warning');
         }

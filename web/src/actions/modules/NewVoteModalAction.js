@@ -10,7 +10,7 @@ const voteManagerAction = require('../../actions/main/VoteManagerAction');
 // 新增员工画面 初期
 export const initNewVoteModal = () => async (dispatch) => {
     // 投票标题
-    dispatch({type: NewVoteModalActionType.setVoteTitle, payload: 'title............'});
+    dispatch({type: NewVoteModalActionType.setVoteTitle, payload: ''});
     // 投票内容
     dispatch({type: NewVoteModalActionType.setVoteInfo, payload: ''});
     // 最多选项数
@@ -39,34 +39,31 @@ export const saveVote = () => async (dispatch, getState) => {
         // 结束时间
         const endTime = getState().NewVoteModalReducer.endTime;
 
-        // // 输入投票选项
-        // const inputOption = getState().NewVoteModalReducer.inputOption.trim();
         // 投票选项列表
         const options = getState().NewVoteModalReducer.options;
 
-        console.log('saveVote');
-        // if (title === '' || info === '' || maxNum === '' || startTime === '' || endTime === '' || options.length === 0) {
-        //     swal('保存失败', '请输入完整的投票信息！', 'warning');
-        // } else {
-        //     const params = {
-        //         title: title,
-        //         info: info,
-        //         maxNum: maxNum,
-        //         startTime: startTime,
-        //         endTime: endTime,
-        //         option: options
-        //     };
-        //     // 基本url
-        //     let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + "/vote";
-        //     let res = await httpUtil.httpPost(url, params);
-        //     if (res.success === true) {
-        //         $('#newVoteModal').modal('close');
-        //         swal("保存成功", "", "success");
-        //         dispatch(voteManagerAction.getVoteList());
-        //     } else if (res.success === false) {
-        //         swal('保存失败', res.msg, 'warning');
-        //     }
-        // }
+        if (title === '' || info === '' || maxNum === '' || startTime === '' || endTime === '' || options.length === 0) {
+            swal('保存失败', '请输入完整的投票信息！', 'warning');
+        } else {
+            const params = {
+                title: title,
+                info: info,
+                maxNum: maxNum,
+                startTime: startTime,
+                endTime: endTime,
+                option: options
+            };
+            // 基本url
+            let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + "/vote";
+            let res = await httpUtil.httpPost(url, params);
+            if (res.success === true) {
+                $('#newVoteModal').modal('close');
+                swal("保存成功", "", "success");
+                dispatch(voteManagerAction.getVoteList());
+            } else if (res.success === false) {
+                swal('保存失败', res.msg, 'warning');
+            }
+        }
     } catch (err) {
         swal('操作失败', err.message, 'error');
     }
