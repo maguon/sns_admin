@@ -211,7 +211,7 @@ class UserManager extends React.Component {
                                 return (
                                     <tr className="grey-text text-darken-1">
                                         {/* 编号 */}
-                                        <td>{item._userId}</td>
+                                        <td>{item._user_id}</td>
                                         {/* 昵称 */}
                                         <td>{item.nick_name}</td>
                                         {/* 手机 */}
@@ -222,27 +222,27 @@ class UserManager extends React.Component {
                                         {/*/!* 驾照类型 *!/*/}
                                         {/*<td>{commonUtil.getJsonValue(sysConst.DRIVING_TYPE, item._userDriveId.driving_type)}</td>*/}
                                         {/* 发布文章 */}
-                                        <td>{item.messagesNum}</td>
+                                        <td>{item.msg_num}</td>
                                         {/* 关注 */}
-                                        <td>{item.followNum}</td>
+                                        <td>{item.follow_num}</td>
                                         {/* 被关注 */}
-                                        <td>{item.attentionNum}</td>
+                                        <td>{item.attention_num}</td>
 
                                         {/* 评论数 */}
-                                        <td>{item.commentsNum}</td>
+                                        <td>{item.comments_num}</td>
                                         {/* 参与投票 */}
-                                        <td>{item.voteNum}</td>
+                                        <td>{item.vote_num}</td>
                                         {/* 收藏文章 */}
-                                        <td>{item.messageCollectionNum}</td>
+                                        <td>{item.msg_coll_num}</td>
                                         {/* 收藏位置 */}
-                                        <td>{item.locationCollectionNum}</td>
+                                        <td>{item.loca_coll_num}</td>
 
                                         {/* 注册时间 */}
                                         <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                         {/* 状态 */}
                                         <td>{commonUtil.getJsonValue(sysConst.USER_STATUS, item.user_login_info[0].status)}</td>
                                         <td className="operation center">
-                                            <Link to={{pathname: '/user/' + item._userId}}>
+                                            <Link to={{pathname: '/user/' + item._user_id}}>
                                                 <i className="mdi mdi-table-search purple-font"/>
                                             </Link>
                                         </td>
