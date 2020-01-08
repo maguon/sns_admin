@@ -8,7 +8,7 @@ const initialState = {
     // 投票内容
     info: '',
     // 最多选项数
-    maxNum: null,
+    maxNum: '',
     // 开始时间
     startTime: '',
     // 结束时间

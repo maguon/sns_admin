@@ -161,7 +161,6 @@ class UserManagerDetail extends React.Component {
      */
     showInquiryInfoModal = (inquiryId) => {
         this.props.initInquiryInfoModalData(inquiryId);
-        $('#inquiryInfoModal').modal('open');
     };
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Textarea, Autocomplete} from 'react-materialize';
+import {Textarea, Autocomplete, Modal} from 'react-materialize';
 import {connect} from 'react-redux';
 import {MessageModalActionType} from "../../types";
 import Select from "react-select";
@@ -21,21 +21,6 @@ class MessageModal extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        $('.modal').modal(
-            {
-                onOpenStart: () => {
-                },
-                // 每次模态打开时，手动设定 手机 autocomplete组件 显示内容为 Reducer中的值
-                onOpenEnd: () => {
-                    $('input.autocomplete').val(this.props.messageModalReducer.phone);
-                    $('input.autocomplete').focus();
-                },
-                onCloseStart: () => {
-                },
-                onCloseEnd: () => {
-                }
-            }
-        );
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -81,71 +66,84 @@ class MessageModal extends React.Component {
      * 渲染(挂载)画面。
      */
     render() {
-        const {messageModalReducer, changeMsgUserType, closeModal, saveMessage} = this.props;
+        const {messageModalReducer, changeMsgUserType, saveMessage} = this.props;
         return (
-            <div id="messageModal" className="modal modal-fixed-footer row">
-
-                {/** Modal头部：Title */}
-                <div className="modal-title center-align white-text">{messageModalReducer.pageType === 'new' ? '发布消息' : '消息详情'}</div>
-
+            <Modal
+                actions={[
+                    <button type="button" className="btn close-btn modal-close">取消</button>,
+                    messageModalReducer.pageType === 'new' &&
+                    <button type="button" className="btn confirm-btn margin-left20" onClick={saveMessage}>确定</button>
+                ]}
+                bottomSheet={false}
+                fixedFooter={true}
+                className="custom-modal"
+                header={messageModalReducer.pageType === 'new' ? '发布消息' : '消息详情'}
+                id="messageModal"
+                options={{
+                    dismissible: true,
+                    endingTop: '10%',
+                    inDuration: 250,
+                    onCloseEnd: null,
+                    onCloseStart: null,
+                    // 每次模态打开时，手动设定 手机 autocomplete组件 显示内容为 Reducer中的值
+                    onOpenEnd: () => {
+                        $('input.autocomplete').val(this.props.messageModalReducer.phone);
+                        $('input.autocomplete').focus();
+                    },
+                    onOpenStart: null,
+                    opacity: 0.5,
+                    outDuration: 250,
+                    preventScrolling: true,
+                    startingTop: '4%'
+                }}
+            >
                 {/** Modal主体 发布消息 */}
                 {messageModalReducer.pageType === 'new' &&
-                <div className="modal-content white grey-text text-darken-2">
-                    <div className="row margin-top20">
-                        <div className="input-field col s12">
-                            <Select
-                                options={sysConst.MSG_USER_TYPE}
-                                onChange={changeMsgUserType}
-                                value={messageModalReducer.msgUserType}
-                                isSearchable={false}
-                                placeholder={"请选择"}
-                                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
-                                isDisabled={true}
-                            />
-                            <label className="active">发送给用户</label>
-                        </div>
-
-                        <Autocomplete s={12}
-                                      ref={aotu => this.aotu = aotu}
-                                      title='手机'
-                                      onChange={this.changeUserPhone}
-                                      options={
-                                          {
-                                              data: {},
-                                              onAutocomplete: (val, e) => {
-                                                  this.selectUserPhone(val);
-                                              },
-                                              limit: 10,
-                                              minLength: 4
-                                          }
-                                      }
+                <div className="row margin-top20 padding-left20 padding-right20">
+                    <div className="input-field col s12">
+                        <Select
+                            options={sysConst.MSG_USER_TYPE}
+                            onChange={changeMsgUserType}
+                            value={messageModalReducer.msgUserType}
+                            isSearchable={false}
+                            placeholder={"请选择"}
+                            styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
+                            isDisabled={true}
                         />
-                        <Textarea s={12} label="内容" maxLength="200" value={messageModalReducer.msgContent} onChange={this.changeMsgContent}/>
+                        <label className="active">发送给用户</label>
                     </div>
+
+                    <Autocomplete s={12}
+                                  ref={aotu => this.aotu = aotu}
+                                  title='手机'
+                                  onChange={this.changeUserPhone}
+                                  options={
+                                      {
+                                          data: {},
+                                          onAutocomplete: (val, e) => {
+                                              this.selectUserPhone(val);
+                                          },
+                                          limit: 10,
+                                          minLength: 4
+                                      }
+                                  }
+                    />
+                    <Textarea s={12} label="内容" maxLength="200" value={messageModalReducer.msgContent} onChange={this.changeMsgContent}/>
                 </div>}
 
                 {/** Modal主体 消息详情 */}
                 {messageModalReducer.pageType === 'edit' &&
-                <div className="modal-content white grey-text text-darken-2">
-                    <div className="row margin-top20">
-                        <div className="col s6">{messageModalReducer.userNickName} ( ID：{messageModalReducer.msgUserId} )</div>
-                        <div className="col s6 right-align">手机：{messageModalReducer.phone}</div>
+                <div className="row margin-top20 padding-left20 padding-right20">
+                    <div className="col s6">{messageModalReducer.userNickName} ( ID：{messageModalReducer.msgUserId} )</div>
+                    <div className="col s6 right-align">手机：{messageModalReducer.phone}</div>
 
-                        <div className="col s12 margin-top20">
-                            <div className="col s12 detail-box grey-text padding-top10 padding-bottom10">{messageModalReducer.msgContent}</div>
-                        </div>
-
-                        <div className="col s12 margin-top20 right-align grey-text">发布时间：{messageModalReducer.createDate}</div>
+                    <div className="col s12 margin-top20">
+                        <div className="col s12 detail-box grey-text padding-top10 padding-bottom10">{messageModalReducer.msgContent}</div>
                     </div>
-                </div>}
 
-                {/** Modal固定底部：取消/确定按钮 */}
-                <div className="modal-footer">
-                    <button type="button" className="btn close-btn" onClick={closeModal}>取消</button>
-                    {messageModalReducer.pageType === 'new' &&
-                    <button type="button" className="btn confirm-btn margin-left20" onClick={saveMessage}>确定</button>}
-                </div>
-            </div>
+                    <div className="col s12 margin-top20 right-align grey-text">发布时间：{messageModalReducer.createDate}</div>
+                </div>}
+            </Modal>
         );
     }
 }
@@ -183,9 +181,6 @@ const mapDispatchToProps = (dispatch) => ({
     // 保存消息
     saveMessage: () => {
         dispatch(messageModalAction.saveMessage());
-    },
-    closeModal: () => {
-        $('#messageModal').modal('close');
     }
 });
 

@@ -81,16 +81,8 @@ class AdminUserSetting extends React.Component {
         this.props.getAdminList();
     };
 
-    /**
-     * 显示 新建 管理员模态
-     */
-    showNewAdminModal = () => {
-        this.props.initModalData();
-        $('#newAdminModal').modal('open');
-    };
-
     render() {
-        const {adminUserSettingReducer, changeConditionStatus} = this.props;
+        const {adminUserSettingReducer, changeConditionStatus, initModalData} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -133,7 +125,7 @@ class AdminUserSetting extends React.Component {
 
                     {/* 追加按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={this.showNewAdminModal}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn modal-trigger" href="#newAdminModal" onClick={initModalData}>
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>

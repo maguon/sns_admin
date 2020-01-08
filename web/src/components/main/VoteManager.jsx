@@ -112,17 +112,8 @@ class VoteManager extends React.Component {
         this.props.deleteVote(messageCommentsId);
     };
 
-    /**
-     * 显示 新建 投票模态
-     */
-    showVoteModal = () => {
-        this.props.initVoteModalData();
-        $('#newVoteModal').modal('open');
-    };
-
     render() {
-        const {voteManagerReducer, changeConditionStatus} = this.props;
-        console.log('',voteManagerReducer);
+        const {voteManagerReducer, changeConditionStatus, initVoteModalData} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -179,7 +170,7 @@ class VoteManager extends React.Component {
 
                     {/* 追加按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={() => {this.showVoteModal()}}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn modal-trigger" href="#newVoteModal" onClick={initVoteModalData}>
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>

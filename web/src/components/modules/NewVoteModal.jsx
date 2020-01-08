@@ -1,9 +1,12 @@
 import React from 'react';
-import {TextInput} from 'react-materialize';
+import {DatePicker, Textarea, TextInput, Modal, Button} from 'react-materialize';
 import {connect} from 'react-redux';
 import {NewVoteModalActionType} from "../../types";
 
 const newVoteModalAction = require('../../actions/modules/NewVoteModalAction');
+const sysConst = require('../../utils/SysConst');
+const commonUtil = require('../../utils/CommonUtil');
+const formatUtil = require('../../utils/FormatUtil');
 
 class NewVoteModal extends React.Component {
 
@@ -18,87 +21,141 @@ class NewVoteModal extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        $('.modal').modal();
     }
 
     /**
-     * 更新 管理员名称
+     * 更新 标题
      */
-    changeAdminName = (event) => {
-        this.props.setAdminName(event.target.value);
+    changeVoteTitle = (event) => {
+        this.props.setVoteTitle(event.target.value);
     };
 
     /**
-     * 更新 真实姓名
+     * 更新 投票内容
      */
-    changeRealName = (event) => {
-        this.props.setRealName(event.target.value);
+    changeVoteInfo = (event) => {
+        this.props.setVoteInfo(event.target.value);
     };
 
     /**
-     * 更新 手机
+     * 更新 最多选项数
      */
-    changePhone = (event) => {
-        this.props.setPhone(event.target.value);
+    changeVoteMaxNum = (event) => {
+        this.props.setVoteMaxNum(event.target.value);
     };
 
     /**
-     * 更新 密码
+     * 更新 检索条件：开始时间
      */
-    changePassword = (event) => {
-        this.props.setPassword(event.target.value);
+    changeVoteStartTime = (value) => {
+        this.props.setVoteStartTime(formatUtil.getDate(value));
+    };
+    clearVoteStartTime = () => {
+        this.props.setVoteStartTime('');
+    };
+
+    /**
+     * 更新 检索条件：结束时间
+     */
+    changeVoteEndTime = (value) => {
+        this.props.setVoteEndTime(formatUtil.getDate(value));
+    };
+    clearVoteEndTime = () => {
+        this.props.setVoteEndTime('');
+    };
+
+    /**
+     * 更新 输入投票选项
+     */
+    changeVoteInputOption = (event) => {
+        this.props.setVoteInputOption(event.target.value);
+    };
+
+    /**
+     * 添加 输入投票选项
+     */
+    addVoteOption = (event) => {
+        //
+        let options = this.props.newVoteModalReducer.options;
+        console.log('options',options);
+        console.log('inputOption',this.props.newVoteModalReducer.inputOption);
+        options.push({txt: this.props.newVoteModalReducer.inputOption});
+        console.log('options',options);
+        this.props.setVoteOptions(options);
     };
 
     /**
      * 渲染(挂载)画面。
      */
     render() {
-        const {newVoteModalReducer, setAdminGender, closeModal, saveAdmin} = this.props;
+        const {newVoteModalReducer, saveVote} = this.props;
+        console.log('newVoteModalReducer',newVoteModalReducer);
         return (
-            <div id="newVoteModal" className="modal modal-fixed-footer row">
+            <Modal
+                actions={[
+                    <button type="button" className="btn close-btn modal-close">取消</button>,
+                    <button type="button" className="btn confirm-btn margin-left20" onClick={saveVote}>确定</button>
+                ]}
+                bottomSheet={false}
+                fixedFooter={true}
+                className="custom-modal"
+                header="发布投票"
+                id="newVoteModal"
+                options={{
+                    dismissible: true,
+                    endingTop: '10%',
+                    inDuration: 250,
+                    onCloseEnd: null,
+                    onCloseStart: null,
+                    onOpenEnd: null,
+                    onOpenStart: null,
+                    opacity: 0.5,
+                    outDuration: 250,
+                    preventScrolling: true,
+                    startingTop: '4%'
+                }}
+            >
+                <div className="row margin-top40 padding-left20 padding-right20">
+                    <TextInput s={12} label="标题" maxLength="20" value={newVoteModalReducer.title} onChange={this.changeVoteTitle}/>
+                    <Textarea s={12} label="内容" maxLength="200" value={newVoteModalReducer.info} onChange={this.changeVoteInfo}/>
 
-                {/** Modal头部：Title */}
-                <div className="modal-title center-align white-text">发布投票</div>
+                    <TextInput s={4} label="最多选项数" type="number" value={newVoteModalReducer.maxNum} onChange={this.changeVoteMaxNum}/>
 
-                {/** Modal主体 */}
-                <div className="modal-content white grey-text text-darken-2">
-                    <div className="row margin-top40">
-                        <TextInput s={6} label="管理员名称" maxLength="20" value={newVoteModalReducer.name} onChange={this.changeAdminName}/>
-                        <TextInput s={6} label="真实姓名" maxLength="20" value={newVoteModalReducer.realName} onChange={this.changeRealName}/>
-
-                        <div className="col s6 no-padding">
-                            <TextInput s={9} label="手机" maxLength="20" value={newVoteModalReducer.phone} onChange={this.changePhone}/>
-                            <div className="input-field col s3 fz30 right-align">
-                                <i className={`pointer mdi mdi-human-male ${newVoteModalReducer.gender === 1 ? "blue-text" : ""}`} onClick={() => {setAdminGender(1)}}/>
-                                <i className={`pointer mdi mdi-human-female margin-left10 ${newVoteModalReducer.gender === 0 ? "pink-font" : ""}`} onClick={() => {setAdminGender(0)}}/>
-                            </div>
-                        </div>
-                        <TextInput s={6} label="密码" maxLength="20" value={newVoteModalReducer.password} onChange={this.changePassword}/>
-
-                        {/*<div className="input-field col s6">*/}
-                        {/*    <Select*/}
-                        {/*        options={commonReducer.departmentList}*/}
-                        {/*        onChange={changeDepartment}*/}
-                        {/*        value={newVoteModalReducer.department}*/}
-                        {/*        isSearchable={false}*/}
-                        {/*        placeholder={"请选择"}*/}
-                        {/*        styles={sysConst.CUSTOM_REACT_SELECT_STYLE_FOR_MODAL}*/}
-                        {/*        backspaceRemovesValue={false}*/}
-                        {/*        isClearable={false}*/}
-                        {/*    />*/}
-                        {/*    <label className="active">部门</label>*/}
-                        {/*</div>*/}
+                    <div className="custom-input-field col s4 input-field">
+                        <DatePicker s={12} label="开始时间" options={sysConst.DATE_PICKER_OPTION} value={newVoteModalReducer.startTime} onChange={this.changeVoteStartTime} />
+                        {newVoteModalReducer.startTime !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearVoteStartTime}/>}
+                        <span className="mdi data-icon mdi-table-large"/>
                     </div>
 
-                </div>
+                    <div className="custom-input-field col s4 input-field">
+                        <DatePicker s={12} label="结束时间" options={sysConst.DATE_PICKER_OPTION} value={newVoteModalReducer.endTime} onChange={this.changeVoteEndTime} />
+                        {newVoteModalReducer.endTime !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearVoteEndTime}/>}
+                        <span className="mdi data-icon mdi-table-large"/>
+                    </div>
 
-                {/** Modal固定底部：取消/确定按钮 */}
-                <div className="modal-footer">
-                    <button type="button" className="btn close-btn" onClick={closeModal}>取消</button>
-                    <button type="button" className={`btn confirm-btn margin-left20 ${newVoteModalReducer.errorRouteFlg ? "disabled" : ""}`}
-                            onClick={saveAdmin}>确定</button>
+
+                    <TextInput s={9} label="输入投票选项" maxLength="30" value={newVoteModalReducer.inputOption} onChange={this.changeVoteInputOption}/>
+                    {/* 追加按钮 */}
+                    <div className="col s3">
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={() => {this.addVoteOption()}}>
+                            <i className="mdi mdi-plus"/>
+                        </a>
+                    </div>
+
+                    {newVoteModalReducer.options.map(function (item, key) {
+                        return (
+                            <div className="col s12 grey-text text-darken-1">
+                                {/* 投票选项内容 */}
+                                <div className="col s9">{item.txt} / {item.key}</div>
+                                {/* 删除按钮 */}
+                                <div className="col s3">
+                                    <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteVote(item._id)}}/>
+                                </div>
+                            </div>
+                        )
+                    },this)}
                 </div>
-            </div>
+            </Modal>
         );
     }
 }
@@ -116,26 +173,30 @@ const mapStateToProps = (state) => {
  * 输出逻辑：用户发出的动作变为 Action 对象，从 UI 组件传出去。
  */
 const mapDispatchToProps = (dispatch) => ({
-    setAdminName: (value) => {
-        dispatch(NewVoteModalActionType.setAdminName(value));
+    setVoteTitle: (value) => {
+        dispatch(NewVoteModalActionType.setVoteTitle(value));
     },
-    setRealName: (value) => {
-        dispatch(NewVoteModalActionType.setAdminRealName(value));
+    setVoteInfo: (value) => {
+        dispatch(NewVoteModalActionType.setVoteInfo(value));
     },
-    setPhone: (value) => {
-        dispatch(NewVoteModalActionType.setPhone(value));
+    setVoteMaxNum: (value) => {
+        dispatch(NewVoteModalActionType.setVoteMaxNum(value));
     },
-    setPassword: (value) => {
-        dispatch(NewVoteModalActionType.setPassword(value));
+    setVoteStartTime: (value) => {
+        dispatch(NewVoteModalActionType.setVoteStartTime(value));
     },
-    setAdminGender: (value) => {
-        dispatch(NewVoteModalActionType.setAdminGender(value));
+    setVoteEndTime: (value) => {
+        dispatch(NewVoteModalActionType.setVoteEndTime(value));
     },
-    saveAdmin: () => {
-        dispatch(newVoteModalAction.saveAdmin());
+    setVoteInputOption: (value) => {
+        dispatch(NewVoteModalActionType.setVoteInputOption(value));
     },
-    closeModal: () => {
-        $('#newVoteModal').modal('close');
+    setVoteOptions: (value) => {
+        dispatch(NewVoteModalActionType.setVoteOptions(value));
+    },
+
+    saveVote: () => {
+        dispatch(newVoteModalAction.saveVote());
     }
 });
 

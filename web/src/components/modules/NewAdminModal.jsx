@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput} from 'react-materialize';
+import {TextInput, Modal} from 'react-materialize';
 import {connect} from 'react-redux';
 import {NewAdminModalActionType} from "../../types";
 
@@ -18,7 +18,6 @@ class NewAdminModal extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        $('.modal').modal();
     }
 
     /**
@@ -53,52 +52,61 @@ class NewAdminModal extends React.Component {
      * 渲染(挂载)画面。
      */
     render() {
-        const {newAdminModalReducer, setAdminGender, closeModal, saveAdmin} = this.props;
+        const {newAdminModalReducer, setAdminGender, saveAdmin} = this.props;
         return (
-            <div id="newAdminModal" className="modal modal-fixed-footer row">
-
-                {/** Modal头部：Title */}
-                <div className="modal-title center-align white-text">新增员工</div>
-
-                {/** Modal主体 */}
-                <div className="modal-content white grey-text text-darken-2">
-                    <div className="row margin-top40">
-                        <TextInput s={6} label="管理员名称" maxLength="20" value={newAdminModalReducer.name} onChange={this.changeAdminName}/>
-                        <TextInput s={6} label="真实姓名" maxLength="20" value={newAdminModalReducer.realName} onChange={this.changeRealName}/>
-
-                        <div className="col s6 no-padding">
-                            <TextInput s={9} label="手机" maxLength="20" value={newAdminModalReducer.phone} onChange={this.changePhone}/>
-                            <div className="input-field col s3 fz30 right-align">
-                                <i className={`pointer mdi mdi-human-male ${newAdminModalReducer.gender === 1 ? "blue-text" : ""}`} onClick={() => {setAdminGender(1)}}/>
-                                <i className={`pointer mdi mdi-human-female margin-left10 ${newAdminModalReducer.gender === 0 ? "pink-font" : ""}`} onClick={() => {setAdminGender(0)}}/>
-                            </div>
-                        </div>
-                        <TextInput s={6} label="密码" maxLength="20" value={newAdminModalReducer.password} onChange={this.changePassword}/>
-
-                        {/*<div className="input-field col s6">*/}
-                        {/*    <Select*/}
-                        {/*        options={commonReducer.departmentList}*/}
-                        {/*        onChange={changeDepartment}*/}
-                        {/*        value={newAdminModalReducer.department}*/}
-                        {/*        isSearchable={false}*/}
-                        {/*        placeholder={"请选择"}*/}
-                        {/*        styles={sysConst.CUSTOM_REACT_SELECT_STYLE_FOR_MODAL}*/}
-                        {/*        backspaceRemovesValue={false}*/}
-                        {/*        isClearable={false}*/}
-                        {/*    />*/}
-                        {/*    <label className="active">部门</label>*/}
-                        {/*</div>*/}
-                    </div>
-
-                </div>
-
-                {/** Modal固定底部：取消/确定按钮 */}
-                <div className="modal-footer">
-                    <button type="button" className="btn close-btn" onClick={closeModal}>取消</button>
+            <Modal
+                actions={[
+                    <button type="button" className="btn close-btn modal-close">取消</button>,
                     <button type="button" className={`btn confirm-btn margin-left20 ${newAdminModalReducer.errorRouteFlg ? "disabled" : ""}`}
-                            onClick={saveAdmin}>确定</button>
+                    onClick={saveAdmin}>确定</button>
+                ]}
+                bottomSheet={false}
+                fixedFooter={true}
+                className="custom-modal"
+                header="新增员工"
+                id="newAdminModal"
+                options={{
+                    dismissible: true,
+                    endingTop: '10%',
+                    inDuration: 250,
+                    onCloseEnd: null,
+                    onCloseStart: null,
+                    onOpenEnd: null,
+                    onOpenStart: null,
+                    opacity: 0.5,
+                    outDuration: 250,
+                    preventScrolling: true,
+                    startingTop: '4%'
+                }}
+            >
+                <div className="row margin-top40 padding-left20 padding-right20">
+                    <TextInput s={6} label="管理员名称" maxLength="20" value={newAdminModalReducer.name} onChange={this.changeAdminName}/>
+                    <TextInput s={6} label="真实姓名" maxLength="20" value={newAdminModalReducer.realName} onChange={this.changeRealName}/>
+
+                    <div className="col s6 no-padding">
+                        <TextInput s={9} label="手机" maxLength="20" value={newAdminModalReducer.phone} onChange={this.changePhone}/>
+                        <div className="input-field col s3 fz30 right-align">
+                            <i className={`pointer mdi mdi-human-male ${newAdminModalReducer.gender === 1 ? "blue-text" : ""}`} onClick={() => {setAdminGender(1)}}/>
+                            <i className={`pointer mdi mdi-human-female margin-left10 ${newAdminModalReducer.gender === 0 ? "pink-font" : ""}`} onClick={() => {setAdminGender(0)}}/>
+                        </div>
+                    </div>
+                    <TextInput s={6} label="密码" maxLength="20" value={newAdminModalReducer.password} onChange={this.changePassword}/>
+
+                    {/*<div className="input-field col s6">*/}
+                    {/*    <Select*/}
+                    {/*        options={commonReducer.departmentList}*/}
+                    {/*        onChange={changeDepartment}*/}
+                    {/*        value={newAdminModalReducer.department}*/}
+                    {/*        isSearchable={false}*/}
+                    {/*        placeholder={"请选择"}*/}
+                    {/*        styles={sysConst.CUSTOM_REACT_SELECT_STYLE_FOR_MODAL}*/}
+                    {/*        backspaceRemovesValue={false}*/}
+                    {/*        isClearable={false}*/}
+                    {/*    />*/}
+                    {/*    <label className="active">部门</label>*/}
+                    {/*</div>*/}
                 </div>
-            </div>
+            </Modal>
         );
     }
 }
@@ -133,9 +141,6 @@ const mapDispatchToProps = (dispatch) => ({
     },
     saveAdmin: () => {
         dispatch(newAdminModalAction.saveAdmin());
-    },
-    closeModal: () => {
-        $('#newAdminModal').modal('close');
     }
 });
 

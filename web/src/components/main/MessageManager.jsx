@@ -99,7 +99,6 @@ class MessageManager extends React.Component {
      */
     showMessageModal = (pageType, messageDetail) => {
         this.props.initMessageModalData(pageType, messageDetail);
-        $('#messageModal').modal('open');
     };
 
     render() {
@@ -146,7 +145,7 @@ class MessageManager extends React.Component {
 
                     {/* 追加按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn" onClick={() => {this.showMessageModal('new',null)}}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn modal-trigger" href="#messageModal" onClick={() => {this.showMessageModal('new',null)}}>
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>
@@ -185,7 +184,7 @@ class MessageManager extends React.Component {
                                         {/* 发送时间 */}
                                         <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                         <td className="operation center">
-                                            <i className="mdi mdi-table-search purple-font pointer"  onClick={() => {this.showMessageModal('edit',item)}}/>
+                                            <i className="mdi mdi-table-search purple-font pointer modal-trigger" href="#messageModal" onClick={() => {this.showMessageModal('edit',item)}}/>
                                         </td>
                                     </tr>
                                 )

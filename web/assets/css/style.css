@@ -852,13 +852,13 @@ table.striped > tbody > tr:nth-child(odd) {
 .data-icon {
     position: absolute;
     right: 12px;
-    bottom: 30px;
+    bottom: 38px;
 }
 
 .data-clear-icon {
     position: absolute;
     right: 32px;
-    bottom: 30px;
+    bottom: 38px;
 }
 
 .date-icon {
@@ -898,88 +898,55 @@ table.striped > tbody > tr:nth-child(odd) {
     margin-right: 3px !important;
 }
 
-/** 自定义-全画面列表部分样式补充 end */
-
-
-/** modal 样式定义部分 start */
-.modal {
-    min-width: 900px;
-    z-index: 1000 !important;
-}
-
-.modal-overlay {
-    z-index: 999 !important;
-}
-
-.modal-title {
-    height: 50px;
-    font-size: 20px;
-    line-height: 50px;
-    background-color: #724278;
-}
-
-.modal .modal-footer {
-    padding: 4px 20px;
-}
-
-.modal .modal-footer .btn {
-    margin: 6px 0 0 20px;
-}
-
 .word-wrap {
     overflow: hidden;
     word-wrap: break-word;
     white-space: pre-wrap;
 }
 
-#inquiryInfoModal, #newLogSiteModal {
-    width: 1024px;
-    max-height: 616px;
+/** 自定义-全画面列表部分样式补充 end */
+
+
+/** modal 样式定义部分 start */
+.custom-modal {
+    min-width: 900px;
+    z-index: 1000 !important;
+    background: white;
 }
 
+.modal-overlay {
+    z-index: 999 !important;
+}
 
-#inquiryModal {
-    max-height: 538px;
+/* modal 画面 主体 样式 */
+.modal-content {
+    position: relative !important;
+    padding: 0 !important;
+}
+
+/* modal 画面 header 样式 */
+.modal-content h4 {
+    height: 50px;
+    font-size: 20px;
+    color:#fff !important;
+    text-align:center;
+    line-height: 50px;
+    background-color: #724278;
+}
+
+/* modal 画面 footer 样式 */
+.modal .modal-footer {
+    padding: 4px 20px;
+}
+
+/* modal 个别画面特殊设定 */
+#newAdminModal {
+    max-height: 400px;
 }
 
 #messageModal {
     max-height: 450px;
 }
-.modal-content {
-    height: calc(100% - 106px) !important;
-}
-
-#newLoadTaskModal .modal-content #tab-trans .modal-content-header {
-    height: 50px;
-    width: 95%;
-    position: absolute;
-    top: 90px;
-}
-
-#newLoadTaskModal .modal-content #tab-trans .modal-content-body {
-    height: 58%;
-    position: absolute;
-    max-height: 100%;
-    width: 95%;
-    overflow-y: auto;
-}
-
-#loadTaskCarDetailModal .modal-content .modal-content-body {
-    height: 80%;
-    position: absolute;
-    max-height: 100%;
-    width: 95%;
-    overflow-y: auto;
-}
-
-.modal-content-footer {
-    height: 50px;
-    width: 95%;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 0;
-}
-
 /** modal 样式定义部分 end */
 
 
