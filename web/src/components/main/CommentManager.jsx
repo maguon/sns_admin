@@ -218,9 +218,9 @@ class CommentManager extends React.Component {
                                         {/* 文章编号 */}
                                         <td>{item._msg_id}</td>
                                         {/* 评论内容 */}
-                                        <td>{item.comments}</td>
+                                        <td>{item.comment}</td>
                                         {/* 评论数 */}
-                                        <td>{formatUtil.formatNumber(item.comments_num)}</td>
+                                        <td>{formatUtil.formatNumber(item.comment_num)}</td>
                                         {/* 点赞数 */}
                                         <td>{formatUtil.formatNumber(item.agree_num)}</td>
 
