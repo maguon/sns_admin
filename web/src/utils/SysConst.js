@@ -118,12 +118,6 @@ export const CUSTOM_REACT_SELECT_STYLE_FOR_MODAL = {
     })
 };
 
-// 性别
-export const GENDER = [
-    {value: 0, label: "女"},
-    {value: 1, label: "男"}
-];
-
 // 用户状态
 export const USER_STATUS = [
     {value: 1, label: "正常"},
@@ -131,11 +125,6 @@ export const USER_STATUS = [
     {value: 3, label: "停用"},
     {value: 4, label: "注销"}
 ];
-
-
-
-
-
 
 // 消息类型 1.文章 2.求助
 export const MESSAGE_TYPE = [
@@ -202,16 +191,20 @@ export const DRIVING_TYPE = [
     {value: 16, label: "P"}
 ];
 
-
-
-
-
+// 性别
+export const GENDER = [
+    {value: 0, label: "女"},
+    {value: 1, label: "男"}
+];
 
 // 可用/停用 标记
 export const USE_FLAG = [
     {value: 0, label: "停用"},
     {value: 1, label: "可用"}
 ];
+
+
+
 
 // 按日统计-日数
 export const STATISTIC_DAYS = [

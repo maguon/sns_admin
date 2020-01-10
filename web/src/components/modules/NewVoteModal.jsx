@@ -78,6 +78,7 @@ class NewVoteModal extends React.Component {
         let options = this.props.newVoteModalReducer.options;
         // 输入投票选项内容
         let inputOption = this.props.newVoteModalReducer.inputOption.trim();
+
         if (inputOption === '') {
             swal('', '投票选项内容不能为空！', 'warning');
         } else {
@@ -88,6 +89,18 @@ class NewVoteModal extends React.Component {
             // 更新 输入投票选项列表
             this.props.setVoteOptions(options);
         }
+    };
+
+    /**
+     * 选择指定投票选项
+     */
+    changeVoteOption = (event, optionIdx) => {
+        // 输入投票选项列表
+        let options = this.props.newVoteModalReducer.options;
+        // 将当前 输入投票选项 添加到数组
+        options.splice(optionIdx, 1, {txt: event.target.value});
+        // 更新 输入投票选项列表
+        this.props.setVoteOptions(options);
     };
 
     /**
@@ -131,7 +144,7 @@ class NewVoteModal extends React.Component {
                 }}
             >
                 <div className="row margin-top20 padding-left20 padding-right20">
-                    <TextInput s={12} label="标题" maxLength="20" value={newVoteModalReducer.title} onChange={this.changeVoteTitle}/>
+                    <TextInput s={12} label="标题" maxLength="30" value={newVoteModalReducer.title} onChange={this.changeVoteTitle}/>
                     <Textarea s={12} label="内容" maxLength="200" value={newVoteModalReducer.info} onChange={this.changeVoteInfo}/>
 
                     <TextInput s={4} label="最多选项数" type="number" value={newVoteModalReducer.maxNum} onChange={this.changeVoteMaxNum}/>
@@ -148,7 +161,7 @@ class NewVoteModal extends React.Component {
                         <span className="mdi data-icon mdi-table-large"/>
                     </div>
 
-                    <TextInput s={11} label="投票选项" maxLength="30" value={newVoteModalReducer.inputOption} onChange={this.changeVoteInputOption}/>
+                    <TextInput s={11} label="投票选项" maxLength="50" value={newVoteModalReducer.inputOption} onChange={this.changeVoteInputOption}/>
                     {/* 追加按钮 */}
                     <div className="input-field col s1 right-align">
                         <a className="btn-floating btn-small waves-light waves-effect btn add-btn" onClick={() => {this.addVoteOption()}}>
@@ -156,20 +169,21 @@ class NewVoteModal extends React.Component {
                         </a>
                     </div>
 
-                    {newVoteModalReducer.options.map(function (item, key) {
-                        return (
-                            <div className="col s12 grey-text text-darken-1 margin-top10">
-                                {/* 投票选项内容 */}
-                                <div className="col s11">{item.txt}</div>
-                                {/* 删除按钮 */}
-                                <div className="col s1 no-padding right-align">
-                                    <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteVote(key)}}/>
+                    {newVoteModalReducer.options.length > 0 &&
+                    <div className="col s12 detail-box padding-bottom10">
+                        {newVoteModalReducer.options.map(function (item, key) {
+                            return (
+                                <div className="no-helper-input">
+                                    {/* 投票选项内容 */}
+                                    <TextInput s={11} maxLength="50" className="no-margin" value={item.txt} onChange={(e) => {this.changeVoteOption(e, key)}}/>
+                                    {/* 删除按钮 */}
+                                    <div className="col s1 right-align margin-top30">
+                                        <i className="mdi mdi-close purple-font pointer small-icon" onClick={() => {this.deleteVote(key)}}/>
+                                    </div>
                                 </div>
-                                {/* 分割线 */}
-                                <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
-                            </div>
-                        )
-                    },this)}
+                            )
+                        },this)}
+                    </div>}
                 </div>
             </Modal>
         );
