@@ -15,11 +15,25 @@ const initialState = {
     startTime: '',
     // 结束时间
     endTime: '',
-
     // 输入投票选项
     inputOption: '',
     // 投票选项列表
-    options: []
+    options: [],
+
+    // 投票选项列表
+    voteItemList: [],
+    // 检索条件：性别
+    conditionVoteItem: null,
+    // 检索条件：电话
+    conditionPhone: '',
+    // 检索条件：用户投票列表
+    userVoteList: [],
+    // 开始位置
+    start: 0,
+    // 每页数量
+    size: 11,
+    // 检索结果数量
+    dataSize: 0
 };
 
 export default handleActions({
@@ -69,6 +83,46 @@ export default handleActions({
         return {
             ...state,
             options: action.payload
+        }
+    },
+    [VoteManagerDetailActionType.getVoteItemList]: (state, action) => {
+        let voteItemList = [];
+        action.payload.forEach((item, index) => {
+            voteItemList.push({value: index, label: item.txt})
+        });
+        return {
+            ...state,
+            voteItemList: voteItemList
+        }
+    },
+    [VoteManagerDetailActionType.setConditionVoteItem]: (state, action) => {
+        return {
+            ...state,
+            conditionVoteItem: action.payload
+        }
+    },
+    [VoteManagerDetailActionType.setConditionPhone]: (state, action) => {
+        return {
+            ...state,
+            conditionPhone: action.payload
+        }
+    },
+    [VoteManagerDetailActionType.getUserVoteList]: (state, action) => {
+        return {
+            ...state,
+            userVoteList: action.payload
+        }
+    },
+    [VoteManagerDetailActionType.setStartNumber]: (state, action) => {
+        return {
+            ...state,
+            start: action.payload
+        }
+    },
+    [VoteManagerDetailActionType.setDataSize]: (state, action) => {
+        return {
+            ...state,
+            dataSize: action.payload
         }
     }
 }, initialState)

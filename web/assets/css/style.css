@@ -225,6 +225,10 @@ body {
     padding-left: 20px !important;
 }
 
+.padding-left50 {
+    padding-left: 50px !important;
+}
+
 .padding-left80 {
     padding-left: 80px !important;
 }
@@ -247,6 +251,10 @@ body {
 
 .padding-right20 {
     padding-right: 20px !important;
+}
+
+.padding-right50 {
+    padding-right: 50px !important;
 }
 
 .padding-top5 {
@@ -360,6 +368,10 @@ body {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin-top: 0 !important;
+}
+
+.no-helper-input .input-field .helper-text {
+    display: none !important;
 }
 
 /** Material switch 组件 样式 */

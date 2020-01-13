@@ -30,6 +30,8 @@ export const getVoteInfo = (id) => async (dispatch) => {
                 dispatch({type: VoteManagerDetailActionType.setVoteInputOption, payload: ''});
                 // 投票选项列表
                 dispatch({type: VoteManagerDetailActionType.setVoteOptions, payload: res.result[0].option});
+                // 投票选项列表保存，作为检索项目
+                dispatch({type: VoteManagerDetailActionType.getVoteItemList, payload: res.result[0].option});
             }
         } else if (res.success === false) {
             swal('获取评论信息失败', res.msg, 'warning');
@@ -76,6 +78,45 @@ export const saveVote = (id) => async (dispatch, getState) => {
             } else if (res.success === false) {
                 swal('保存失败', res.msg, 'warning');
             }
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
+
+// 获取 参与人投票详情
+export const getUserVoteList = (voteId) => async (dispatch, getState) => {
+    try {
+        // 检索条件：开始位置
+        const start = getState().VoteManagerDetailReducer.start;
+        // 检索条件：每页数量
+        const size = getState().VoteManagerDetailReducer.size;
+
+        // 检索条件：投票用户电话
+        const conditionPhone = getState().VoteManagerDetailReducer.conditionPhone;
+        // 检索条件：选项
+        const optionIndex = getState().VoteManagerDetailReducer.conditionVoteItem;
+
+        // 基本检索URL
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
+            + '/getUserVote?voteId=' + voteId + '&start=' + start + '&size=' + size;
+        // 检索条件
+        let conditionsObj = {
+            // 检索条件：投票用户电话
+            phone: conditionPhone,
+            // 检索条件：状态
+            optionIndex: optionIndex === null ? '' : optionIndex.value
+        };
+
+        let conditions = httpUtil.objToUrl(conditionsObj);
+        // 检索URL
+        url = conditions.length > 0 ? url + "&" + conditions : url;
+        const res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            dispatch({type: VoteManagerDetailActionType.setDataSize, payload: res.result.length});
+            dispatch({type: VoteManagerDetailActionType.getUserVoteList, payload: res.result.slice(0, size - 1)});
+        } else if (res.success === false) {
+            swal('获取用户投票信息失败', res.msg, 'warning');
         }
     } catch (err) {
         swal('操作失败', err.message, 'error');

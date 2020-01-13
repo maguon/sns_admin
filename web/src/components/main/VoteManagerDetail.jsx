@@ -1,12 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import {DatePicker, Textarea, TextInput} from 'react-materialize';
+import {DatePicker, Tab, Tabs, Textarea, TextInput} from 'react-materialize';
 import {VoteManagerDetailActionType} from "../../types";
-import {VoteDetailModal} from "../modules";
+import Select from "react-select";
 
 const voteManagerDetailAction = require('../../actions/main/VoteManagerDetailAction');
-const voteDetailModalAction = require('../../actions/modules/VoteDetailModalAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 const commonUtil = require('../../utils/CommonUtil');
@@ -24,6 +23,8 @@ class VoteManagerDetail extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
+        // 默认第一页
+        this.props.setStartNumber(0);
         // 取得投票基本信息
         this.props.getVoteInfo();
     }
@@ -119,17 +120,40 @@ class VoteManagerDetail extends React.Component {
         this.props.setVoteOptions(options);
     };
 
+    /**
+     * 更新 检索条件：用户电话
+     */
+    changeConditionPhone = (event) => {
+        this.props.setConditionPhone(event.target.value);
+    };
 
     /**
-     * 显示 投票详情 画面
-     * @param pageType 画面区分
+     * 查询用户投票列表
      */
-    initVoteDetailModal = (pageType) => {
-        this.props.initVoteDetailData(pageType);
+    queryUserVoteList = () => {
+        // 默认第一页
+        this.props.setStartNumber(0);
+        this.props.getUserVoteList();
+    };
+
+    /**
+     * 上一页
+     */
+    preBtn = () => {
+        this.props.setStartNumber(this.props.voteManagerDetailReducer.start - (this.props.voteManagerDetailReducer.size - 1));
+        this.props.getUserVoteList();
+    };
+
+    /**
+     * 下一页
+     */
+    nextBtn = () => {
+        this.props.setStartNumber(this.props.voteManagerDetailReducer.start + (this.props.voteManagerDetailReducer.size - 1));
+        this.props.getUserVoteList();
     };
 
     render() {
-        const {voteManagerDetailReducer, saveVote} = this.props;
+        const {voteManagerDetailReducer, saveVote, changeConditionVoteItem} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -227,33 +251,111 @@ class VoteManagerDetail extends React.Component {
                         <div className="col s12 bold-font">{voteManagerDetailReducer.voteInfo[0].title}</div>
                         {/* 投票内容 */}
                         <div className="col s12 margin-top10">{voteManagerDetailReducer.voteInfo[0].info}</div>
-                        {/* 分割线 */}
-                        <div className="col s12 no-padding"><div className="col s12 margin-top10 margin-bottom15 divider"/></div>
-                        {/* 参与人数 */}
-                        <div className="col s12 right-align">
-                            <a className="modal-trigger grey-text text-darken-3" href="#voteDetailModal" onClick={() => {this.initVoteDetailModal('total')}}>
-                                参与人数：{formatUtil.formatNumber(voteManagerDetailReducer.voteInfo[0].participants_num)}
-                            </a>
-                        </div>
-                        <VoteDetailModal/>
 
-                        {/* 投票选项明细 */}
-                        {voteManagerDetailReducer.options.map(function (item, key) {
-                            return (
-                                <div className="col s12 grey-text text-darken-1 margin-top10 no-padding">
-                                    {/* 投票选项内容 */}
-                                    <div className="col s9">{item.txt}</div>
-                                    {/* 投票数 */}
-                                    <div className="col s3 right-align">
-                                        <a className="modal-trigger grey-text text-darken-3" href="#voteDetailModal" onClick={() => {this.initVoteDetailModal('single')}}>
-                                            {formatUtil.formatNumber(item.voteNum)}票
-                                        </a>
+                        <div className="col s12 margin-top10">
+                            <Tabs className='tab-demo z-depth-1'>
+                                <Tab title="投票结果">
+                                    {/* 参与人数 */}
+                                    <div className="col s12 right-align margin-top10">
+                                        参与人数：{formatUtil.formatNumber(voteManagerDetailReducer.voteInfo[0].participants_num)}
                                     </div>
-                                    {/* 分割线 */}
-                                    <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
-                                </div>
-                            )
-                        },this)}
+                                    {/* 投票选项明细 */}
+                                    {voteManagerDetailReducer.options.map(function (item, key) {
+                                        return (
+                                            <div className="col s12 grey-text text-darken-1 margin-top10 no-padding">
+                                                {/* 投票选项内容 */}
+                                                <div className="col s9">{item.txt}</div>
+                                                {/* 投票数 */}
+                                                <div className="col s3 right-align">{formatUtil.formatNumber(item.voteNum)}票</div>
+                                                {/* 分割线 */}
+                                                <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
+                                            </div>
+                                        )
+                                    },this)}
+                                </Tab>
+
+                                <Tab title="参与人投票详情" idx="1002">
+                                    {/* 上部分：检索条件输入区域 */}
+                                    <div className="row grey-text text-darken-1 margin-top20 margin-bottom0">
+                                        <div className="col s11 search-condition-box">
+                                            <TextInput s={4} label="用户手机" value={voteManagerDetailReducer.conditionPhone} onChange={this.changeConditionPhone}/>
+
+                                            <div className="input-field col s4">
+                                                <Select
+                                                    options={voteManagerDetailReducer.voteItemList}
+                                                    onChange={changeConditionVoteItem}
+                                                    value={voteManagerDetailReducer.conditionVoteItem}
+                                                    isSearchable={false}
+                                                    placeholder={"请选择"}
+                                                    styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
+                                                    isClearable={true}
+                                                />
+                                                <label className="active">投票选项</label>
+                                            </div>
+
+                                        </div>
+
+                                        {/* 查询按钮 */}
+                                        <div className="col s1">
+                                            <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryUserVoteList}>
+                                                <i className="mdi mdi-magnify"/>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {/* 下部分：检索结果显示区域 */}
+                                    <div className="row">
+                                        <div className="col s12">
+                                            <table className="bordered striped">
+                                                <thead className="custom-dark-grey table-top-line">
+                                                <tr className="grey-text text-darken-2">
+                                                    <th>投票用户昵称</th>
+                                                    <th>投票数</th>
+                                                    <th>投票选项</th>
+                                                    <th className="center">投票时间</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {voteManagerDetailReducer.userVoteList.map(function (item) {
+                                                    return (
+                                                        <tr className="grey-text text-darken-1">
+                                                            {/* 投票用户昵称 */}
+                                                            <td>{item._id}</td>
+                                                            {/* 投票数 */}
+                                                            <td>{formatUtil.formatNumber(item.max_num)}</td>
+                                                            {/* 投票选项 */}
+                                                            <td>{item.title}</td>
+                                                            {/* 投票时间 */}
+                                                            <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
+                                                        </tr>
+                                                    )
+                                                },this)}
+                                                {voteManagerDetailReducer.userVoteList.length === 0 &&
+                                                <tr className="grey-text text-darken-1">
+                                                    <td className="no-data-tr" colSpan="4">暂无数据</td>
+                                                </tr>}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {/* 上下页按钮 */}
+                                        <div className="col s12 margin-top10">
+                                            <div className="right">
+                                                {voteManagerDetailReducer.start > 0 && voteManagerDetailReducer.dataSize > 0 &&
+                                                <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.preBtn}>
+                                                    上一页
+                                                </a>}
+                                                {voteManagerDetailReducer.dataSize >= voteManagerDetailReducer.size &&
+                                                <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.nextBtn}>
+                                                    下一页
+                                                </a>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Tab>
+                            </Tabs>
+                        </div>
+
                     </div>}
                 </div>}
             </div>
@@ -294,12 +396,21 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     setVoteOptions: (value) => {
         dispatch(VoteManagerDetailActionType.setVoteOptions(value));
     },
-
     saveVote: () => {
         dispatch(voteManagerDetailAction.saveVote(ownProps.match.params.id));
     },
-    initVoteDetailData: (pageType) => {
-        dispatch(voteDetailModalAction.initVoteDetailData(pageType));
+
+    setStartNumber: (start) => {
+        dispatch(VoteManagerDetailActionType.setStartNumber(start))
+    },
+    setConditionPhone: (value) => {
+        dispatch(VoteManagerDetailActionType.setConditionPhone(value));
+    },
+    changeConditionVoteItem: (value) => {
+        dispatch(VoteManagerDetailActionType.setConditionVoteItem(value));
+    },
+    getUserVoteList: () => {
+        dispatch(voteManagerDetailAction.getUserVoteList(ownProps.match.params.id));
     }
 });
 

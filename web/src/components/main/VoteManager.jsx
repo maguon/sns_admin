@@ -83,7 +83,7 @@ class VoteManager extends React.Component {
     /**
      * 查询评论列表
      */
-    queryArticleList = () => {
+    queryVoteList = () => {
         // 默认第一页
         this.props.setStartNumber(0);
         this.props.getVoteList();
@@ -163,7 +163,7 @@ class VoteManager extends React.Component {
 
                     {/* 查询按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryArticleList}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryVoteList}>
                             <i className="mdi mdi-magnify"/>
                         </a>
                     </div>
