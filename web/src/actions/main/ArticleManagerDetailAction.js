@@ -10,7 +10,7 @@ export const getCommentInfo = (id) => async (dispatch) => {
     try {
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/messageComments?messageCommentsId=' + id;
+            + '/msgComment?messageCommentsId=' + id;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommentManagerDetailActionType.getCommentInfo, payload: res.result});
@@ -30,7 +30,7 @@ export const getArticleInfo = (articleId) => async (dispatch) => {
     try {
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/messages?messagesId=' + articleId;
+            + '/msg?messagesId=' + articleId;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommentManagerDetailActionType.getArticleInfo, payload: res.result});
@@ -76,7 +76,7 @@ export const deleteComment = (id) => async (dispatch) => {
     }).then(async function (isConfirm) {
         if (isConfirm) {
             const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-                + '/messageComments/' + id + '/del';
+                + '/msgComment/' + id + '/del';
             const res = await httpUtil.httpDelete(url, {});
             if (res.success === true) {
                 swal("修改成功", "", "success");
@@ -108,7 +108,7 @@ export const changeCommentStatus = (id, status) => async (dispatch) => {
             }
 
             const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-                + '/messageComments/' + id + '/status';
+                + '/msgComment/' + id + '/status';
             const res = await httpUtil.httpPut(url, {status: newStatus});
             if (res.success === true) {
                 swal("修改成功", "", "success");

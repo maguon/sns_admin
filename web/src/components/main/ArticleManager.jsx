@@ -112,7 +112,6 @@ class ArticleManager extends React.Component {
 
     render() {
         const {articleManagerReducer, changeConditionType, changeConditionCarrier} = this.props;
-        console.log('',articleManagerReducer);
         return (
             <div>
                 {/* 标题部分 */}
@@ -206,16 +205,16 @@ class ArticleManager extends React.Component {
                                         {/* 作者昵称 */}
                                         <td>{item.user_detail_info[0].nick_name}</td>
                                         {/* 发布位置 */}
-                                        <td>{item.addressName}</td>
+                                        <td>{item.address_name}</td>
                                         {/* 文章类型 */}
                                         <td>{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.type)}</td>
                                         {/* 载体类型 */}
                                         <td>{commonUtil.getJsonValue(sysConst.CARRIER_TYPE, item.carrier)}</td>
 
                                         {/* 评论数 */}
-                                        <td>{formatUtil.formatNumber(item.commentsNum)}</td>
+                                        <td>{formatUtil.formatNumber(item.comments_num)}</td>
                                         {/* 点赞数 */}
-                                        <td>{formatUtil.formatNumber(item.agreeNum)}</td>
+                                        <td>{formatUtil.formatNumber(item.agree_num)}</td>
                                         {/* 发布时间 */}
                                         <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                         {/* 状态 */}

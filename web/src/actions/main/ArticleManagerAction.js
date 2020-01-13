@@ -26,11 +26,11 @@ export const getArticleList = () => async (dispatch, getState) => {
 
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/messages?start=' + start + '&size=' + size;
+            + '/msg?start=' + start + '&size=' + size;
         // 检索条件
         let conditionsObj = {
             // 检索条件：文章编号
-            messagesId: conditionArticleId,
+            msgId: conditionArticleId,
             // 检索条件：作者昵称
             nickName: conditionNickName,
             // 检索条件：文章类型
@@ -72,7 +72,7 @@ export const deleteArticle = (id) => async (dispatch) => {
     }).then(async function (isConfirm) {
         if (isConfirm) {
             const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-                + '/messages/' + id + '/del';
+                + '/msg/' + id + '/del';
             const res = await httpUtil.httpDelete(url, {});
             if (res.success === true) {
                 swal("修改成功", "", "success");
@@ -104,7 +104,7 @@ export const changeArticleStatus = (id, status) => async (dispatch) => {
             }
 
             const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-                + '/messages/' + id + '/status';
+                + '/msg/' + id + '/status';
             const res = await httpUtil.httpPut(url, {status: newStatus});
             if (res.success === true) {
                 swal("修改成功", "", "success");
