@@ -320,11 +320,11 @@ class VoteManagerDetail extends React.Component {
                                                     return (
                                                         <tr className="grey-text text-darken-1">
                                                             {/* 投票用户昵称 */}
-                                                            <td>{item._id}</td>
+                                                            <td>{item.user_detail_info[0].nick_name}</td>
                                                             {/* 投票数 */}
-                                                            <td>{formatUtil.formatNumber(item.max_num)}</td>
+                                                            <td>{formatUtil.formatNumber(item.option_item.length)}</td>
                                                             {/* 投票选项 */}
-                                                            <td>{item.title}</td>
+                                                            <td>{item.option_item.map((n) => n.index).toString()}</td>
                                                             {/* 投票时间 */}
                                                             <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                                         </tr>
