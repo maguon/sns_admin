@@ -2,97 +2,49 @@ import {handleActions} from 'redux-actions';
 import {MainPanelActionType} from '../../types';
 
 const initialState = {
-    // 本月收入
-    income: 0,
-    // 本月利润
-    profit: 0,
-    // 本月支付供应商
-    pay: 0,
+    // 今日新增用户数
+    todayUserCount: 0,
 
-    // 支付待审核:笔数
-    waitForPayCnt: 0,
-    // 支付待审核:金额
-    waitForPayMoney: 0,
-    // 待退款:笔数
-    waitForRefundCnt: 0,
-    // 待退款:金额
-    waitForRefundMoney: 0,
-    // 待开票:笔数
-    waitForInvoiceCnt: 0,
-    // 待开票:金额
-    waitForInvoiceMoney: 0,
+    // 今日发布文章
+    todayArticle: 0,
+    // 今日发布求助
+    todayHelp: 0,
 
-    // 待支付线路
-    waitForPayLoadTask: 0,
-    // 待支付供应商金额
-    waitForPaySupplier: 0
+    // 今日评论
+    todayComment: 0,
+    // 今日解答
+    todayAnswer: 0
 };
 
 export default handleActions({
-    [MainPanelActionType.setIncome]: (state, action) => {
+    [MainPanelActionType.setTodayUserCount]: (state, action) => {
         return {
             ...state,
-            income: action.payload
+            todayUserCount: action.payload
         }
     },
-    [MainPanelActionType.setProfit]: (state, action) => {
+    [MainPanelActionType.setTodayArticle]: (state, action) => {
         return {
             ...state,
-            profit: action.payload
+            todayArticle: action.payload
         }
     },
-    [MainPanelActionType.setPayment]: (state, action) => {
+    [MainPanelActionType.setTodayHelp]: (state, action) => {
         return {
             ...state,
-            pay: action.payload
+            todayHelp: action.payload
         }
     },
-    [MainPanelActionType.setWaitForPayCnt]: (state, action) => {
+    [MainPanelActionType.setTodayComment]: (state, action) => {
         return {
             ...state,
-            waitForPayCnt: action.payload
+            todayComment: action.payload
         }
     },
-    [MainPanelActionType.setWaitForPayMoney]: (state, action) => {
+    [MainPanelActionType.setTodayAnswer]: (state, action) => {
         return {
             ...state,
-            waitForPayMoney: action.payload
+            todayAnswer: action.payload
         }
-    },
-    [MainPanelActionType.setWaitForRefundCnt]: (state, action) => {
-        return {
-            ...state,
-            waitForRefundCnt: action.payload
-        }
-    },
-    [MainPanelActionType.setWaitForRefundMoney]: (state, action) => {
-        return {
-            ...state,
-            waitForRefundMoney: action.payload
-        }
-    },
-    [MainPanelActionType.setWaitForInvoiceCnt]: (state, action) => {
-        return {
-            ...state,
-            waitForInvoiceCnt: action.payload
-        }
-    },
-    [MainPanelActionType.setWaitForInvoiceMoney]: (state, action) => {
-        return {
-            ...state,
-            waitForInvoiceMoney: action.payload
-        }
-    },
-    [MainPanelActionType.setWaitForPayLoadTask]: (state, action) => {
-        return {
-            ...state,
-            waitForPayLoadTask: action.payload
-        }
-    },
-    [MainPanelActionType.setWaitForPaySupplier]: (state, action) => {
-        return {
-            ...state,
-            waitForPaySupplier: action.payload
-        }
-    },
+    }
 }, initialState)
