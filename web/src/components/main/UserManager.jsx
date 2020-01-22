@@ -211,38 +211,38 @@ class UserManager extends React.Component {
                                 return (
                                     <tr className="grey-text text-darken-1">
                                         {/* 编号 */}
-                                        <td>{item._user_id}</td>
+                                        <td>{item._id}</td>
                                         {/* 昵称 */}
-                                        <td>{item.nick_name}</td>
+                                        <td>{item.user_detail_info[0].nick_name}</td>
                                         {/* 手机 */}
-                                        <td>{item.user_login_info[0].phone}</td>
+                                        <td>{item.phone}</td>
                                         {/* 城市 */}
-                                        <td>{item.city_name}</td>
+                                        <td>{item.user_detail_info[0].city_name}</td>
 
                                         {/*/!* 驾照类型 *!/*/}
                                         {/*<td>{commonUtil.getJsonValue(sysConst.DRIVING_TYPE, item._userDriveId.driving_type)}</td>*/}
                                         {/* 发布文章 */}
-                                        <td>{item.msg_num}</td>
+                                        <td>{item.user_detail_info[0].msg_num}</td>
                                         {/* 关注 */}
-                                        <td>{item.follow_num}</td>
+                                        <td>{item.user_detail_info[0].follow_num}</td>
                                         {/* 被关注 */}
-                                        <td>{item.attention_num}</td>
+                                        <td>{item.user_detail_info[0].attention_num}</td>
 
                                         {/* 评论数 */}
-                                        <td>{item.comments_num}</td>
+                                        <td>{item.user_detail_info[0].comments_num}</td>
                                         {/* 参与投票 */}
-                                        <td>{item.vote_num}</td>
+                                        <td>{item.user_detail_info[0].vote_num}</td>
                                         {/* 收藏文章 */}
-                                        <td>{item.msg_coll_num}</td>
+                                        <td>{item.user_detail_info[0].msg_coll_num}</td>
                                         {/* 收藏位置 */}
-                                        <td>{item.loca_coll_num}</td>
+                                        <td>{item.user_detail_info[0].loca_coll_num}</td>
 
                                         {/* 注册时间 */}
                                         <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
                                         {/* 状态 */}
-                                        <td>{commonUtil.getJsonValue(sysConst.USER_STATUS, item.user_login_info[0].status)}</td>
+                                        <td>{commonUtil.getJsonValue(sysConst.USER_STATUS, item.status)}</td>
                                         <td className="operation center">
-                                            <Link to={{pathname: '/user/' + item._user_id}}>
+                                            <Link to={{pathname: '/user/' + item._id}}>
                                                 <i className="mdi mdi-table-search purple-font"/>
                                             </Link>
                                         </td>

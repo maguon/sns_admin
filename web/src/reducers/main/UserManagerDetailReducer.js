@@ -4,30 +4,33 @@ import {UserManagerDetailActionType} from '../../types';
 const initialState = {
     // 基本信息TAB：用户信息
     userInfo: [],
+    // 基本信息TAB：用户通知设置
+    userNoticeInfo: [],
+    // 每页数量
+    size: 7,
 
-    // 询价记录TAB： 检索条件：起始城市
-    inquiryConditionStartCity: null,
-    // 询价记录TAB： 检索条件：目的城市
-    inquiryConditionEndCity: null,
-    // 询价记录TAB： 检索条件：服务方式
-    inquiryConditionServiceType: null,
-    // 询价记录TAB： 检索条件：状态
-    inquiryConditionStatus: null,
-    // 询价记录TAB：开始位置
-    inquiryStart: 0,
-    // 询价记录TAB：每页数量
-    inquirySize: 9,
-    // 询价记录TAB：检索结果数量
-    inquiryDataSize: 0,
-    // 询价记录TAB：列表
-    inquiryArray: [],
+    // 发布文章TAB：文章列表
+    userArticleList: [],
+    // 发布文章TAB：开始位置
+    articleStart: 0,
+    // 发布文章TAB：检索结果数量
+    articleDataSize: 0,
 
-    // 收发货信息TAB：列表
-    logInfoArray: [],
-    // 银行卡TAB：列表
-    bankCardArray: [],
-    // 发票信息TAB：列表
-    invoiceArray: []
+    // 评论TAB：评论列表
+    userCommentList: [],
+    // 评论TAB：开始位置
+    commentStart: 0,
+    // 评论TAB：检索结果数量
+    commentDataSize: 0,
+
+    // 投票TAB：用户投票列表
+    userVoteList: [],
+    // 投票TAB：开始位置
+    voteStart: 0,
+    // 投票TAB：检索结果数量
+    voteDataSize: 0,
+
+
 };
 
 export default handleActions({
@@ -37,64 +40,72 @@ export default handleActions({
             userInfo: action.payload
         }
     },
-    [UserManagerDetailActionType.setInquiryConditionStartCity]: (state, action) => {
+    [UserManagerDetailActionType.getUserNoticeInfo]: (state, action) => {
         return {
             ...state,
-            inquiryConditionStartCity: action.payload
+            userNoticeInfo: action.payload
         }
     },
-    [UserManagerDetailActionType.setInquiryConditionEndCity]: (state, action) => {
+
+    [UserManagerDetailActionType.getUserArticleList]: (state, action) => {
         return {
             ...state,
-            inquiryConditionEndCity: action.payload
+            userArticleList: action.payload
         }
     },
-    [UserManagerDetailActionType.setInquiryConditionServiceType]: (state, action) => {
+    [UserManagerDetailActionType.setArticleStartNumber]: (state, action) => {
         return {
             ...state,
-            inquiryConditionServiceType: action.payload
+            articleStart: action.payload
         }
     },
-    [UserManagerDetailActionType.setInquiryConditionStatus]: (state, action) => {
+    [UserManagerDetailActionType.setArticleDataSize]: (state, action) => {
         return {
             ...state,
-            inquiryConditionStatus: action.payload
+            articleDataSize: action.payload
         }
     },
-    [UserManagerDetailActionType.setInquiryStartNumber]: (state, action) => {
+
+    [UserManagerDetailActionType.getUserCommentList]: (state, action) => {
         return {
             ...state,
-            inquiryStart: action.payload
+            userCommentList: action.payload
         }
     },
-    [UserManagerDetailActionType.setInquiryDataSize]: (state, action) => {
+    [UserManagerDetailActionType.setCommentStartNumber]: (state, action) => {
         return {
             ...state,
-            inquiryDataSize: action.payload
+            commentStart: action.payload
         }
     },
-    [UserManagerDetailActionType.getUserInquiryList]: (state, action) => {
+    [UserManagerDetailActionType.setCommentDataSize]: (state, action) => {
         return {
             ...state,
-            inquiryArray: action.payload
+            commentDataSize: action.payload
         }
     },
-    [UserManagerDetailActionType.getLogInfoList]: (state, action) => {
+
+
+    [UserManagerDetailActionType.getUserVoteList]: (state, action) => {
         return {
             ...state,
-            logInfoArray: action.payload
+            userVoteList: action.payload
         }
     },
-    [UserManagerDetailActionType.getBankCardList]: (state, action) => {
+    [UserManagerDetailActionType.setVoteStartNumber]: (state, action) => {
         return {
             ...state,
-            bankCardArray: action.payload
+            voteStart: action.payload
         }
     },
-    [UserManagerDetailActionType.getInvoiceList]: (state, action) => {
+    [UserManagerDetailActionType.setVoteDataSize]: (state, action) => {
         return {
             ...state,
-            invoiceArray: action.payload
+            voteDataSize: action.payload
         }
-    }
+    },
+
+
+
+
 }, initialState)

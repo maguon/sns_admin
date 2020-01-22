@@ -1,13 +1,18 @@
 import {createAction} from 'redux-actions';
 
 export const getUserInfo = createAction('GET_USER_INFO');
-export const setInquiryConditionStartCity = createAction('SET_INQUIRY_CONDITION_START_CITY');
-export const setInquiryConditionEndCity = createAction('SET_INQUIRY_CONDITION_END_CITY');
-export const setInquiryConditionServiceType = createAction('SET_INQUIRY_CONDITION_SERVICE_TYPE');
-export const setInquiryConditionStatus = createAction('SET_INQUIRY_CONDITION_STATUS');
-export const getUserInquiryList = createAction('GET_USER_INQUIRY_LIST');
-export const setInquiryStartNumber = createAction('SET_INQUIRY_START_NUMBER');
-export const setInquiryDataSize = createAction('SET_INQUIRY_DATA_SIZE');
-export const getLogInfoList = createAction('GET_LOG_INFO_LIST');
-export const getBankCardList = createAction('GET_BANK_CARD_LIST');
-export const getInvoiceList = createAction('GET_INVOICE_LIST');
+export const getUserNoticeInfo = createAction('GET_USER_NOTICE_INFO');
+
+export const getUserArticleList = createAction('GET_USER_DETAIL_USER_ARTICLE_LIST');
+export const setArticleStartNumber = createAction('SET_USER_DETAIL_ARTICLE_START_NUMBER');
+export const setArticleDataSize = createAction('SET_USER_DETAIL_ARTICLE_DATA_SIZE');
+
+export const getUserCommentList = createAction('GET_USER_DETAIL_USER_COMMENT_LIST');
+export const setCommentStartNumber = createAction('SET_USER_DETAIL_COMMENT_START_NUMBER');
+export const setCommentDataSize = createAction('SET_USER_DETAIL_COMMENT_DATA_SIZE');
+
+export const getUserVoteList = createAction('GET_USER_DETAIL_USER_VOTE_LIST');
+export const setVoteStartNumber = createAction('SET_USER_DETAIL_VOTE_START_NUMBER');
+export const setVoteDataSize = createAction('SET_USER_DETAIL_VOTE_DATA_SIZE');
+
+

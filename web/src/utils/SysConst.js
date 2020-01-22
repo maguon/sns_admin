@@ -122,8 +122,7 @@ export const CUSTOM_REACT_SELECT_STYLE_FOR_MODAL = {
 export const USER_STATUS = [
     {value: 1, label: "正常"},
     {value: 2, label: "禁言"},
-    {value: 3, label: "停用"},
-    {value: 4, label: "注销"}
+    {value: 4, label: "停用"}
 ];
 
 // 消息类型 1.文章 2.求助
@@ -203,8 +202,11 @@ export const USE_FLAG = [
     {value: 1, label: "可用"}
 ];
 
-
-
+// 不通知/通知 标记
+export const NOTICE_FLAG = [
+    {value: 0, label: "不通知"},
+    {value: 1, label: "通知"}
+];
 
 // 按日统计-日数
 export const STATISTIC_DAYS = [

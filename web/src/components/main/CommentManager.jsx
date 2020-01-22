@@ -190,19 +190,19 @@ class CommentManager extends React.Component {
                 {/* 下部分：检索结果显示区域 */}
                 <div className="row">
                     <div className="col s12">
-                        <table className="bordered striped">
+                        <table className="fixed-table bordered striped">
                             <thead className="custom-dark-grey table-top-line">
                             <tr className="grey-text text-darken-2">
-                                <th>评论编号</th>
-                                <th>评论类型</th>
-                                <th>注册手机</th>
-                                <th>文章编号</th>
-                                <th>评论内容</th>
+                                <th style={{width: '230px'}}>评论编号</th>
+                                <th style={{width: '80px'}}>评论类型</th>
+                                <th style={{width: '130px'}}>注册手机</th>
+                                <th style={{width: '230px'}}>文章编号</th>
+                                <th className="text-ellipsis" style={{width: '260px'}}>评论内容</th>
                                 <th>评论数</th>
                                 <th>点赞数</th>
-                                <th className="center">评论时间</th>
+                                <th className="center" style={{width: '180px'}}>评论时间</th>
                                 <th className="center">状态</th>
-                                <th className="center">操作</th>
+                                <th className="center" style={{width: '150px'}}>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -210,26 +210,26 @@ class CommentManager extends React.Component {
                                 return (
                                     <tr className="grey-text text-darken-1">
                                         {/* 评论编号 */}
-                                        <td>{item._id}</td>
+                                        <td style={{width: '230px'}}>{item._id}</td>
                                         {/* 评论类型 */}
-                                        <td>{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.msg_type)}</td>
+                                        <td  style={{width: '80px'}}>{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.msg_type)}</td>
                                         {/* 注册手机 */}
-                                        <td>{item.user_login_info[0].phone}</td>
+                                        <td  style={{width: '130px'}}>{item.user_login_info[0].phone}</td>
                                         {/* 文章编号 */}
-                                        <td>{item._msg_id}</td>
+                                        <td style={{width: '230px'}}>{item._msg_id}</td>
                                         {/* 评论内容 */}
-                                        <td>{item.comment}</td>
+                                        <td className="text-ellipsis" style={{width: '260px'}}>{item.comment}</td>
                                         {/* 评论数 */}
                                         <td>{formatUtil.formatNumber(item.comment_num)}</td>
                                         {/* 点赞数 */}
                                         <td>{formatUtil.formatNumber(item.agree_num)}</td>
 
                                         {/* 评论时间 */}
-                                        <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
+                                        <td className="center" style={{width: '180px'}}>{formatUtil.getDateTime(item.created_at)}</td>
                                         {/* 状态 */}
                                         <td className="center">{commonUtil.getJsonValue(sysConst.COMMENT_STATUS, item.status)}</td>
                                         {/* 操作 */}
-                                        <td className="operation center">
+                                        <td className="operation center"  style={{width: '150px'}}>
                                             <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteComment(item._id)}}/>
                                             {/* 状态：屏蔽 */}
                                             {item.status === sysConst.COMMENT_STATUS[0].value &&
