@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {Tab, Tabs} from "react-materialize";
 
-const commentManagerDetailAction = require('../../actions/main/CommentManagerDetailAction');
+const articleManagerDetailAction = require('../../actions/main/ArticleManagerDetailAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 
@@ -20,69 +20,11 @@ class CommentManagerDetail extends React.Component {
      * 组件完全挂载到页面上，调用执行
      */
     componentDidMount() {
-        // // 默认第一页
-        // this.props.setDetailStartNumber(0);
-        // // 清空检索条件
-        // this.props.setConditionCreatedOnStart('');
-        // this.props.setConditionCreatedOnEnd('');
-
-        // 取得推广人基本信息
-        this.props.getCommentInfo();
+        this.props.getArticleInfo();
     }
 
-    /**
-     * 更新 检索条件：选择时间(始)
-     */
-    changeConditionCreatedOnStart = (event, value) => {
-        this.props.setConditionCreatedOnStart(value);
-    };
-
-    /**
-     * 更新 检索条件：选择时间(始)
-     */
-    changeConditionCreatedOnEnd = (event, value) => {
-        this.props.setConditionCreatedOnEnd(value);
-    };
-
-    /**
-     * 查询线路列表
-     */
-    queryLoadTaskList = () => {
-        // 默认第一页
-        this.props.setDetailStartNumber(0);
-        // 取得推广人基本信息
-        this.props.getCommentInfo();
-        // 检索改推广人，推荐用户
-        this.props.getUserList();
-    };
-
-    /**
-     * 查询线路列表
-     */
-    changeTabs = (idx,e) => {
-        // 默认第一页
-        console.log('idx',idx);
-        console.log('e',e);
-    };
-
-    /**
-     * 上一页
-     */
-    preBtn = () => {
-        this.props.setDetailStartNumber(this.props.commentManagerDetailReducer.detailStart - (this.props.commentManagerDetailReducer.detailSize - 1));
-        this.props.getUserList();
-    };
-
-    /**
-     * 下一页
-     */
-    nextBtn = () => {
-        this.props.setDetailStartNumber(this.props.commentManagerDetailReducer.detailStart + (this.props.commentManagerDetailReducer.detailSize - 1));
-        this.props.getUserList();
-    };
-
     render() {
-        const {commentManagerDetailReducer} = this.props;
+        const {articleManagerDetailReducer} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -93,46 +35,46 @@ class CommentManagerDetail extends React.Component {
                                 <i className="mdi mdi-arrow-left-bold"/>
                             </a>
                         </Link>
-                        <span className="page-title margin-left30">评论管理 - 评论详情</span>
+                        <span className="page-title margin-left30">文章管理 - 文章详情</span>
                         <div className="divider custom-divider margin-top10"/>
                     </div>
                 </div>
 
-                {commentManagerDetailReducer.commentInfo.length > 0 &&
+                {articleManagerDetailReducer.commentInfo.length > 0 &&
                 <div className="row margin-top20 margin-left20 margin-right20">
                     <div className="col s12">
-                        {commentManagerDetailReducer.commentInfo[0].user_detail_info[0].nick_name}
+                        {articleManagerDetailReducer.commentInfo[0].user_detail_info[0].nick_name}
                     </div>
                     {/* 评论者 ID / 手机 */}
                     <div className="col s6">
-                        ID：{commentManagerDetailReducer.commentInfo[0].user_login_info[0]._id}
-                        <span className="margin-left20">手机：{commentManagerDetailReducer.commentInfo[0].user_login_info[0].phone}</span>
+                        ID：{articleManagerDetailReducer.commentInfo[0].user_login_info[0]._id}
+                        <span className="margin-left20">手机：{articleManagerDetailReducer.commentInfo[0].user_login_info[0].phone}</span>
                     </div>
                     {/* 评论时间 */}
-                    <div className="col s6 right-align">评论时间：{formatUtil.getDateTime(commentManagerDetailReducer.commentInfo[0].created_at)}</div>
+                    <div className="col s6 right-align">评论时间：{formatUtil.getDateTime(articleManagerDetailReducer.commentInfo[0].created_at)}</div>
                     {/* 分割线 */}
                     <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
                     {/* 评论内容 */}
-                    <div className="col s12">{commentManagerDetailReducer.commentInfo[0].commentsMsg}</div>
+                    <div className="col s12">{articleManagerDetailReducer.commentInfo[0].commentsMsg}</div>
 
 
                     {/* 对应文章 */}
                     <div className="col s12">
                         <div className="col s12 detail-box grey lighten-3 border-bottom-line">
-                            <div className="col s4">ID: {commentManagerDetailReducer.commentInfo[0].messages_info[0]._userId}</div>
+                            <div className="col s4">ID: {articleManagerDetailReducer.commentInfo[0].messages_info[0]._userId}</div>
                             <div className="col s8 right-align">
                                     <span>
                                         <i className="mdi mdi-map-marker margin-right10"/>
-                                        {commentManagerDetailReducer.commentInfo[0].messages_info[0].addressReal}
-                                        {commentManagerDetailReducer.commentInfo[0].messages_info[0].addressName}
+                                        {articleManagerDetailReducer.commentInfo[0].messages_info[0].addressReal}
+                                        {articleManagerDetailReducer.commentInfo[0].messages_info[0].addressName}
                                     </span>
                                 <span className="margin-left50">
-                                        发布时间：{formatUtil.getDateTime(commentManagerDetailReducer.commentInfo[0].messages_info[0].created_at)}
+                                        发布时间：{formatUtil.getDateTime(articleManagerDetailReducer.commentInfo[0].messages_info[0].created_at)}
                                     </span>
                             </div>
                         </div>
                         <div className="col s12 detail-box">
-                            {commentManagerDetailReducer.commentInfo[0].commentsMsg}
+                            {articleManagerDetailReducer.commentInfo[0].commentsMsg}
                         </div>
                     </div>
                 </div>}
@@ -154,17 +96,17 @@ class CommentManagerDetail extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        commentManagerDetailReducer: state.CommentManagerDetailReducer
+        articleManagerDetailReducer: state.ArticleManagerDetailReducer
     }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     // 基本信息
-    getCommentInfo: () => {
-        dispatch(commentManagerDetailAction.getCommentInfo(ownProps.match.params.id))
+    getArticleInfo: () => {
+        dispatch(articleManagerDetailAction.getArticleInfo(ownProps.match.params.id))
     },
     // getUserList: () => {
-    //     dispatch(commentManagerDetailAction.getUserList(ownProps.match.params.id))
+    //     dispatch(articleManagerDetailAction.getUserList(ownProps.match.params.id))
     // },
     // setDetailStartNumber: (start) => {
     //     dispatch(CommentManagerDetailActionType.setDetailStartNumber(start))

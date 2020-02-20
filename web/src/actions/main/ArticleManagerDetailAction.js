@@ -1,5 +1,5 @@
 import {apiHost} from '../../config/HostConfig';
-import {CommentManagerDetailActionType} from '../../types';
+import {ArticleManagerDetailActionType} from '../../types';
 
 const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
@@ -13,7 +13,7 @@ export const getCommentInfo = (id) => async (dispatch) => {
             + '/msgComment?messageCommentsId=' + id;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
-            dispatch({type: CommentManagerDetailActionType.getCommentInfo, payload: res.result});
+            dispatch({type: ArticleManagerDetailActionType.getCommentInfo, payload: res.result});
             if (res.result.length > 0) {
                 dispatch(getArticleInfo(res.result[0].messages_info[0]._id));
             }
@@ -33,7 +33,7 @@ export const getArticleInfo = (articleId) => async (dispatch) => {
             + '/msg?messagesId=' + articleId;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
-            dispatch({type: CommentManagerDetailActionType.getArticleInfo, payload: res.result});
+            dispatch({type: ArticleManagerDetailActionType.getArticleInfo, payload: res.result});
         } else if (res.success === false) {
             swal('获取文章信息失败', res.msg, 'warning');
         }

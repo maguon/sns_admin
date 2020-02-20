@@ -1,24 +1,24 @@
 import {handleActions} from 'redux-actions';
-import {CommentManagerDetailActionType} from '../../types';
+import {ArticleManagerDetailActionType} from '../../types';
 
 const initialState = {
-    // 评论管理 详细 结果
-    commentInfo: [],
     // 文章信息
-    articleInfo: []
+    articleInfo: [],
+    // 评论管理 详细 结果
+    commentInfo: []
 };
 
 export default handleActions({
-    [CommentManagerDetailActionType.getCommentInfo]: (state, action) => {
-        return {
-            ...state,
-            commentInfo: action.payload
-        }
-    },
-    [CommentManagerDetailActionType.getArticleInfo]: (state, action) => {
+    [ArticleManagerDetailActionType.getArticleInfo]: (state, action) => {
         return {
             ...state,
             articleInfo: action.payload
+        }
+    },
+    [ArticleManagerDetailActionType.getCommentInfo]: (state, action) => {
+        return {
+            ...state,
+            commentInfo: action.payload
         }
     }
 }, initialState)
