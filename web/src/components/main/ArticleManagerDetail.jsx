@@ -7,7 +7,7 @@ const articleManagerDetailAction = require('../../actions/main/ArticleManagerDet
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 
-class CommentManagerDetail extends React.Component {
+class ArticleManagerDetail extends React.Component {
 
     /**
      * 组件准备要挂载的最一开始，调用执行
@@ -23,14 +23,23 @@ class CommentManagerDetail extends React.Component {
         this.props.getArticleInfo();
     }
 
+    /**
+     * 显示2级评论列表
+     */
+    showDetail = (msgComId) => {
+        $(".details").hide();
+        $(".detail_" + msgComId).show();
+        this.props.getComLv2List(msgComId);
+    };
+
     render() {
-        const {articleManagerDetailReducer} = this.props;
+        const {articleManagerDetailReducer,changeTab} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
                 <div className="row margin-bottom0">
                     <div className="input-field col s12">
-                        <Link to={{pathname: '/comment', state: {fromDetail: true}}}>
+                        <Link to={{pathname: '/article', state: {fromDetail: true}}}>
                             <a className="btn-floating btn waves-effect custom-blue waves-light fz15">
                                 <i className="mdi mdi-arrow-left-bold"/>
                             </a>
@@ -40,55 +49,73 @@ class CommentManagerDetail extends React.Component {
                     </div>
                 </div>
 
-                {articleManagerDetailReducer.commentInfo.length > 0 &&
+                {articleManagerDetailReducer.articleInfo.length > 0 &&
                 <div className="row margin-top20 margin-left20 margin-right20">
-                    <div className="col s12">
-                        {articleManagerDetailReducer.commentInfo[0].user_detail_info[0].nick_name}
-                    </div>
-                    {/* 评论者 ID / 手机 */}
-                    <div className="col s6">
-                        ID：{articleManagerDetailReducer.commentInfo[0].user_login_info[0]._id}
-                        <span className="margin-left20">手机：{articleManagerDetailReducer.commentInfo[0].user_login_info[0].phone}</span>
-                    </div>
-                    {/* 评论时间 */}
-                    <div className="col s6 right-align">评论时间：{formatUtil.getDateTime(articleManagerDetailReducer.commentInfo[0].created_at)}</div>
+                    {/* 作者昵称 */}
+                    <div className="col s6">作者昵称：{articleManagerDetailReducer.articleInfo[0].user_detail_info[0].nick_name}</div>
+                    {/* 发布时间 */}
+                    <div className="col s6 right-align">发布时间：{formatUtil.getDateTime(articleManagerDetailReducer.articleInfo[0].created_at)}</div>
+                    {/* 手机 */}
+                    <div className="col s6 margin-top5">&nbsp;</div>
+                    {/* 发布位置 */}
+                    <div className="col s6 margin-top5 right-align">发布位置：{articleManagerDetailReducer.articleInfo[0].address_name}</div>
                     {/* 分割线 */}
-                    <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
-                    {/* 评论内容 */}
-                    <div className="col s12">{articleManagerDetailReducer.commentInfo[0].commentsMsg}</div>
-
-
-                    {/* 对应文章 */}
-                    <div className="col s12">
-                        <div className="col s12 detail-box grey lighten-3 border-bottom-line">
-                            <div className="col s4">ID: {articleManagerDetailReducer.commentInfo[0].messages_info[0]._userId}</div>
-                            <div className="col s8 right-align">
-                                    <span>
-                                        <i className="mdi mdi-map-marker margin-right10"/>
-                                        {articleManagerDetailReducer.commentInfo[0].messages_info[0].addressReal}
-                                        {articleManagerDetailReducer.commentInfo[0].messages_info[0].addressName}
-                                    </span>
-                                <span className="margin-left50">
-                                        发布时间：{formatUtil.getDateTime(articleManagerDetailReducer.commentInfo[0].messages_info[0].created_at)}
-                                    </span>
-                            </div>
-                        </div>
-                        <div className="col s12 detail-box">
-                            {articleManagerDetailReducer.commentInfo[0].commentsMsg}
-                        </div>
-                    </div>
+                    <div className="col s12 no-padding"><div className="col s12 margin-top10 divider"/></div>
+                    {/* 文章内容 */}
+                    <div className="col s12 margin-top10">{articleManagerDetailReducer.articleInfo[0].info}</div>
                 </div>}
 
+                <div className="row margin-left20 margin-right20">
+                    <Tabs className='tab-demo z-depth-1' onChange={changeTab}>
+                        <Tab title="评论" idx="1000" className="margin-top10" active>
+                            {articleManagerDetailReducer.commentArray.map(function (item) {
+                                return (
+                                    <div className="col s12 margin-top10">
+                                        <div className="col s8 margin-top10">{item.user_detail_info[0].nick_name}</div>
+                                        <div className="col s4 margin-top10 right-align">{formatUtil.getDateTime(item.created_at)}</div>
+                                        <div className="col s12 margin-top10">{item.comment}</div>
+                                        <div className="col s12 no-padding"><div className="col s12 margin-top10 divider"/></div>
+                                        <div className="col s6 margin-top10 blue-font">共{item.comment_num}条评论
+                                            <span onClick={() => {this.showDetail(item._id)}} className="pointer">{item.comment_num > 0 ? ' 展开更多 >>' : ''}</span>
+                                        </div>
+                                        <div className="col s6 margin-top10 right-align">赞({item.agree_num})</div>
 
-                <div className="row">
-                    <Tabs className='tab-demo z-depth-1' onChange={this.changeTabs}>
-                        <Tab title={''} idx="1000" className="first">Test 1222222222222222222</Tab>
-                        <Tab title="Test 2" idx="1001" className="second" active>Test 233333333333333333333</Tab>
-                        <Tab title="Test 3" idx="1002" className="third">Test 44444444444443</Tab>
-                        <Tab title="Test 4" idx="1003" className="fouth">Test 555555555555555554</Tab>
+                                        <div className={`col s12 margin-top10 details detail_${item._id}`}>
+                                        {articleManagerDetailReducer.commentLv2Array.map(function (item) {
+                                            return (
+                                                <div className="col s12 margin-top10">
+                                                    <div className="col s1 margin-top10">&nbsp;</div>
+                                                    <div className="col s7 margin-top10">{item.user_detail_info[0].nick_name}</div>
+                                                    <div className="col s4 margin-top10 right-align">{formatUtil.getDateTime(item.created_at)}</div>
+                                                    <div className="col s1 margin-top10">&nbsp;</div>
+                                                    <div className="col s11 margin-top10">{item.comment}</div>
+                                                    <div className="col s1"></div>
+                                                    <div className="col s11 no-padding"><div className="col s12 margin-top10 divider"/></div>
+                                                    <div className="col s1 margin-top10">&nbsp;</div>
+                                                    <div className="col s6 margin-top10 blue-font">共{item.comment_num}条评论 {item.comment_num > 0 ? '展开更多 >>' : ''}</div>
+                                                    <div className="col s5 margin-top10 right-align">赞({item.agree_num})</div>
+                                                </div>
+                                            )
+                                        })}
+                                        </div>
+                                    </div>
+                                )
+                            },this)}
+                        </Tab>
+
+                        <Tab title="点赞" idx="1001" className="margin-top10">
+                            {articleManagerDetailReducer.praiseArray.map(function (item) {
+                                return (
+                                    <div>
+                                        <div className="col s8 margin-top10">{item.user_detail_info[0].nick_name}</div>
+                                        <div className="col s4 margin-top10 right-align">{formatUtil.getDateTime(item.created_at)}</div>
+                                        <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
+                                    </div>
+                                )
+                            },this)}
+                        </Tab>
                     </Tabs>
                 </div>
-
             </div>
         )
     }
@@ -105,18 +132,13 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     getArticleInfo: () => {
         dispatch(articleManagerDetailAction.getArticleInfo(ownProps.match.params.id))
     },
-    // getUserList: () => {
-    //     dispatch(articleManagerDetailAction.getUserList(ownProps.match.params.id))
-    // },
-    // setDetailStartNumber: (start) => {
-    //     dispatch(CommentManagerDetailActionType.setDetailStartNumber(start))
-    // },
-    // setConditionCreatedOnStart: (value) => {
-    //     dispatch(CommentManagerDetailActionType.setConditionCreatedOnStart(value))
-    // },
-    // setConditionCreatedOnEnd: (value) => {
-    //     dispatch(CommentManagerDetailActionType.setConditionCreatedOnEnd(value))
-    // }
+    changeTab: () => {
+        dispatch(articleManagerDetailAction.getCommentInfo(ownProps.match.params.id));
+        dispatch(articleManagerDetailAction.getPraiseInfo(ownProps.match.params.id));
+    },
+    getComLv2List: (msgComId) => {
+        dispatch(articleManagerDetailAction.getComLv2List(msgComId));
+    }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentManagerDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleManagerDetail)

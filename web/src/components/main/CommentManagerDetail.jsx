@@ -45,52 +45,33 @@ class CommentManagerDetail extends React.Component {
                 {commentManagerDetailReducer.articleInfo.length > 0 &&
                 <div className="row margin-top20 margin-left20 margin-right20">
 
-                    {/* 文章作者 头像 */}
-                    <div className="col s1 margin-top10 center">
-                        {/*{commentManagerDetailReducer.articleInfo[0].user_detail_info[0].avatar !== null && commentManagerDetailReducer.articleInfo[0].user_detail_info[0].avatar !== '' &&*/}
-                        <img className="circle height-90" src={commentManagerDetailReducer.articleInfo[0].user_detail_info[0].avatar}/>
-                        {/*}*/}
-                    </div>
-
-                    {/* 文章作者 昵称 */}
-                    <div className="col s5">
-                        {commentManagerDetailReducer.articleInfo[0].user_detail_info[0].nick_name}
-                    </div>
-
-                    {/* 文章 发布时间 / 地址 */}
+                    {/* 文章作者 头像 昵称 */}
                     <div className="col s6">
-                        发布时间：{formatUtil.getDateTime(commentManagerDetailReducer.articleInfo[0].created_at)}
-                        <div className="margin-top10">
-                            <i className="mdi mdi-map-marker margin-right10"/>
-                            {commentManagerDetailReducer.articleInfo[0].addressName}
-                        </div>
+                        <img className="circle height-90" src={commentManagerDetailReducer.articleInfo[0].user_detail_info[0].avatar}/>
+                        <span className="margin-left10">{commentManagerDetailReducer.articleInfo[0].user_detail_info[0].nick_name}</span>
                     </div>
+
+                    {/* 文章 发布时间 */}
+                    <div className="col s6 right-align">发布时间：{formatUtil.getDateTime(commentManagerDetailReducer.articleInfo[0].created_at)}</div>
+
+                    {/* 文章 发布地址 */}
+                    <div className="col s12 right-align"><i className="mdi mdi-map-marker margin-right10"/>{commentManagerDetailReducer.articleInfo[0].address_name}</div>
 
                     {/* 文章内容 */}
-                    <div className="col s12">{commentManagerDetailReducer.articleInfo[0].info}</div>
+                    <div className="col s12 margin-top10">{commentManagerDetailReducer.articleInfo[0].info}</div>
                 </div>}
 
                 {/* 评论 */}
                 {commentManagerDetailReducer.commentInfo.length > 0 &&
-                <div className="row margin-top20 margin-left20 margin-right20">
-                    <div className="col s12">
-                        <div className="col s12 detail-box grey lighten-3 border-bottom-line">
-                            <div className="col s12">
-                                {commentManagerDetailReducer.commentInfo[0].user_detail_info[0].nick_name}
-                            </div>
-                            {/* 评论者 ID / 手机 */}
-                            <div className="col s6">
-                                ID：{commentManagerDetailReducer.commentInfo[0].user_login_info[0]._id}
-                                <span className="margin-left20">手机：{commentManagerDetailReducer.commentInfo[0].user_login_info[0].phone}</span>
-                            </div>
-                            {/* 评论时间 */}
-                            <div className="col s6 right-align">评论时间：{formatUtil.getDateTime(commentManagerDetailReducer.commentInfo[0].created_at)}</div>
-                        </div>
-                        {/* 评论内容 */}
-                        <div className="col s12 detail-box">
-                            {commentManagerDetailReducer.commentInfo[0].commentsMsg}
-                        </div>
-                    </div>
+                <div className="row margin-left20 margin-right20">
+                    <div className="col s12 no-padding"><div className="col s12 margin-top10 divider"/></div>
+
+                    <div className="col s12 margin-top10">评论详情</div>
+                    <div className="col s8 margin-top10">{commentManagerDetailReducer.commentInfo[0].user_detail_info[0].nick_name}</div>
+                    <div className="col s4 margin-top10 right-align">{formatUtil.getDateTime(commentManagerDetailReducer.commentInfo[0].created_at)}</div>
+                    <div className="col s12 margin-top10">{commentManagerDetailReducer.commentInfo[0].comment}</div>
+                    <div className="col s6 margin-top10">共{commentManagerDetailReducer.commentInfo[0].comment_num}条评论</div>
+                    <div className="col s6 margin-top10 right-align">赞({commentManagerDetailReducer.commentInfo[0].agree_num})</div>
                 </div>}
             </div>
         )

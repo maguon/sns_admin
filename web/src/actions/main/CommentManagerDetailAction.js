@@ -10,12 +10,12 @@ export const getCommentInfo = (id) => async (dispatch) => {
     try {
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/msgComment?messageCommentsId=' + id;
+            + '/msgComment?Id=' + id;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommentManagerDetailActionType.getCommentInfo, payload: res.result});
             if (res.result.length > 0) {
-                dispatch(getArticleInfo(res.result[0].messages_info[0]._id));
+                dispatch(getArticleInfo(res.result[0]._msg_id));
             }
         } else if (res.success === false) {
             swal('获取评论信息失败', res.msg, 'warning');
@@ -30,7 +30,7 @@ export const getArticleInfo = (articleId) => async (dispatch) => {
     try {
         // 基本检索URL
         let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/messages?messagesId=' + articleId;
+            + '/msg?messagesId=' + articleId;
         const res = await httpUtil.httpGet(url);
         if (res.success === true) {
             dispatch({type: CommentManagerDetailActionType.getArticleInfo, payload: res.result});
