@@ -30,7 +30,14 @@ const initialState = {
     // 投票TAB：检索结果数量
     voteDataSize: 0,
 
-
+    // 投票TAB：用户关系列表
+    userAttentionList: [],
+    // 投票TAB：检索条件 关注类型
+    conditionAttentionType: null,
+    // 投票TAB：开始位置
+    attentionStart: 0,
+    // 投票TAB：检索结果数量
+    attentionDataSize: 0,
 };
 
 export default handleActions({
@@ -85,7 +92,6 @@ export default handleActions({
         }
     },
 
-
     [UserManagerDetailActionType.getUserVoteList]: (state, action) => {
         return {
             ...state,
@@ -105,7 +111,30 @@ export default handleActions({
         }
     },
 
-
+    [UserManagerDetailActionType.getUserAttentionList]: (state, action) => {
+        return {
+            ...state,
+            userAttentionList: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setConditionAttentionType]: (state, action) => {
+        return {
+            ...state,
+            conditionAttentionType: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setAttentionStartNumber]: (state, action) => {
+        return {
+            ...state,
+            attentionStart: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setAttentionDataSize]: (state, action) => {
+        return {
+            ...state,
+            attentionDataSize: action.payload
+        }
+    },
 
 
 }, initialState)

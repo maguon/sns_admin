@@ -155,7 +155,14 @@ export const ARTICLE_STATUS = [
 export const VOTE_STATUS = [
     {value: 0, label: "未开启"},
     {value: 1, label: "进行中"},
-    {value: 2, label: "已结束"}
+    {value: 3, label: "已结束"}
+];
+
+// 关注类型（0-已关注，1-被关注，2-互相关注）
+export const ATTENTION_TYPE = [
+    {value: 1, label: "已关注"},
+    {value: 2, label: "被关注"},
+    {value: 3, label: "互相关注"}
 ];
 
 // 消息类型

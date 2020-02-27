@@ -1,6 +1,5 @@
 import {apiHost} from '../../config/HostConfig';
 import {UserManagerDetailActionType} from '../../types';
-import {getAdminInfo} from "./AdminUserSettingDetailAction";
 
 const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
@@ -95,7 +94,6 @@ export const getUserArticleList = (userId) => async (dispatch, getState) => {
     }
 };
 
-
 // 获取 用户 评论回复
 export const getUserCommentList = (userId) => async (dispatch, getState) => {
     try {
@@ -119,7 +117,6 @@ export const getUserCommentList = (userId) => async (dispatch, getState) => {
     }
 };
 
-
 // 获取 参与人投票详情
 export const getUserVoteList = (userId) => async (dispatch, getState) => {
     try {
@@ -137,6 +134,45 @@ export const getUserVoteList = (userId) => async (dispatch, getState) => {
             dispatch({type: UserManagerDetailActionType.getUserVoteList, payload: res.result.slice(0, size - 1)});
         } else if (res.success === false) {
             swal('获取用户投票信息失败', res.msg, 'warning');
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
+
+// 获取 用户关系详情
+export const getUserAttentionList = (userId) => async (dispatch, getState) => {
+    try {
+        // 检索条件：开始位置
+        const start = getState().UserManagerDetailReducer.attentionStart;
+        // 检索条件：每页数量
+        const size = getState().UserManagerDetailReducer.size;
+        // 检索条件：关注类型
+        const conditionAttentionType = getState().UserManagerDetailReducer.conditionAttentionType;
+
+        // 基本检索URL
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
+            + '/friend?start=' + start + '&size=' + size;
+        switch (conditionAttentionType === null ? '' : conditionAttentionType.value) {
+            case 1:
+                url = url + '&type=0&followId=' + userId;
+                break;
+            case 2:
+                url = url + '&type=0&attentionId=' + userId;
+                break;
+            case 3:
+                url = url + '&type=1&followId=' + userId;
+                break;
+            default:
+                break;
+        }
+
+        const res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            dispatch({type: UserManagerDetailActionType.setAttentionDataSize, payload: res.result.length});
+            dispatch({type: UserManagerDetailActionType.getUserAttentionList, payload: res.result.slice(0, size - 1)});
+        } else if (res.success === false) {
+            swal('获取用户关系信息失败', res.msg, 'warning');
         }
     } catch (err) {
         swal('操作失败', err.message, 'error');

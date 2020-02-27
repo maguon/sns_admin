@@ -6,7 +6,6 @@ import {UserManagerDetailActionType} from '../../types';
 import {TextInput} from "react-materialize";
 
 const userManagerDetailAction = require('../../actions/main/UserManagerDetailAction');
-// const inquiryInfoModalAction = require('../../actions/modules/InquiryInfoModalAction');
 // const commonAction = require('../../actions/main/CommonAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
@@ -32,7 +31,6 @@ class UserManagerDetail extends React.Component {
         this.props.getUserInfo();
         // 初始，默认显示 个人资料
         this.onClickBaseTab();
-
         this.props.setArticleStartNumber(0);
     }
 
@@ -109,6 +107,23 @@ class UserManagerDetail extends React.Component {
         this.props.initTabStatus();
         // 显示 投票TAB
         this.props.showUserVoteTab();
+        this.props.getUserVoteList();
+    };
+
+    /**
+     * 评论TAB：上一页
+     */
+    votePreBtn = () => {
+        this.props.setVoteStartNumber(this.props.userManagerDetailReducer.voteStart - (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserVoteList();
+    };
+
+    /**
+     * 评论TAB：下一页
+     */
+    voteNextBtn = () => {
+        this.props.setVoteStartNumber(this.props.userManagerDetailReducer.voteStart + (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserVoteList();
     };
 
     /**
@@ -119,6 +134,27 @@ class UserManagerDetail extends React.Component {
         this.props.initTabStatus();
         // 显示 社交圈TAB
         this.props.showUserSocialTab();
+        this.props.getUserAttentionList();
+    };
+
+    queryUserAttentionList = () => {
+        this.props.getUserAttentionList();
+    };
+
+    /**
+     * 社交圈TAB：上一页
+     */
+    attentionPreBtn = () => {
+        this.props.setAttentionStartNumber(this.props.userManagerDetailReducer.attentionStart - (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserAttentionList();
+    };
+
+    /**
+     * 社交圈TAB：下一页
+     */
+    attentionNextBtn = () => {
+        this.props.setAttentionStartNumber(this.props.userManagerDetailReducer.attentionStart + (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserAttentionList();
     };
 
     /**
@@ -152,7 +188,7 @@ class UserManagerDetail extends React.Component {
     };
 
     render() {
-        const {userManagerDetailReducer,changeUserStatus} = this.props;
+        const {userManagerDetailReducer, changeUserStatus, changeConditionAttentionType} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -292,8 +328,6 @@ class UserManagerDetail extends React.Component {
                     <div id="tab_article" className="col s12 tab_box">
                         <div className="row">
                             <div className="col s12">
-
-
                                 <table className="fixed-table bordered striped">
                                     <thead className="custom-dark-grey table-top-line">
                                     <tr className="grey-text text-darken-2">
@@ -352,20 +386,12 @@ class UserManagerDetail extends React.Component {
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
 
-
-
+                    {/* 评论回复 TAB */}
                     <div id="tab_reply" className="col s12 tab_box">
-
-
                         <div className="row">
                             <div className="col s12">
-
-
                                 <table className="fixed-table bordered striped">
                                     <thead className="custom-dark-grey table-top-line">
                                     <tr className="grey-text text-darken-2">
@@ -430,11 +456,7 @@ class UserManagerDetail extends React.Component {
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
-
-
 
                     {/* 投票 TAB */}
                     <div id="tab_vote" className="col s12 tab_box">
@@ -447,30 +469,33 @@ class UserManagerDetail extends React.Component {
                                         <th>投票编号</th>
                                         <th>最多选项数</th>
                                         <th>投票标题</th>
-                                        <th>投票数</th>
+                                        <th>参与人数</th>
                                         <th>发布人</th>
-                                        <th>状态</th>
-                                        <th className="center">投票时间</th>
+                                        <th className="center">状态</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {userManagerDetailReducer.userVoteList.map(function (item) {
                                         return (
                                             <tr className="grey-text text-darken-1">
-                                                {/* 投票用户昵称 TODO */}
-                                                <td>{item._id}</td>
-                                                {/* 投票数 */}
-                                                <td>{formatUtil.formatNumber(item.option_item.length)}</td>
-                                                {/* 投票选项 */}
-                                                <td>{item.option_item.map((n) => n.index).toString()}</td>
-                                                {/* 投票时间 */}
-                                                <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
+                                                {/* 投票编号 */}
+                                                <td>{item._vote_id}</td>
+                                                {/* 最多选项数 */}
+                                                <td>{formatUtil.formatNumber(item.vote_info[0].max_num)}</td>
+                                                {/* 投票标题 */}
+                                                <td>{item.vote_info[0].title}</td>
+                                                {/* 参与人数 */}
+                                                <td>{formatUtil.formatNumber(item.vote_info[0].participants_num)}</td>
+                                                {/* 发布人 */}
+                                                <td>{item.admin_info[0].name}</td>
+                                                {/* 状态 */}
+                                                <td className="center">{commonUtil.getJsonValue(sysConst.VOTE_STATUS, item.vote_info[0].status)}</td>
                                             </tr>
                                         )
                                     },this)}
                                     {userManagerDetailReducer.userVoteList.length === 0 &&
                                     <tr className="grey-text text-darken-1">
-                                        <td className="no-data-tr" colSpan="4">暂无数据</td>
+                                        <td className="no-data-tr" colSpan="6">暂无数据</td>
                                     </tr>}
                                     </tbody>
                                 </table>
@@ -479,103 +504,99 @@ class UserManagerDetail extends React.Component {
                             {/* 上下页按钮 */}
                             <div className="col s12 margin-top10">
                                 <div className="right">
-                                    {userManagerDetailReducer.start > 0 && userManagerDetailReducer.dataSize > 0 &&
-                                    <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.preBtn}>
+                                    {userManagerDetailReducer.voteStart > 0 && userManagerDetailReducer.voteDataSize > 0 &&
+                                    <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.votePreBtn}>
                                         上一页
                                     </a>}
-                                    {userManagerDetailReducer.dataSize >= userManagerDetailReducer.size &&
-                                    <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.nextBtn}>
+                                    {userManagerDetailReducer.voteDataSize >= userManagerDetailReducer.size &&
+                                    <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.voteNextBtn}>
                                         下一页
                                     </a>}
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
 
                     {/* 社交圈 TAB */}
                     <div id="tab_social" className="col s12 tab_box">
-                        {/* 上部分：检索条件输入区域 */}
-                        {/*<div className="row grey-text text-darken-1 margin-top20 margin-bottom0">*/}
-                        {/*    <div className="col s11 search-condition-box">*/}
-                        {/*        <TextInput s={4} label="用户手机" value={userManagerDetailReducer.conditionPhone} onChange={this.changeConditionPhone}/>*/}
+                         {/*上部分：检索条件输入区域 */}
+                        <div className="row grey-text text-darken-1 margin-top20 margin-bottom0">
+                            <div className="col s11 search-condition-box">
+                                <div className="input-field col s4">
+                                    <Select
+                                        options={sysConst.ATTENTION_TYPE}
+                                        onChange={changeConditionAttentionType}
+                                        value={userManagerDetailReducer.conditionAttentionType}
+                                        isSearchable={false}
+                                        placeholder={"请选择"}
+                                        styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
+                                        isClearable={false}
+                                    />
+                                    <label className="active">关注类型</label>
+                                </div>
+                            </div>
 
-                        {/*        <div className="input-field col s4">*/}
-                        {/*            <Select*/}
-                        {/*                options={userManagerDetailReducer.voteItemList}*/}
-                        {/*                onChange={changeConditionVoteItem}*/}
-                        {/*                value={userManagerDetailReducer.conditionVoteItem}*/}
-                        {/*                isSearchable={false}*/}
-                        {/*                placeholder={"请选择"}*/}
-                        {/*                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}*/}
-                        {/*                isClearable={true}*/}
-                        {/*            />*/}
-                        {/*            <label className="active">投票选项</label>*/}
-                        {/*        </div>*/}
+                            {/* 查询按钮 */}
+                            <div className="col s1">
+                                <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryUserAttentionList}>
+                                    <i className="mdi mdi-magnify"/>
+                                </a>
+                            </div>
+                        </div>
 
-                        {/*    </div>*/}
+                        {/* 下部分：检索结果显示区域 */}
+                        <div className="row">
+                            <div className="col s12">
+                                <table className="bordered striped">
+                                    <thead className="custom-dark-grey table-top-line">
+                                    <tr className="grey-text text-darken-2">
+                                        <th>关注人帐号</th>
+                                        <th>关注人昵称</th>
+                                        <th>被关注人帐号</th>
+                                        <th>被关注人昵称</th>
+                                        <th className="center">关注时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {userManagerDetailReducer.userAttentionList.map(function (item) {
+                                        return (
+                                            <tr className="grey-text text-darken-1">
+                                                {/* 关注人帐号 */}
+                                                <td>{item.follow_login_info[0]._id}</td>
+                                                {/* 关注人昵称 */}
+                                                <td>{item.follow_detail_info[0].nick_name}</td>
+                                                {/* 被关注人帐号 */}
+                                                <td>{item.attention_login_info[0]._id}</td>
+                                                {/* 被关注人昵称 */}
+                                                <td>{item.attention_detail_info[0].nick_name}</td>
+                                                {/* 关注时间 */}
+                                                <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
+                                            </tr>
+                                        )
+                                    },this)}
+                                    {userManagerDetailReducer.userAttentionList.length === 0 &&
+                                    <tr className="grey-text text-darken-1">
+                                        <td className="no-data-tr" colSpan="5">暂无数据</td>
+                                    </tr>}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                        {/*    /!* 查询按钮 *!/*/}
-                        {/*    <div className="col s1">*/}
-                        {/*        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryUserVoteList}>*/}
-                        {/*            <i className="mdi mdi-magnify"/>*/}
-                        {/*        </a>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-
-                        {/*/!* 下部分：检索结果显示区域 *!/*/}
-                        {/*<div className="row">*/}
-                        {/*    <div className="col s12">*/}
-                        {/*        <table className="bordered striped">*/}
-                        {/*            <thead className="custom-dark-grey table-top-line">*/}
-                        {/*            <tr className="grey-text text-darken-2">*/}
-                        {/*                <th>投票用户昵称</th>*/}
-                        {/*                <th>投票数</th>*/}
-                        {/*                <th>投票选项</th>*/}
-                        {/*                <th className="center">投票时间</th>*/}
-                        {/*            </tr>*/}
-                        {/*            </thead>*/}
-                        {/*            <tbody>*/}
-                        {/*            {userManagerDetailReducer.userVoteList.map(function (item) {*/}
-                        {/*                return (*/}
-                        {/*                    <tr className="grey-text text-darken-1">*/}
-                        {/*                        /!* 投票用户昵称 TODO *!/*/}
-                        {/*                        <td>{item._id}</td>*/}
-                        {/*                        /!* 投票数 *!/*/}
-                        {/*                        <td>{formatUtil.formatNumber(item.option_item.length)}</td>*/}
-                        {/*                        /!* 投票选项 *!/*/}
-                        {/*                        <td>{item.option_item.map((n) => n.index).toString()}</td>*/}
-                        {/*                        /!* 投票时间 *!/*/}
-                        {/*                        <td className="center">{formatUtil.getDateTime(item.created_at)}</td>*/}
-                        {/*                    </tr>*/}
-                        {/*                )*/}
-                        {/*            },this)}*/}
-                        {/*            {userManagerDetailReducer.userVoteList.length === 0 &&*/}
-                        {/*            <tr className="grey-text text-darken-1">*/}
-                        {/*                <td className="no-data-tr" colSpan="4">暂无数据</td>*/}
-                        {/*            </tr>}*/}
-                        {/*            </tbody>*/}
-                        {/*        </table>*/}
-                        {/*    </div>*/}
-
-                        {/*    /!* 上下页按钮 *!/*/}
-                        {/*    <div className="col s12 margin-top10">*/}
-                        {/*        <div className="right">*/}
-                        {/*            {userManagerDetailReducer.start > 0 && userManagerDetailReducer.dataSize > 0 &&*/}
-                        {/*            <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.preBtn}>*/}
-                        {/*                上一页*/}
-                        {/*            </a>}*/}
-                        {/*            {userManagerDetailReducer.dataSize >= userManagerDetailReducer.size &&*/}
-                        {/*            <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.nextBtn}>*/}
-                        {/*                下一页*/}
-                        {/*            </a>}*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+                            {/* 上下页按钮 */}
+                            <div className="col s12 margin-top10">
+                                <div className="right">
+                                    {userManagerDetailReducer.attentionStart > 0 && userManagerDetailReducer.attentionDataSize > 0 &&
+                                    <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.attentionPreBtn}>
+                                        上一页
+                                    </a>}
+                                    {userManagerDetailReducer.attentionDataSize >= userManagerDetailReducer.size &&
+                                    <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.attentionNextBtn}>
+                                        下一页
+                                    </a>}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
 
                     {/* 消息 TAB */}
                     <div id="tab_message" className="col s12 tab_box">
@@ -683,24 +704,25 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch(userManagerDetailAction.getUserNoticeInfo(ownProps.match.params.id));
     },
 
-
-
+    // 初始化TAB
     initTabStatus: () => {
         $('.tabs .tab').removeClass("active");
         $(".tab_box").removeClass("active");
         $(".tab_box").hide();
     },
 
-
-
-
-    // 显示 个人资料 TAB 内容
+    // 显示 个人资料 TAB1 内容
     showUserBaseTab: () => {
         $('.tabs .tab_base').addClass("active");
         $("#tab_base").addClass("active");
         $("#tab_base").show();
     },
-    // 显示 发布文章 TAB 内容
+    // 修改用户状态
+    changeUserStatus: (status) => {
+        dispatch(userManagerDetailAction.changeUserStatus(ownProps.match.params.id, status))
+    },
+
+    // 显示 发布文章 TAB2 内容
     showUserArticleTab: () => {
         $('.tabs .tab_article').addClass("active");
         $("#tab_article").addClass("active");
@@ -712,12 +734,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     setArticleStartNumber: (start) => {
         dispatch(UserManagerDetailActionType.setArticleStartNumber(start))
     },
-    changeUserStatus: (status) => {
-        dispatch(userManagerDetailAction.changeUserStatus(ownProps.match.params.id, status))
-    },
 
-
-    // 显示 评论回复 TAB 内容
+    // 显示 评论回复 TAB3 内容
     showUserReplyTab: () => {
         $('.tabs .tab_reply').addClass("active");
         $("#tab_reply").addClass("active");
@@ -730,21 +748,46 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch(UserManagerDetailActionType.setCommentStartNumber(start))
     },
 
-
-
-    // 显示 投票 TAB 内容
+    // 显示 投票 TAB4 内容
     showUserVoteTab: () => {
         $('.tabs .tab_vote').addClass("active");
         $("#tab_vote").addClass("active");
         $("#tab_vote").show();
         dispatch(userManagerDetailAction.getUserVoteList(ownProps.match.params.id));
     },
-    // 显示 社交圈 TAB 内容
+    getUserVoteList: () => {
+        dispatch(userManagerDetailAction.getUserVoteList(ownProps.match.params.id));
+    },
+    setVoteStartNumber: (start) => {
+        dispatch(UserManagerDetailActionType.setVoteStartNumber(start))
+    },
+
+    // 显示 社交圈 TAB5 内容
     showUserSocialTab: () => {
         $('.tabs .tab_social').addClass("active");
         $("#tab_social").addClass("active");
         $("#tab_social").show();
+        dispatch(userManagerDetailAction.getUserAttentionList(ownProps.match.params.id));
+        dispatch(UserManagerDetailActionType.setConditionAttentionType({value: 1, label: "已关注"}));
     },
+    changeConditionAttentionType: (value) => {
+        dispatch(UserManagerDetailActionType.setConditionAttentionType(value));
+    },
+    getUserAttentionList: () => {
+        dispatch(userManagerDetailAction.getUserAttentionList(ownProps.match.params.id));
+    },
+    setAttentionStartNumber: (start) => {
+        dispatch(UserManagerDetailActionType.setAttentionStartNumber(start))
+    },
+
+
+
+
+
+
+
+
+
     // 显示 消息 TAB 内容
     showUserMessageTab: () => {
         $('.tabs .tab_message').addClass("active");
