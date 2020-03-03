@@ -4,10 +4,10 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {UserManagerDetailActionType} from '../../types';
 import {AddressMapModal} from "../modules";
+import {DatePicker, TextInput} from "react-materialize";
 
 const userManagerDetailAction = require('../../actions/main/UserManagerDetailAction');
 const addressMapModalAction = require('../../actions/modules/AddressMapModalAction');
-// const commonAction = require('../../actions/main/CommonAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 const commonUtil = require('../../utils/CommonUtil');
@@ -166,6 +166,60 @@ class UserManagerDetail extends React.Component {
         this.props.initTabStatus();
         // 显示 社交圈TAB
         this.props.showUserMessageTab();
+        this.props.getUserMsgList();
+    };
+    queryUserMsgList = () => {
+        this.props.getUserMsgList();
+    };
+
+    /**
+     * 更新 检索条件：消息编号
+     */
+    changeConditionMsgId = (event) => {
+        this.props.setConditionMsgId(event.target.value);
+    };
+
+    /**
+     * 更新 检索条件：接收人手机
+     */
+    changeConditionReceiverPhone = (event) => {
+        this.props.setConditionMsgReceiverPhone(event.target.value);
+    };
+
+    /**
+     * 更新 检索条件：发送时间(始)
+     */
+    changeConditionCreatedOnStart = (value) => {
+        this.props.setConditionMsgCreatedOnStart(formatUtil.getDate(value));
+    };
+    clearConditionCreatedOnStart = () => {
+        this.props.setConditionMsgCreatedOnStart('');
+    };
+
+    /**
+     * 更新 检索条件：发送时间(始)
+     */
+    changeConditionCreatedOnEnd = (value) => {
+        this.props.setConditionMsgCreatedOnEnd(formatUtil.getDate(value));
+    };
+    clearConditionCreatedOnEnd = () => {
+        this.props.setConditionMsgCreatedOnEnd('');
+    };
+
+    /**
+     * 消息TAB：上一页
+     */
+    messagePreBtn = () => {
+        this.props.setMsgStartNumber(this.props.userManagerDetailReducer.messageStart - (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserMsgList();
+    };
+
+    /**
+     * 消息TAB：下一页
+     */
+    messageNextBtn = () => {
+        this.props.setMsgStartNumber(this.props.userManagerDetailReducer.messageStart + (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserMsgList();
     };
 
     /**
@@ -175,7 +229,32 @@ class UserManagerDetail extends React.Component {
         // 清除TAB状态
         this.props.initTabStatus();
         // 显示 收藏文章TAB
-        this.props.showUserCollectionArticleTab();
+        this.props.showUserMsgCollTab();
+        this.props.getUserMsgCollList();
+    };
+
+    /**
+     * 收藏文章TAB：上一页
+     */
+    msgCollPreBtn = () => {
+        this.props.setMsgCollStartNumber(this.props.userManagerDetailReducer.msgCollStart - (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserMsgCollList();
+    };
+
+    /**
+     * 收藏文章TAB：下一页
+     */
+    msgCollNextBtn = () => {
+        this.props.setMsgCollStartNumber(this.props.userManagerDetailReducer.msgCollStart + (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserMsgCollList();
+    };
+
+    /**
+     * 显示 收藏文章 模态
+     */
+    showMsgCollMapModal = (detail) => {
+        // this.props.initMsgCollModalData(detail);
+        this.props.initAddressMapModalData(detail);
     };
 
     /**
@@ -213,7 +292,7 @@ class UserManagerDetail extends React.Component {
     };
 
     render() {
-        const {userManagerDetailReducer, changeUserStatus, changeConditionAttentionType, initModalData} = this.props;
+        const {userManagerDetailReducer, changeUserStatus, changeConditionAttentionType} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -625,90 +704,160 @@ class UserManagerDetail extends React.Component {
 
                     {/* 消息 TAB */}
                     <div id="tab_message" className="col s12 tab_box">
-                        {/*/!* 上部分：检索条件输入区域 *!/*/}
-                        {/*<div className="row grey-text text-darken-1 margin-top20 margin-bottom0">*/}
-                        {/*    <div className="col s11 search-condition-box">*/}
-                        {/*        <TextInput s={4} label="用户手机" value={userManagerDetailReducer.conditionPhone} onChange={this.changeConditionPhone}/>*/}
+                        {/*上部分：检索条件输入区域 */}
+                        <div className="row grey-text text-darken-1 margin-top20 margin-bottom0">
+                            <div className="col s11 search-condition-box">
+                                <TextInput s={3} label="消息ID" value={userManagerDetailReducer.conditionMsgId} onChange={this.changeConditionMsgId}/>
+                                <TextInput s={3} label="接收人手机" value={userManagerDetailReducer.conditionMsgReceiverPhone} onChange={this.changeConditionReceiverPhone}/>
 
-                        {/*        <div className="input-field col s4">*/}
-                        {/*            <Select*/}
-                        {/*                options={userManagerDetailReducer.voteItemList}*/}
-                        {/*                onChange={changeConditionVoteItem}*/}
-                        {/*                value={userManagerDetailReducer.conditionVoteItem}*/}
-                        {/*                isSearchable={false}*/}
-                        {/*                placeholder={"请选择"}*/}
-                        {/*                styles={sysConst.CUSTOM_REACT_SELECT_STYLE}*/}
-                        {/*                isClearable={true}*/}
-                        {/*            />*/}
-                        {/*            <label className="active">投票选项</label>*/}
-                        {/*        </div>*/}
+                                {/* 查询条件：发送时间(始) */}
+                                <div className="custom-input-field col s3 input-field">
+                                    <DatePicker s={12} label="发送时间(始)" options={sysConst.DATE_PICKER_OPTION}
+                                                value={userManagerDetailReducer.conditionMsgCreatedOnStart} onChange={this.changeConditionCreatedOnStart} />
+                                    {userManagerDetailReducer.conditionCreatedOnStart !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnStart}/>}
+                                    <span className="mdi data-icon mdi-table-large"/>
+                                </div>
 
-                        {/*    </div>*/}
+                                {/* 查询条件：发送时间(终) */}
+                                <div className="custom-input-field col s3 input-field">
+                                    <DatePicker s={12} label="发送时间(终)" options={sysConst.DATE_PICKER_OPTION}
+                                                value={userManagerDetailReducer.conditionMsgCreatedOnEnd} onChange={this.changeConditionCreatedOnEnd} />
+                                    {userManagerDetailReducer.conditionCreatedOnEnd !== '' && <span className="mdi data-clear-icon mdi-window-close" onClick={this.clearConditionCreatedOnEnd}/>}
+                                    <span className="mdi data-icon mdi-table-large"/>
+                                </div>
+                            </div>
 
-                        {/*    /!* 查询按钮 *!/*/}
-                        {/*    <div className="col s1">*/}
-                        {/*        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryUserVoteList}>*/}
-                        {/*            <i className="mdi mdi-magnify"/>*/}
-                        {/*        </a>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+                            {/* 查询按钮 */}
+                            <div className="col s1">
+                                <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryUserMsgList}>
+                                    <i className="mdi mdi-magnify"/>
+                                </a>
+                            </div>
+                        </div>
 
-                        {/*/!* 下部分：检索结果显示区域  *!/*/}
-                        {/*<div className="row">*/}
-                        {/*    <div className="col s12">*/}
-                        {/*        <table className="bordered striped">*/}
-                        {/*            <thead className="custom-dark-grey table-top-line">*/}
-                        {/*            <tr className="grey-text text-darken-2">*/}
-                        {/*                <th>投票用户昵称</th>*/}
-                        {/*                <th>投票数</th>*/}
-                        {/*                <th>投票选项</th>*/}
-                        {/*                <th className="center">投票时间</th>*/}
-                        {/*            </tr>*/}
-                        {/*            </thead>*/}
-                        {/*            <tbody>*/}
-                        {/*            {userManagerDetailReducer.userVoteList.map(function (item) {*/}
-                        {/*                return (*/}
-                        {/*                    <tr className="grey-text text-darken-1">*/}
-                        {/*                        /!* 投票用户昵称 TODO *!/*/}
-                        {/*                        <td>{item._id}</td>*/}
-                        {/*                        /!* 投票数 *!/*/}
-                        {/*                        <td>{formatUtil.formatNumber(item.option_item.length)}</td>*/}
-                        {/*                        /!* 投票选项 *!/*/}
-                        {/*                        <td>{item.option_item.map((n) => n.index).toString()}</td>*/}
-                        {/*                        /!* 投票时间 *!/*/}
-                        {/*                        <td className="center">{formatUtil.getDateTime(item.created_at)}</td>*/}
-                        {/*                    </tr>*/}
-                        {/*                )*/}
-                        {/*            },this)}*/}
-                        {/*            {userManagerDetailReducer.userVoteList.length === 0 &&*/}
-                        {/*            <tr className="grey-text text-darken-1">*/}
-                        {/*                <td className="no-data-tr" colSpan="4">暂无数据</td>*/}
-                        {/*            </tr>}*/}
-                        {/*            </tbody>*/}
-                        {/*        </table>*/}
-                        {/*    </div>*/}
+                        {/* 下部分：检索结果显示区域 */}
+                        <div className="row">
+                            <div className="col s12">
+                                <table className="bordered striped">
+                                    <thead className="custom-dark-grey table-top-line">
+                                    <tr className="grey-text text-darken-2">
+                                        <th>消息编号</th>
+                                        <th>消息类型</th>
+                                        <th>接收人昵称</th>
+                                        <th>接收人手机</th>
+                                        <th>相关人昵称</th>
+                                        <th className="center">发送时间</th>
+                                        <th className="center">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {userManagerDetailReducer.userMsgList.map(function (item) {
+                                        return (
+                                            <tr className="grey-text text-darken-1">
+                                                {/* 消息编号 */}
+                                                <td>{item._id}</td>
+                                                {/* 消息类型 */}
+                                                <td>{commonUtil.getJsonValue(sysConst.MSG_USER_TYPE, item.type)}</td>
+                                                {/* 接收人昵称 */}
+                                                <td>{item.user_detail_info[0].nick_name}</td>
+                                                {/* 接收人手机 */}
+                                                <td>{item.user_login_info[0].phone}</td>
+                                                {/* 相关人昵称 */}
+                                                <td>{item.admin_info[0].name}</td>
+                                                {/* 发送时间 */}
+                                                <td className="center">{formatUtil.getDateTime(item.created_at)}</td>
+                                                <td className="operation center">
+                                                    <i className="mdi mdi-table-search purple-font pointer modal-trigger" href="#messageModal" onClick={() => {this.showMessageModal('edit',item)}}/>
+                                                </td>
+                                            </tr>
+                                        )
+                                    },this)}
+                                    {userManagerDetailReducer.userMsgList.length === 0 &&
+                                    <tr className="grey-text text-darken-1">
+                                        <td className="no-data-tr" colSpan="7">暂无数据</td>
+                                    </tr>}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                        {/*    /!* 上下页按钮 *!/*/}
-                        {/*    <div className="col s12 margin-top10">*/}
-                        {/*        <div className="right">*/}
-                        {/*            {userManagerDetailReducer.start > 0 && userManagerDetailReducer.dataSize > 0 &&*/}
-                        {/*            <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.preBtn}>*/}
-                        {/*                上一页*/}
-                        {/*            </a>}*/}
-                        {/*            {userManagerDetailReducer.dataSize >= userManagerDetailReducer.size &&*/}
-                        {/*            <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.nextBtn}>*/}
-                        {/*                下一页*/}
-                        {/*            </a>}*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-
-
-
+                            {/* 上下页按钮 */}
+                            <div className="col s12 margin-top10">
+                                <div className="right">
+                                    {userManagerDetailReducer.attentionStart > 0 && userManagerDetailReducer.attentionDataSize > 0 &&
+                                    <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.messagePreBtn}>
+                                        上一页
+                                    </a>}
+                                    {userManagerDetailReducer.attentionDataSize >= userManagerDetailReducer.size &&
+                                    <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.messageNextBtn}>
+                                        下一页
+                                    </a>}
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* 收藏文章 */}
-                    <div id="tab_collection_article" className="col s12 tab_box">收藏文章 内容</div>
+                    <div id="tab_collection_article" className="col s12 tab_box">
+                        <div className="row">
+                            <div className="col s12">
+                                <table className="fixed-table bordered striped">
+                                    <thead className="custom-dark-grey table-top-line">
+                                    <tr className="grey-text text-darken-2">
+                                        <th>文章编号</th>
+                                        <th>发布位置</th>
+                                        <th className="center">文章类型</th>
+                                        <th className="center">载体类型</th>
+                                        <th className="center">发布时间</th>
+                                        <th className="center">详细</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {userManagerDetailReducer.userMsgCollList.map(function (item) {
+                                        return (
+                                            <tr className="grey-text text-darken-1">
+                                                {/* 文章编号 */}
+                                                <td>{item._id}</td>
+                                                {/* 发布位置 */}
+                                                <td>{item.msg_info[0].address_name}</td>
+                                                {/* 文章类型 */}
+                                                <td className="center">{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.msg_info[0].type)}</td>
+                                                {/* 载体类型 */}
+                                                <td className="center">{commonUtil.getJsonValue(sysConst.CARRIER_TYPE, item.msg_info[0].carrier)}</td>
+                                                {/* 发布时间 */}
+                                                <td className="center">{formatUtil.getDateTime(item.msg_info[0].created_at)}</td>
+                                                {/* 详细 */}
+                                                <td className="operation center">
+                                                    <a className="modal-trigger" href="#msgCollModal" onClick={() => {this.showMsgCollMapModal(item)}}>
+                                                        <i className="mdi mdi-table-search purple-font"/>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        )
+                                    },this)}
+                                    {userManagerDetailReducer.userMsgCollList.length === 0 &&
+                                    <tr className="grey-text text-darken-1">
+                                        <td className="no-data-tr" colSpan="6">暂无数据</td>
+                                    </tr>}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* 上下页按钮 */}
+                            <div className="col s12 margin-top10">
+                                <div className="right">
+                                    {userManagerDetailReducer.msgCollStart > 0 && userManagerDetailReducer.msgCollDataSize > 0 &&
+                                    <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.msgCollPreBtn}>
+                                        上一页
+                                    </a>}
+                                    {userManagerDetailReducer.msgCollDataSize >= userManagerDetailReducer.size &&
+                                    <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.msgCollNextBtn}>
+                                        下一页
+                                    </a>}
+                                </div>
+                            </div>
+                        </div>
+                        <AddressMapModal/>
+                    </div>
                     
                     {/* 收藏地址 */}
                     <div id="tab_collection_address" className="col s12 tab_box">
@@ -866,32 +1015,50 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch(UserManagerDetailActionType.setAttentionStartNumber(start))
     },
 
-
-
-
-
-
-
-
-
-    // 显示 消息 TAB 内容
+    // 显示 消息 TAB6 内容
     showUserMessageTab: () => {
         $('.tabs .tab_message').addClass("active");
         $("#tab_message").addClass("active");
         $("#tab_message").show();
+        dispatch(userManagerDetailAction.getUserMsgList(ownProps.match.params.id));
     },
-    // 显示 收藏文章 TAB 内容
-    showUserCollectionArticleTab: () => {
+    setConditionMsgId: (value) => {
+        dispatch(UserManagerDetailActionType.setConditionMsgId(value));
+    },
+    setConditionMsgReceiverPhone: (value) => {
+        dispatch(UserManagerDetailActionType.setConditionMsgReceiverPhone(value));
+    },
+    setConditionMsgCreatedOnStart: (value) => {
+        dispatch(UserManagerDetailActionType.setConditionMsgCreatedOnStart(value));
+    },
+    setConditionMsgCreatedOnEnd: (value) => {
+        dispatch(UserManagerDetailActionType.setConditionMsgCreatedOnEnd(value));
+    },
+    getUserMsgList: () => {
+        dispatch(userManagerDetailAction.getUserMsgList(ownProps.match.params.id));
+    },
+    setMsgStartNumber: (start) => {
+        dispatch(UserManagerDetailActionType.setMsgStartNumber(start))
+    },
+
+    // 显示 收藏文章 TAB 7 内容
+    showUserMsgCollTab: () => {
         $('.tabs .tab_collection_article').addClass("active");
         $("#tab_collection_article").addClass("active");
         $("#tab_collection_article").show();
+        dispatch(userManagerDetailAction.getUserMsgCollList(ownProps.match.params.id));
+    },
+    getUserMsgCollList: () => {
+        dispatch(userManagerDetailAction.getUserMsgCollList(ownProps.match.params.id));
+    },
+    setMsgCollStartNumber: (start) => {
+        dispatch(UserManagerDetailActionType.setMsgCollStartNumber(start))
+    },
+    initMsgCollModalData: (detail) => {
+        // dispatch(addressMapModalAction.initMsgCollModal(addressDetail));
     },
 
-
-
-
-
-    // 显示 收藏地址 TAB 内容
+    // 显示 收藏地址 TAB 8 内容
     showUserCollectionAddressTab: () => {
         $('.tabs .tab_collection_address').addClass("active");
         $("#tab_collection_address").addClass("active");

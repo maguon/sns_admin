@@ -7,30 +7,30 @@ const initialState = {
     // 基本信息TAB：用户通知设置
     userNoticeInfo: [],
     // 每页数量
-    size: 7,
+    size: 9,
 
-    // 发布文章TAB：文章列表
+    // 发布文章TAB：列表
     userArticleList: [],
     // 发布文章TAB：开始位置
     articleStart: 0,
     // 发布文章TAB：检索结果数量
     articleDataSize: 0,
 
-    // 评论TAB：评论列表
+    // 评论TAB：列表
     userCommentList: [],
     // 评论TAB：开始位置
     commentStart: 0,
     // 评论TAB：检索结果数量
     commentDataSize: 0,
 
-    // 投票TAB：用户投票列表
+    // 投票TAB：列表
     userVoteList: [],
     // 投票TAB：开始位置
     voteStart: 0,
     // 投票TAB：检索结果数量
     voteDataSize: 0,
 
-    // 投票TAB：用户关系列表
+    // 投票TAB：列表
     userAttentionList: [],
     // 投票TAB：检索条件 关注类型
     conditionAttentionType: null,
@@ -39,15 +39,34 @@ const initialState = {
     // 投票TAB：检索结果数量
     attentionDataSize: 0,
 
+    // 消息TAB：列表
+    userMsgList: [],
+    // 消息TAB：检索条件：消息编号
+    conditionMsgId: '',
+    // 消息TAB：检索条件：接收人手机
+    conditionMsgReceiverPhone: '',
+    // 消息TAB：检索条件：发送时间(始)
+    conditionMsgCreatedOnStart: '',
+    // 消息TAB：检索条件：发送时间(终)
+    conditionMsgCreatedOnEnd: '',
+    // 消息TAB：开始位置
+    messageStart: 0,
+    // 消息TAB：检索结果数量
+    messageDataSize: 0,
 
+    // 收藏文章TAB：列表
+    userMsgCollList: [],
+    // 收藏文章TAB：开始位置
+    msgCollStart: 0,
+    // 收藏文章TAB：检索结果数量
+    msgCollDataSize: 0,
 
-
-    // 收藏地址TAB：用户投票列表
+    // 收藏地址TAB：列表
     userAddressList: [],
     // 收藏地址TAB：开始位置
     addressStart: 0,
     // 收藏地址TAB：检索结果数量
-    addressDataSize: 0,
+    addressDataSize: 0
 };
 
 export default handleActions({
@@ -146,11 +165,67 @@ export default handleActions({
         }
     },
 
+    [UserManagerDetailActionType.getUserMsgList]: (state, action) => {
+        return {
+            ...state,
+            userMsgList: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setConditionMsgId]: (state, action) => {
+        return {
+            ...state,
+            conditionMsgId: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setConditionMsgReceiverPhone]: (state, action) => {
+        return {
+            ...state,
+            conditionMsgReceiverPhone: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setConditionMsgCreatedOnStart]: (state, action) => {
+        return {
+            ...state,
+            conditionMsgCreatedOnStart: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setConditionMsgCreatedOnEnd]: (state, action) => {
+        return {
+            ...state,
+            conditionMsgCreatedOnEnd: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setMsgStartNumber]: (state, action) => {
+        return {
+            ...state,
+            messageStart: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setMsgDataSize]: (state, action) => {
+        return {
+            ...state,
+            messageDataSize: action.payload
+        }
+    },
 
-
-
-
-
+    [UserManagerDetailActionType.getUserMsgCollList]: (state, action) => {
+        return {
+            ...state,
+            userMsgCollList: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setMsgCollStartNumber]: (state, action) => {
+        return {
+            ...state,
+            msgCollStart: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setMsgCollDataSize]: (state, action) => {
+        return {
+            ...state,
+            msgCollDataSize: action.payload
+        }
+    },
 
     [UserManagerDetailActionType.getUserAddressList]: (state, action) => {
         return {
@@ -169,5 +244,5 @@ export default handleActions({
             ...state,
             addressDataSize: action.payload
         }
-    },
+    }
 }, initialState)
