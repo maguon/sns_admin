@@ -330,6 +330,10 @@ body {
     height: 90px !important;
 }
 
+.height-400 {
+    height: 400px !important;
+}
+
 .user-title-icon {
     width: 70px;
     height: 70px;

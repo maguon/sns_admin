@@ -220,3 +220,6 @@ export const STATISTIC_DAYS = [
     {value: 10, label: "近 10 天"},
     {value: 30, label: "近 30 天"}
 ];
+
+// 地图默认坐标：大连
+export const DEFAULT_LOCATION = [121.61476, 38.91369];

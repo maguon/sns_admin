@@ -3,9 +3,10 @@ import Select from 'react-select';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {UserManagerDetailActionType} from '../../types';
-import {TextInput} from "react-materialize";
+import {AddressMapModal} from "../modules";
 
 const userManagerDetailAction = require('../../actions/main/UserManagerDetailAction');
+const addressMapModalAction = require('../../actions/modules/AddressMapModalAction');
 // const commonAction = require('../../actions/main/CommonAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
@@ -185,10 +186,34 @@ class UserManagerDetail extends React.Component {
         this.props.initTabStatus();
         // 显示 收藏地址TAB
         this.props.showUserCollectionAddressTab();
+        this.props.getUserAddressList();
+    };
+
+    /**
+     * 收藏地址TAB：上一页
+     */
+    addressPreBtn = () => {
+        this.props.setAddressStartNumber(this.props.userManagerDetailReducer.addressStart - (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserAddressList();
+    };
+
+    /**
+     * 收藏地址TAB：下一页
+     */
+    addressNextBtn = () => {
+        this.props.setAddressStartNumber(this.props.userManagerDetailReducer.addressStart + (this.props.userManagerDetailReducer.size - 1));
+        this.props.getUserAddressList();
+    };
+
+    /**
+     * 显示 收藏地址 模态
+     */
+    showAddressMapModal = (addressDetail) => {
+        this.props.initAddressMapModalData(addressDetail);
     };
 
     render() {
-        const {userManagerDetailReducer, changeUserStatus, changeConditionAttentionType} = this.props;
+        const {userManagerDetailReducer, changeUserStatus, changeConditionAttentionType, initModalData} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -681,8 +706,69 @@ class UserManagerDetail extends React.Component {
 
 
                     </div>
+
+                    {/* 收藏文章 */}
                     <div id="tab_collection_article" className="col s12 tab_box">收藏文章 内容</div>
-                    <div id="tab_collection_address" className="col s12 tab_box">收藏地址 内容</div>
+                    
+                    {/* 收藏地址 */}
+                    <div id="tab_collection_address" className="col s12 tab_box">
+                        <div className="row">
+                            <div className="col s12">
+                                <table className="fixed-table bordered striped">
+                                    <thead className="custom-dark-grey table-top-line">
+                                    <tr className="grey-text text-darken-2">
+                                        <th>地址编号</th>
+                                        <th>地址名称</th>
+                                        <th className="text-ellipsis" style={{width: '360px'}}>地址位置</th>
+                                        <th className="center" style={{width: '180px'}}>发布时间</th>
+                                        <th className="center">详细</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {userManagerDetailReducer.userAddressList.map(function (item) {
+                                        return (
+                                            <tr className="grey-text text-darken-1">
+                                                {/* 地址编号 */}
+                                                <td>{item._id}</td>
+                                                {/* 地址名称 */}
+                                                <td>{item.address_name}</td>
+                                                {/* 内容 */}
+                                                <td className="text-ellipsis" style={{width: '360px'}}>{item.address_real}</td>
+                                                {/* 发布时间 */}
+                                                <td className="center" style={{width: '180px'}}>{formatUtil.getDateTime(item.created_at)}</td>
+                                                {/* 详细 */}
+                                                <td className="operation center">
+                                                    <a className="modal-trigger" href="#addressMapModal" onClick={() => {this.showAddressMapModal(item)}}>
+                                                        <i className="mdi mdi-table-search purple-font"/>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        )
+                                    },this)}
+                                    {userManagerDetailReducer.userAddressList.length === 0 &&
+                                    <tr className="grey-text text-darken-1">
+                                        <td className="no-data-tr" colSpan="5">暂无数据</td>
+                                    </tr>}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* 上下页按钮 */}
+                            <div className="col s12 margin-top10">
+                                <div className="right">
+                                    {userManagerDetailReducer.addressStart > 0 && userManagerDetailReducer.addressDataSize > 0 &&
+                                    <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.addressPreBtn}>
+                                        上一页
+                                    </a>}
+                                    {userManagerDetailReducer.addressDataSize >= userManagerDetailReducer.size &&
+                                    <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.addressNextBtn}>
+                                        下一页
+                                    </a>}
+                                </div>
+                            </div>
+                        </div>
+                        <AddressMapModal/>
+                    </div>
                 </div>
             </div>
         )
@@ -800,11 +886,26 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         $("#tab_collection_article").addClass("active");
         $("#tab_collection_article").show();
     },
+
+
+
+
+
     // 显示 收藏地址 TAB 内容
     showUserCollectionAddressTab: () => {
         $('.tabs .tab_collection_address').addClass("active");
         $("#tab_collection_address").addClass("active");
         $("#tab_collection_address").show();
+        dispatch(userManagerDetailAction.getUserAddressList(ownProps.match.params.id));
+    },
+    getUserAddressList: () => {
+        dispatch(userManagerDetailAction.getUserAddressList(ownProps.match.params.id));
+    },
+    setAddressStartNumber: (start) => {
+        dispatch(UserManagerDetailActionType.setAddressStartNumber(start))
+    },
+    initAddressMapModalData: (addressDetail) => {
+        dispatch(addressMapModalAction.initAddressMapModal(addressDetail));
     }
 });
 

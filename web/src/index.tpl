@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./assets/css/react-table.css">
     <link rel="stylesheet" href="./assets/css/style.css"/>
     <link rel="stylesheet" href="./assets/css/custom-sweetalert.css">
+    <link rel="stylesheet" href="./assets/css/video-js.min.css"/>
 </head>
 <body>
 <div id="root" style="height: 100%"></div>
@@ -72,5 +73,7 @@
 <script src="./assets/month_picker/jquery-ui.min.js"></script>
 <script src="./assets/month_picker/month_picker.min.js"></script>
 <script src="./assets/sweetalert.min.js"></script>
+<script src="./assets/video.min.js"></script>
+<script src="http://webapi.amap.com/maps?v=1.4.10&key=cfbd1db1ba7309dd7687fef4fd39ba3f&plugin=AMap.MarkerClusterer"></script>
 </body>
 </html>

@@ -38,6 +38,16 @@ const initialState = {
     attentionStart: 0,
     // 投票TAB：检索结果数量
     attentionDataSize: 0,
+
+
+
+
+    // 收藏地址TAB：用户投票列表
+    userAddressList: [],
+    // 收藏地址TAB：开始位置
+    addressStart: 0,
+    // 收藏地址TAB：检索结果数量
+    addressDataSize: 0,
 };
 
 export default handleActions({
@@ -137,4 +147,27 @@ export default handleActions({
     },
 
 
+
+
+
+
+
+    [UserManagerDetailActionType.getUserAddressList]: (state, action) => {
+        return {
+            ...state,
+            userAddressList: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setAddressStartNumber]: (state, action) => {
+        return {
+            ...state,
+            addressStart: action.payload
+        }
+    },
+    [UserManagerDetailActionType.setAddressDataSize]: (state, action) => {
+        return {
+            ...state,
+            addressDataSize: action.payload
+        }
+    },
 }, initialState)

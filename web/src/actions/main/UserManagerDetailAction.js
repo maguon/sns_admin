@@ -178,3 +178,39 @@ export const getUserAttentionList = (userId) => async (dispatch, getState) => {
         swal('操作失败', err.message, 'error');
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 获取 收藏地址详情
+export const getUserAddressList = (userId) => async (dispatch, getState) => {
+    try {
+        // 检索条件：开始位置
+        const start = getState().UserManagerDetailReducer.addressStart;
+        // 检索条件：每页数量
+        const size = getState().UserManagerDetailReducer.size;
+
+        // 基本检索URL
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
+            + '/userLocaColl?userId=' + userId + '&start=' + start + '&size=' + size;
+        const res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            dispatch({type: UserManagerDetailActionType.setAddressDataSize, payload: res.result.length});
+            dispatch({type: UserManagerDetailActionType.getUserAddressList, payload: res.result.slice(0, size - 1)});
+        } else if (res.success === false) {
+            swal('获取用户收藏地址信息失败', res.msg, 'warning');
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
