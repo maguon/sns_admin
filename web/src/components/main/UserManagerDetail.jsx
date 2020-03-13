@@ -3,11 +3,12 @@ import Select from 'react-select';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {UserManagerDetailActionType} from '../../types';
-import {AddressMapModal} from "../modules";
+import {AddressMapModal, MessageModal} from "../modules";
 import {DatePicker, TextInput} from "react-materialize";
 
 const userManagerDetailAction = require('../../actions/main/UserManagerDetailAction');
 const addressMapModalAction = require('../../actions/modules/AddressMapModalAction');
+const messageModalAction = require('../../actions/modules/MessageModalAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 const commonUtil = require('../../utils/CommonUtil');
@@ -204,6 +205,13 @@ class UserManagerDetail extends React.Component {
     };
     clearConditionCreatedOnEnd = () => {
         this.props.setConditionMsgCreatedOnEnd('');
+    };
+
+    /**
+     * 显示 新建 消息模态
+     */
+    showMessageModal = (pageType, messageDetail) => {
+        this.props.initMessageModalData(pageType, messageDetail);
     };
 
     /**
@@ -436,7 +444,7 @@ class UserManagerDetail extends React.Component {
                                     <thead className="custom-dark-grey table-top-line">
                                     <tr className="grey-text text-darken-2">
                                         <th style={{width: '230px'}}>文章编号</th>
-                                        <th className="text-ellipsis" style={{width: '360px'}}>内容</th>
+                                        {/*<th className="text-ellipsis" style={{width: '360px'}}>内容</th>*/}
                                         <th className="text-ellipsis" style={{width: '200px'}}>发布位置</th>
                                         <th>文章类型</th>
                                         <th>载体类型</th>
@@ -452,7 +460,7 @@ class UserManagerDetail extends React.Component {
                                                 {/* 文章编号 */}
                                                 <td style={{width: '230px'}}>{item._id}</td>
                                                 {/* 内容 */}
-                                                <td className="text-ellipsis" style={{width: '360px'}}>{item.info}</td>
+                                                {/*<td className="text-ellipsis" style={{width: '360px'}}>{item.info}</td>*/}
                                                 {/* 发布位置 */}
                                                 <td className="text-ellipsis" style={{width: '200px'}}>{item.address_name}</td>
                                                 {/* 文章类型 */}
@@ -470,7 +478,7 @@ class UserManagerDetail extends React.Component {
                                     },this)}
                                     {userManagerDetailReducer.userArticleList.length === 0 &&
                                     <tr className="grey-text text-darken-1">
-                                        <td className="no-data-tr" colSpan="9">暂无数据</td>
+                                        <td className="no-data-tr" colSpan="7">暂无数据</td>
                                     </tr>}
                                     </tbody>
                                 </table>
@@ -778,6 +786,7 @@ class UserManagerDetail extends React.Component {
                                     </tr>}
                                     </tbody>
                                 </table>
+                                <MessageModal/>
                             </div>
 
                             {/* 上下页按钮 */}
@@ -1039,6 +1048,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     },
     setMsgStartNumber: (start) => {
         dispatch(UserManagerDetailActionType.setMsgStartNumber(start))
+    },
+    initMessageModalData: (pageType, messageDetail) => {
+        dispatch(messageModalAction.initNewMessageModal(pageType, messageDetail));
     },
 
     // 显示 收藏文章 TAB 7 内容
