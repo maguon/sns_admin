@@ -31,7 +31,7 @@ export const getAdminInfo = (adminId) => async (dispatch) => {
 export const changeAdminStatus = (id, status) => async (dispatch) => {
     swal({
         title: status === 1 ? "确定停用该员工？" : "确定重新启用该员工？",
-        text: "是否确认退出登录",
+        text: "",
         icon: "warning",
         buttons: {
             cancel: '取消',

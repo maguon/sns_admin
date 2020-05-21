@@ -46,13 +46,10 @@ export const getArticleList = () => async (dispatch, getState) => {
         let conditions = httpUtil.objToUrl(conditionsObj);
         // 检索URL
         url = conditions.length > 0 ? url + "&" + conditions : url;
-        console.log('',url);
         const res = await httpUtil.httpGet(url);
-        console.log('',res);
         if (res.success === true) {
             dispatch({type: ArticleManagerActionType.setDataSize, payload: res.result.length});
             dispatch({type: ArticleManagerActionType.getArticleList, payload: res.result.slice(0, size - 1)});
-            console.log('',res.result);
         } else if (res.success === false) {
             swal('获取文章列表信息失败', res.msg, 'warning');
         }

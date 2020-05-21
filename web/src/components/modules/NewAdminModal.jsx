@@ -57,8 +57,7 @@ class NewAdminModal extends React.Component {
             <Modal
                 actions={[
                     <button type="button" className="btn close-btn modal-close">取消</button>,
-                    <button type="button" className={`btn confirm-btn margin-left20 ${newAdminModalReducer.errorRouteFlg ? "disabled" : ""}`}
-                    onClick={saveAdmin}>确定</button>
+                    <button type="button" className={`btn confirm-btn margin-left20`} onClick={saveAdmin}>确定</button>
                 ]}
                 bottomSheet={false}
                 fixedFooter={true}
