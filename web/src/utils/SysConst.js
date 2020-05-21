@@ -203,6 +203,12 @@ export const GENDER = [
     {value: 1, label: "男"}
 ];
 
+// 系统类型(1-安卓 2-苹果)
+export const SYSTEM_TYPE = [
+    {value: 1, label: "安卓"},
+    {value: 2, label: "苹果"}
+];
+
 // 可用/停用 标记
 export const USE_FLAG = [
     {value: 0, label: "停用"},
