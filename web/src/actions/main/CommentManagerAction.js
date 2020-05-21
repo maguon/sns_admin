@@ -5,6 +5,7 @@ const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
 
+// 评论管理 取得画面列表
 export const getCommentList = () => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置

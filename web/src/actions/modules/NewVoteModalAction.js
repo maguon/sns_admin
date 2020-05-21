@@ -7,7 +7,7 @@ const sysConst = require('../../utils/SysConst');
 
 const voteManagerAction = require('../../actions/main/VoteManagerAction');
 
-// 新增员工画面 初期
+// 新增投票画面 初期
 export const initNewVoteModal = () => async (dispatch) => {
     // 投票标题
     dispatch({type: NewVoteModalActionType.setVoteTitle, payload: ''});

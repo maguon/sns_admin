@@ -5,6 +5,7 @@ const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
 
+// TODO delete 暂时无用代码
 export const getOrderStatByMonth = () => async (dispatch, getState) => {
     try {
         // 统计开始月份

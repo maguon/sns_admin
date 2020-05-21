@@ -5,7 +5,7 @@ const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
 
-// 今日新增用户数
+// 综合页面：今日新增用户数
 export const getTodayUserCount = () => async (dispatch) => {
     try {
         // 基本检索URL
@@ -22,7 +22,7 @@ export const getTodayUserCount = () => async (dispatch) => {
     }
 };
 
-// 今日发布文章/求助
+// 综合页面：今日发布文章/求助
 export const getTodayMsgCount = () => async (dispatch) => {
     try {
         // 基本检索URL
@@ -43,7 +43,7 @@ export const getTodayMsgCount = () => async (dispatch) => {
     }
 };
 
-// 今日评论/解答
+// 综合页面：今日评论/解答
 export const getTodayMsgCommentCount = () => async (dispatch) => {
     try {
         // 基本检索URL

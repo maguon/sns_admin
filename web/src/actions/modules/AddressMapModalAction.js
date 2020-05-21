@@ -2,7 +2,7 @@ import {AddressMapModalActionType} from "../../types";
 
 const sysConst = require('../../utils/SysConst');
 
-// 新增员工画面 初期
+// 收藏地址 模态（用户管理 -> 用户详情 -> 收藏地址 -> 模态）
 export const initAddressMapModal = (item) => async (dispatch) => {
     // 收藏地址详细
     dispatch({type: AddressMapModalActionType.setAddressMapDetail, payload: item});

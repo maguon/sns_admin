@@ -7,11 +7,14 @@ const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 const messageManagerAction = require('../../actions/main/MessageManagerAction');
 
-// 新增员工画面 初期
+// 发布消息/消息详情 画面初期
 export const initNewMessageModal = (pageType, messageDetail) => async (dispatch) => {
     // 画面区分
     dispatch({type: MessageModalActionType.setPageType, payload: pageType});
+
     if (pageType === 'new') {
+        // 发布消息
+
         // 消息用户类型
         dispatch({type: MessageModalActionType.setMsgUserType, payload: {value: 2, label: "单个用户"}});
         // 手机
@@ -19,6 +22,8 @@ export const initNewMessageModal = (pageType, messageDetail) => async (dispatch)
         // 消息内容
         dispatch({type: MessageModalActionType.setMsgContent, payload: ''});
     } else {
+        // 消息详情
+
         // 接收人昵称
         dispatch({
             type: MessageModalActionType.setMsgUserNickName,

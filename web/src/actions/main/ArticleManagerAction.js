@@ -5,6 +5,7 @@ const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
 
+// 文章管理 -> 文章 取得画面列表
 export const getArticleList = () => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
