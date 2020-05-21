@@ -1,5 +1,5 @@
 import {handleActions} from 'redux-actions';
-import {AdminUserSettingActionType} from '../../types';
+import {AppVersionActionType} from '../../types';
 
 const initialState = {
     // 开始位置
@@ -9,57 +9,41 @@ const initialState = {
     // 检索结果数量
     dataSize: 0,
 
-    // 检索条件：手机
-    conditionPhone: '',
-    // 检索条件：管理员名称
-    conditionAdminName: '',
-    // 检索条件：真实姓名
-    conditionRealName: '',
+    // 检索条件：系统
+    conditionDeviceType: null,
     // 检索条件：状态
     conditionStatus: null,
 
-    // 员工列表
-    adminArray: []
+    // App列表
+    appArray: []
 };
 
 export default handleActions({
-    [AdminUserSettingActionType.getAdminList]: (state, action) => {
+    [AppVersionActionType.getAppList]: (state, action) => {
         return {
             ...state,
-            adminArray: action.payload
+            appArray: action.payload
         }
     },
-    [AdminUserSettingActionType.setStartNumber]: (state, action) => {
+    [AppVersionActionType.setStartNumber]: (state, action) => {
         return {
             ...state,
             start: action.payload
         }
     },
-    [AdminUserSettingActionType.setDataSize]: (state, action) => {
+    [AppVersionActionType.setDataSize]: (state, action) => {
         return {
             ...state,
             dataSize: action.payload
         }
     },
-    [AdminUserSettingActionType.setConditionPhone]: (state, action) => {
+    [AppVersionActionType.setConditionDeviceType]: (state, action) => {
         return {
             ...state,
-            conditionPhone: action.payload
+            conditionDeviceType: action.payload
         }
     },
-    [AdminUserSettingActionType.setConditionAdminName]: (state, action) => {
-        return {
-            ...state,
-            conditionAdminName: action.payload
-        }
-    },
-    [AdminUserSettingActionType.setConditionRealName]: (state, action) => {
-        return {
-            ...state,
-            conditionRealName: action.payload
-        }
-    },
-    [AdminUserSettingActionType.setConditionStatus]: (state, action) => {
+    [AppVersionActionType.setConditionStatus]: (state, action) => {
         return {
             ...state,
             conditionStatus: action.payload

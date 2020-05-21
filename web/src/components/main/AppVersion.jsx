@@ -2,16 +2,15 @@ import React from 'react';
 import Select from 'react-select';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
-import {TextInput} from 'react-materialize';
-import {AdminUserSettingActionType} from '../../types';
-import {NewAdminModal} from '../modules/index';
+import {AppVersionActionType} from '../../types';
+import {NewAppModal} from '../modules/index';
 
-const adminUserSettingAction = require('../../actions/main/AdminUserSettingAction');
-const newAdminModalAction = require('../../actions/modules/NewAdminModalAction');
-
+const appVersionAction = require('../../actions/main/AppVersionAction');
+const newAppModalAction = require('../../actions/modules/NewAppModalAction');
 const sysConst = require('../../utils/SysConst');
 const commonUtil = require('../../utils/CommonUtil');
 
+// App系统
 class AppVersion extends React.Component {
 
     /**
@@ -27,68 +26,52 @@ class AppVersion extends React.Component {
     componentDidMount() {
         if (!this.props.fromDetail) {
             this.props.setStartNumber(0);
-            this.props.setConditionAdminPhone('');
-            this.props.setConditionAdminName('');
-            this.props.setConditionRealName('');
+            this.props.changeConditionDeviceType(null);
             this.props.changeConditionStatus(null);
         }
-        this.props.getAdminList();
+        this.props.getAppList();
     }
 
     /**
-     * 更新 检索条件：手机
+     * 查询App列表
      */
-    changeConditionAdminPhone = (event) => {
-        this.props.setConditionAdminPhone(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：管理员名称
-     */
-    changeConditionAdminName = (event) => {
-        this.props.setConditionAdminName(event.target.value);
-    };
-
-    /**
-     * 更新 检索条件：真实姓名
-     */
-    changeConditionRealName = (event) => {
-        this.props.setConditionRealName(event.target.value);
-    };
-
-    /**
-     * 查询员工列表
-     */
-    queryAdminList = () => {
+    queryAppList = () => {
         // 默认第一页
         this.props.setStartNumber(0);
-        this.props.getAdminList();
+        this.props.getAppList();
     };
 
     /**
      * 上一页
      */
     preBtn = () => {
-        this.props.setStartNumber(this.props.adminUserSettingReducer.start - (this.props.adminUserSettingReducer.size - 1));
-        this.props.getAdminList();
+        this.props.setStartNumber(this.props.appVersionReducer.start - (this.props.appVersionReducer.size - 1));
+        this.props.getAppList();
     };
 
     /**
      * 下一页
      */
     nextBtn = () => {
-        this.props.setStartNumber(this.props.adminUserSettingReducer.start + (this.props.adminUserSettingReducer.size - 1));
-        this.props.getAdminList();
+        this.props.setStartNumber(this.props.appVersionReducer.start + (this.props.appVersionReducer.size - 1));
+        this.props.getAppList();
+    };
+
+    /**
+     * 删除App
+     */
+    deleteApp = (id) => {
+        this.props.deleteApp(id);
     };
 
     render() {
-        const {adminUserSettingReducer, changeConditionSysType, changeConditionStatus, initModalData} = this.props;
+        const {appVersionReducer, changeConditionDeviceType, changeConditionStatus, initModalData} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
                 <div className="row">
                     <div className="input-field col s12 page-title">
-                        <span className="margin-left10">员工管理</span>
+                        <span className="margin-left10">App系统</span>
                         <div className="divider custom-divider margin-top10"/>
                     </div>
                 </div>
@@ -99,21 +82,21 @@ class AppVersion extends React.Component {
                         <div className="input-field col s3">
                             <Select
                                 options={sysConst.SYSTEM_TYPE}
-                                onChange={changeConditionSysType}
-                                value={adminUserSettingReducer.conditionStatus}
+                                onChange={changeConditionDeviceType}
+                                value={appVersionReducer.conditionDeviceType}
                                 isSearchable={false}
                                 placeholder={"请选择"}
                                 styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
                                 isClearable={true}
                             />
-                            <label className="active">状态</label>
+                            <label className="active">系统</label>
                         </div>
 
                         <div className="input-field col s3">
                             <Select
                                 options={sysConst.USE_FLAG}
                                 onChange={changeConditionStatus}
-                                value={adminUserSettingReducer.conditionStatus}
+                                value={appVersionReducer.conditionStatus}
                                 isSearchable={false}
                                 placeholder={"请选择"}
                                 styles={sysConst.CUSTOM_REACT_SELECT_STYLE}
@@ -125,18 +108,18 @@ class AppVersion extends React.Component {
 
                     {/* 查询按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryAdminList}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn query-btn" onClick={this.queryAppList}>
                             <i className="mdi mdi-magnify"/>
                         </a>
                     </div>
 
                     {/* 追加按钮 */}
                     <div className="col s1">
-                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn modal-trigger" href="#newAdminModal" onClick={initModalData}>
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn modal-trigger" href="#newAppModal" onClick={initModalData}>
                             <i className="mdi mdi-plus"/>
                         </a>
                     </div>
-                    <NewAdminModal/>
+                    <NewAppModal/>
                 </div>
 
                 {/* 下部分：检索结果显示区域 */}
@@ -145,34 +128,39 @@ class AppVersion extends React.Component {
                         <table className="bordered striped">
                             <thead className="custom-dark-grey table-top-line">
                             <tr className="grey-text text-darken-2">
-                                <th>手机</th>
-                                <th>管理员名称</th>
-                                <th>真实姓名</th>
-                                <th>性别</th>
+                                <th>App类型</th>
+                                <th>系统类型</th>
+                                <th>版本号</th>
+                                <th>版本序号</th>
+                                <th>最低版本号</th>
+                                <th>强制更新</th>
                                 <th>状态</th>
                                 <th className="center">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {adminUserSettingReducer.adminArray.map(function (item) {
+                            {appVersionReducer.appArray.map(function (item) {
                                 return (
                                     <tr className="grey-text text-darken-1">
-                                        <td>{item.phone}</td>
-                                        <td>{item.name}</td>
-                                        <td>{item.realname}</td>
-                                        <td>{commonUtil.getJsonValue(sysConst.GENDER, item.gender)}</td>
+                                        <td>{commonUtil.getJsonValue(sysConst.APP_TYPE, item.app_type)}</td>
+                                        <td>{commonUtil.getJsonValue(sysConst.SYSTEM_TYPE, item.device_type)}</td>
+                                        <td>{item.version}</td>
+                                        <td>{item.version_num}</td>
+                                        <td>{item.min_version_num}</td>
+                                        <td>{commonUtil.getJsonValue(sysConst.FORCE_UPDATE, item.force_update)}</td>
                                         <td>{commonUtil.getJsonValue(sysConst.USE_FLAG, item.status)}</td>
                                         <td className="operation center">
-                                            <Link to={{pathname: '/admin_user_setting/' + item._id}}>
-                                                <i className="mdi mdi-table-search purple-font"/>
+                                            <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteApp(item._id)}}/>
+                                            <Link to={{pathname: '/app_version/' + item._id}}>
+                                                <i className="mdi mdi-table-search purple-font margin-left10"/>
                                             </Link>
                                         </td>
                                     </tr>
                                 )
-                            })}
-                            { adminUserSettingReducer.adminArray.length === 0 &&
+                            },this)}
+                            { appVersionReducer.appArray.length === 0 &&
                                 <tr className="grey-text text-darken-1">
-                                    <td className="no-data-tr" colSpan="6">暂无数据</td>
+                                    <td className="no-data-tr" colSpan="8">暂无数据</td>
                                 </tr>
                             }
                             </tbody>
@@ -182,11 +170,11 @@ class AppVersion extends React.Component {
                     {/* 上下页按钮 */}
                     <div className="col s12 margin-top10">
                         <div className="right">
-                            {adminUserSettingReducer.start > 0 && adminUserSettingReducer.dataSize > 0 &&
+                            {appVersionReducer.start > 0 && appVersionReducer.dataSize > 0 &&
                             <a className="waves-light waves-effect custom-blue btn margin-right10" id="pre" onClick={this.preBtn}>
                                 上一页
                             </a>}
-                            {adminUserSettingReducer.dataSize >= adminUserSettingReducer.size &&
+                            {appVersionReducer.dataSize >= appVersionReducer.size &&
                             <a className="waves-light waves-effect custom-blue btn" id="next" onClick={this.nextBtn}>
                                 下一页
                             </a>}
@@ -204,35 +192,29 @@ const mapStateToProps = (state, ownProps) => {
         fromDetail = true;
     }
     return {
-        adminUserSettingReducer: state.AdminUserSettingReducer,
+        appVersionReducer: state.AppVersionReducer,
         fromDetail: fromDetail
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getAdminList: () => {
-        dispatch(adminUserSettingAction.getAdminList())
+    getAppList: () => {
+        dispatch(appVersionAction.getAppList())
     },
     setStartNumber: (start) => {
-        dispatch(AdminUserSettingActionType.setStartNumber(start))
+        dispatch(AppVersionActionType.setStartNumber(start))
     },
-    setConditionAdminPhone: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionPhone(value))
-    },
-    setConditionAdminName: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionAdminName(value))
-    },
-    setConditionRealName: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionRealName(value))
-    },
-    changeConditionSysType: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionStatus(value))
+    changeConditionDeviceType: (value) => {
+        dispatch(AppVersionActionType.setConditionDeviceType(value))
     },
     changeConditionStatus: (value) => {
-        dispatch(AdminUserSettingActionType.setConditionStatus(value))
+        dispatch(AppVersionActionType.setConditionStatus(value))
+    },
+    deleteApp: (id) => {
+        dispatch(appVersionAction.deleteApp(id));
     },
     initModalData: () => {
-        dispatch(newAdminModalAction.initNewAdminModal());
+        dispatch(newAppModalAction.initNewAppModal());
     }
 });
 

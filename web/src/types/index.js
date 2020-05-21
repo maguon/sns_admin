@@ -18,11 +18,14 @@ import * as MessageManagerActionType  from './main/MessageManagerActionType';
 
 import * as AdminUserSettingActionType  from './main/AdminUserSettingActionType';
 import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetailActionType';
+import * as AppVersionActionType  from './main/AppVersionActionType';
+import * as AppVersionDetailActionType  from './main/AppVersionDetailActionType';
 
-import * as NewAdminModalActionType  from './modules/NewAdminModalActionType';
 import * as AddressMapModalActionType  from './modules/AddressMapModalActionType';
 import * as NewVoteModalActionType  from './modules/NewVoteModalActionType';
 import * as MessageModalActionType  from './modules/MessageModalActionType';
+import * as NewAdminModalActionType  from './modules/NewAdminModalActionType';
+import * as NewAppModalActionType  from './modules/NewAppModalActionType';
 
 import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
 
@@ -39,19 +42,22 @@ export  {
     ArticleManagerDetailActionType,
     VoteManagerActionType,
     VoteManagerDetailActionType,
-    NewVoteModalActionType,
 
     CommentManagerActionType,
     CommentManagerDetailActionType,
 
     MessageManagerActionType,
-    MessageModalActionType,
 
     AdminUserSettingActionType,
     AdminUserSettingDetailActionType,
-    NewAdminModalActionType,
-
+    AppVersionActionType,
+    AppVersionDetailActionType,
 
     AddressMapModalActionType,
+    NewVoteModalActionType,
+    MessageModalActionType,
+    NewAdminModalActionType,
+    NewAppModalActionType,
+
     OrderStatisticActionType,
 }

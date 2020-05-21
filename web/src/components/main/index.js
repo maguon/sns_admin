@@ -16,7 +16,7 @@ export MessageManager from "./MessageManager";
 export AdminUserSetting from "./AdminUserSetting";
 export AdminUserSettingDetail from "./AdminUserSettingDetail";
 export AppVersion from "./AppVersion";
-
+export AppVersionDetail from "./AppVersionDetail";
 
 
 export OrderStatistic from "./OrderStatistic";

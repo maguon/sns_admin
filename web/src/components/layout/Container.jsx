@@ -30,7 +30,8 @@ import {
     AdminUserSetting,
     AdminUserSettingDetail,
     // APP系统
-    AppVersion
+    AppVersion,
+    AppVersionDetail
 
     // // 统计
     // OrderStatistic,
@@ -121,7 +122,12 @@ const routes = [
         path: "/app_version",
         exact: true,
         component: AppVersion
-    }
+    },
+    {
+        path: '/app_version/:id',
+        exact: true,
+        component: AppVersionDetail
+    },
 
     // // 统计
     // {
@@ -352,13 +358,6 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    // getUserDetail: (userId) => {
-    //     dispatch(headerAction.getUserDetail({userId: userId}));
-    // },
-    // logout: () => {
-    //     dispatch(headerAction.logout())
-    // }
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container)

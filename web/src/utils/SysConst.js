@@ -203,6 +203,11 @@ export const GENDER = [
     {value: 1, label: "男"}
 ];
 
+// app类型(1-司机之家)
+export const APP_TYPE = [
+    {value: 1, label: "司机之家"}
+];
+
 // 系统类型(1-安卓 2-苹果)
 export const SYSTEM_TYPE = [
     {value: 1, label: "安卓"},
@@ -213,6 +218,12 @@ export const SYSTEM_TYPE = [
 export const USE_FLAG = [
     {value: 0, label: "停用"},
     {value: 1, label: "可用"}
+];
+
+// 强制更新(0-非强制更新 1-强制更新)
+export const FORCE_UPDATE = [
+    {value: 0, label: "否"},
+    {value: 1, label: "是"}
 ];
 
 // 不通知/通知 标记

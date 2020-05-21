@@ -18,11 +18,14 @@ import MessageManagerReducer from './main/MessageManagerReducer'
 
 import AdminUserSettingReducer from './main/AdminUserSettingReducer';
 import AdminUserSettingDetailReducer from './main/AdminUserSettingDetailReducer';
+import AppVersionReducer from './main/AppVersionReducer';
+import AppVersionDetailReducer from './main/AppVersionDetailReducer';
 
 import AddressMapModalReducer from './modules/AddressMapModalReducer';
 import NewVoteModalReducer from './modules/NewVoteModalReducer';
 import MessageModalReducer from './modules/MessageModalReducer';
 import NewAdminModalReducer from './modules/NewAdminModalReducer';
+import NewAppModalReducer from './modules/NewAppModalReducer';
 
 import OrderStatisticReducer from './main/OrderStatisticReducer';
 
@@ -35,23 +38,24 @@ export default combineReducers({
 
     UserManagerReducer,
     UserManagerDetailReducer,
-
     ArticleManagerReducer,
     ArticleManagerDetailReducer,
     VoteManagerReducer,
     VoteManagerDetailReducer,
-    NewVoteModalReducer,
-
     CommentManagerReducer,
     CommentManagerDetailReducer,
-
     MessageManagerReducer,
-    MessageModalReducer,
 
     AdminUserSettingReducer,
     AdminUserSettingDetailReducer,
-    NewAdminModalReducer,
+    AppVersionReducer,
+    AppVersionDetailReducer,
 
     AddressMapModalReducer,
+    MessageModalReducer,
+    NewVoteModalReducer,
+    NewAdminModalReducer,
+    NewAppModalReducer,
+
     OrderStatisticReducer,
 })
