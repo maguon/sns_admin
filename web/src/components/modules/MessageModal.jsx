@@ -5,7 +5,7 @@ import {MessageModalActionType} from "../../types";
 import Select from "react-select";
 
 const messageModalAction = require('../../actions/modules/MessageModalAction');
-const commonAction = require('../../actions/main/CommonAction');
+const commonAction = require('../../actions/layout/CommonAction');
 const sysConst = require('../../utils/SysConst');
 
 class MessageModal extends React.Component {

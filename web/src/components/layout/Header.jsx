@@ -1,8 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const headerAction = require('../../actions/layout/HeaderAction');
-const commonAction = require('../../actions/main/CommonAction');
+const commonAction = require('../../actions/layout/CommonAction');
 const httpHeaders = require('../../utils/HttpHeaders');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
@@ -34,7 +33,7 @@ class Header extends React.Component {
         if (userId == null || userType == null || token == null) {
             window.location.href = '/login.html';
         } else {
-            this.props.getUserDetail(userId);
+            this.props.getLoginUserInfo(userId);
         }
         $('.sidenav').sidenav();
         // $("#sideNav").sideNav({closeOnClick: true});
@@ -84,21 +83,21 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        headerReducer: state.HeaderReducer
+        commonReducer: state.CommonReducer
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
     // 取得登录用户基本信息
-    getUserDetail: (userId) => {
-        dispatch(headerAction.getUserDetail({userId: userId}))
+    getLoginUserInfo: (userId) => {
+        dispatch(commonAction.getLoginUserInfo({userId: userId}))
     },
     // 修改密码
     openEditLoginUserModal: () => {
     },
     // 退出
     logout: () => {
-        dispatch(headerAction.logout())
+        dispatch(commonAction.logout())
     }
 });
 

@@ -5,23 +5,32 @@ import {fileHost} from '../../config/HostConfig';
 import {
     // 综合页面
     MainPanel,
+
     // 用户管理
     UserManager,
     UserManagerDetail,
+
     // 文章管理
+    // 文章
     ArticleManager,
     ArticleManagerDetail,
-    // 投票管理
+    // 投票
     VoteManager,
     VoteManagerDetail,
+
     // 评论管理
     CommentManager,
     CommentManagerDetail,
+
     // 消息管理
     MessageManager,
+
     // 系统设置
+    // 员工管理
     AdminUserSetting,
-    AdminUserSettingDetail
+    AdminUserSettingDetail,
+    // APP系统
+    AppVersion
 
     // // 统计
     // OrderStatistic,
@@ -40,19 +49,19 @@ const routes = [
         exact: true,
         component: MainPanel
     },
+
     // 用户管理
     {
-        // 用户管理
         path: "/user",
         exact: true,
         component: UserManager
     },
     {
-        // 用户管理-详情
         path: "/user/:id",
         exact: true,
         component: UserManagerDetail
     },
+
     // 文章管理
     {
         path: "/article",
@@ -87,15 +96,16 @@ const routes = [
         exact: true,
         component: CommentManagerDetail
     },
+
+    // 消息管理
     {
-        // 消息管理
         path: "/message",
         exact: true,
         component: MessageManager
     },
-    // 设置模块
+
+    // 员工管理
     {
-        // 员工管理
         path: "/admin_user_setting",
         exact: true,
         component: AdminUserSetting
@@ -104,9 +114,14 @@ const routes = [
         path: '/admin_user_setting/:id',
         exact: true,
         component: AdminUserSettingDetail
+    },
+
+    // App系统
+    {
+        path: "/app_version",
+        exact: true,
+        component: AppVersion
     }
-
-
 
     // // 统计
     // {
@@ -153,10 +168,10 @@ class Container extends React.Component {
     }
 
     render() {
-        const {headerReducer} = this.props;
+        const {commonReducer} = this.props;
         let avatarUrl = "";
-        if (headerReducer.userInfo && headerReducer.userInfo.avatar_image) {
-            avatarUrl = "http://" + fileHost + "/api/image/" + headerReducer.userInfo.avatar_image;
+        if (commonReducer.loginUserInfo && commonReducer.loginUserInfo.avatar_image) {
+            avatarUrl = "http://" + fileHost + "/api/image/" + commonReducer.loginUserInfo.avatar_image;
         } else {
             avatarUrl = "/assets/images/avatar.png"
         }
@@ -208,6 +223,10 @@ class Container extends React.Component {
                     {
                         "link": '/admin_user_setting',
                         "name": '员工管理'
+                    },
+                    {
+                        "link": '/app_version',
+                        "name": 'App系统'
                     }
                 ]
             }
@@ -268,8 +287,8 @@ class Container extends React.Component {
                         <li>
                             <div className="user-view blue-grey">
                                 <img className="circle" src={avatarUrl}/>
-                                <span className="white-text name">Name:{headerReducer.userInfo.name}</span>
-                                <span className="white-text email">Phone:{headerReducer.userInfo.phone}</span>
+                                <span className="white-text name">Name:{commonReducer.loginUserInfo.name}</span>
+                                <span className="white-text email">Phone:{commonReducer.loginUserInfo.phone}</span>
                             </div>
                         </li>
 
@@ -329,7 +348,7 @@ class Container extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        headerReducer: state.HeaderReducer
+        commonReducer: state.CommonReducer
     }
 };
 

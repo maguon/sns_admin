@@ -1,6 +1,6 @@
 import * as LoginActionType  from './layout/LoginActionType';
-import * as HeaderActionType  from './layout/HeaderActionType';
-import * as CommonActionType  from './main/CommonActionType';
+import * as CommonActionType  from './layout/CommonActionType';
+
 import * as MainPanelActionType  from './main/MainPanelActionType';
 
 import * as UserManagerActionType  from './main/UserManagerActionType';
@@ -10,6 +10,7 @@ import * as ArticleManagerActionType  from './main/ArticleManagerActionType';
 import * as ArticleManagerDetailActionType  from './main/ArticleManagerDetailActionType';
 import * as VoteManagerActionType  from './main/VoteManagerActionType';
 import * as VoteManagerDetailActionType  from './main/VoteManagerDetailActionType';
+
 import * as CommentManagerActionType  from './main/CommentManagerActionType';
 import * as CommentManagerDetailActionType  from './main/CommentManagerDetailActionType';
 
@@ -27,7 +28,6 @@ import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
 
 export  {
     LoginActionType,
-    HeaderActionType,
     CommonActionType,
 
     MainPanelActionType,
