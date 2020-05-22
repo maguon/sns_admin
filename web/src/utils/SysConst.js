@@ -118,6 +118,26 @@ export const CUSTOM_REACT_SELECT_STYLE_FOR_MODAL = {
     })
 };
 
+// 驾照类型
+export const DRIVING_TYPE = [
+    {value: 1, label: "A1"},
+    {value: 2, label: "A2"},
+    {value: 3, label: "A3"},
+    {value: 4, label: "B1"},
+    {value: 5, label: "B2"},
+    {value: 6, label: "C1"},
+    {value: 7, label: "C2"},
+    {value: 8, label: "C3"},
+    {value: 9, label: "C4"},
+    {value: 10, label: "C5"},
+    {value: 11, label: "D"},
+    {value: 12, label: "E"},
+    {value: 13, label: "F"},
+    {value: 14, label: "M"},
+    {value: 15, label: "N"},
+    {value: 16, label: "P"}
+];
+
 // 用户状态
 export const USER_STATUS = [
     {value: 1, label: "正常"},
@@ -177,24 +197,10 @@ export const MSG_USER_TYPE = [
     {value: 2, label: "单个用户"}
 ];
 
-// 驾照类型
-export const DRIVING_TYPE = [
-    {value: 1, label: "A1"},
-    {value: 2, label: "A2"},
-    {value: 3, label: "A3"},
-    {value: 4, label: "B1"},
-    {value: 5, label: "B2"},
-    {value: 6, label: "C1"},
-    {value: 7, label: "C2"},
-    {value: 8, label: "C3"},
-    {value: 9, label: "C4"},
-    {value: 10, label: "C5"},
-    {value: 11, label: "D"},
-    {value: 12, label: "E"},
-    {value: 13, label: "F"},
-    {value: 14, label: "M"},
-    {value: 15, label: "N"},
-    {value: 16, label: "P"}
+// 设备登录状态(-1-退出登录，1-登录中)
+export const DEVICE_LOGIN_STATUS = [
+    {value: -1, label: "退出登录"},
+    {value: 1, label: "登录中"}
 ];
 
 // 性别

@@ -15,9 +15,10 @@ export MessageManager from "./MessageManager";
 
 export AdminUserSetting from "./AdminUserSetting";
 export AdminUserSettingDetail from "./AdminUserSettingDetail";
+export DeviceManager from "./DeviceManager";
+export DeviceManagerDetail from "./DeviceManagerDetail";
 export AppVersion from "./AppVersion";
 export AppVersionDetail from "./AppVersionDetail";
-
 
 export OrderStatistic from "./OrderStatistic";
 export FormValidation from "./FormValidation";

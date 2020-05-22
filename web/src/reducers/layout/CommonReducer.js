@@ -5,7 +5,9 @@ const initialState = {
     // 登录用户的详细信息
     loginUserInfo :{},
     // 用户列表 (根据电话模糊查询)
-    userList: []
+    userList: [],
+    // 设备版本
+    appVersionList: []
 };
 
 export default handleActions({
@@ -26,16 +28,15 @@ export default handleActions({
             ...state,
             userList: userList
         }
+    },
+    [CommonActionType.getAppVersionList]: (state, action) => {
+        let appVersionList = [];
+        action.payload.forEach((value) => {
+            appVersionList.push({value: value._id, label: value.version})
+        });
+        return {
+            ...state,
+            appVersionList: appVersionList
+        }
     }
-
-    // [CommonActionType.getCityList]: (state, action) => {
-    //     let cityList = [];
-    //     action.payload.forEach((value) => {
-    //         cityList.push({value: value.id, label: value.city_name})
-    //     });
-    //     return {
-    //         ...state,
-    //         cityList: cityList
-    //     }
-    // }
 }, initialState)

@@ -59,24 +59,21 @@ export const getUserListByPhone = (phoneReg) => async (dispatch) => {
     }
 };
 
+// 取得App版本号列表
+export const getAppVersionList = (deviceType) => async (dispatch) => {
+    try {
+        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/app?deviceType=' + deviceType;
+        const res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            dispatch({type: CommonActionType.getAppVersionList, payload: res.result})
+        } else if (res.success === false) {
+            swal('获取App版本列表失败', res.msg, 'warning');
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
 
-
-
-
-// // 取得系统 城市列表
-// export const getCityList = () => async (dispatch) => {
-//     try {
-//         const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/city';
-//         const res = await httpUtil.httpGet(url);
-//         if (res.success === true) {
-//             dispatch({type: CommonActionType.getCityList, payload: res.result})
-//         } else if (res.success === false) {
-//             swal('获取城市信息失败', res.msg, 'warning');
-//         }
-//     } catch (err) {
-//         swal('操作失败', err.message, 'error');
-//     }
-// };
 // export const getOrderCarList = (orderId) => async (dispatch) => {
 //     try {
 //         // 基本检索URL

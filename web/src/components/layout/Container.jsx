@@ -29,6 +29,9 @@ import {
     // 员工管理
     AdminUserSetting,
     AdminUserSettingDetail,
+    // 设备管理
+    DeviceManager,
+    DeviceManagerDetail,
     // APP系统
     AppVersion,
     AppVersionDetail
@@ -116,7 +119,17 @@ const routes = [
         exact: true,
         component: AdminUserSettingDetail
     },
-
+    // 设备管理
+    {
+        path: "/device",
+        exact: true,
+        component: DeviceManager
+    },
+    {
+        path: '/device/:id',
+        exact: true,
+        component: DeviceManagerDetail
+    },
     // App系统
     {
         path: "/app_version",
@@ -229,6 +242,10 @@ class Container extends React.Component {
                     {
                         "link": '/admin_user_setting',
                         "name": '员工管理'
+                    },
+                    {
+                        "link": '/device',
+                        "name": '设备管理'
                     },
                     {
                         "link": '/app_version',

@@ -18,6 +18,8 @@ import * as MessageManagerActionType  from './main/MessageManagerActionType';
 
 import * as AdminUserSettingActionType  from './main/AdminUserSettingActionType';
 import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetailActionType';
+import * as DeviceManagerActionType  from './main/DeviceManagerActionType';
+import * as DeviceManagerDetailActionType  from './main/DeviceManagerDetailActionType';
 import * as AppVersionActionType  from './main/AppVersionActionType';
 import * as AppVersionDetailActionType  from './main/AppVersionDetailActionType';
 
@@ -50,6 +52,8 @@ export  {
 
     AdminUserSettingActionType,
     AdminUserSettingDetailActionType,
+    DeviceManagerActionType,
+    DeviceManagerDetailActionType,
     AppVersionActionType,
     AppVersionDetailActionType,
 

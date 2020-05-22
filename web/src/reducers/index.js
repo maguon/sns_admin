@@ -18,6 +18,8 @@ import MessageManagerReducer from './main/MessageManagerReducer'
 
 import AdminUserSettingReducer from './main/AdminUserSettingReducer';
 import AdminUserSettingDetailReducer from './main/AdminUserSettingDetailReducer';
+import DeviceManagerReducer from './main/DeviceManagerReducer';
+import DeviceManagerDetailReducer from './main/DeviceManagerDetailReducer';
 import AppVersionReducer from './main/AppVersionReducer';
 import AppVersionDetailReducer from './main/AppVersionDetailReducer';
 
@@ -48,6 +50,8 @@ export default combineReducers({
 
     AdminUserSettingReducer,
     AdminUserSettingDetailReducer,
+    DeviceManagerReducer,
+    DeviceManagerDetailReducer,
     AppVersionReducer,
     AppVersionDetailReducer,
 
