@@ -24,6 +24,8 @@ import * as AppVersionActionType  from './main/AppVersionActionType';
 import * as AppVersionDetailActionType  from './main/AppVersionDetailActionType';
 
 import * as AddressMapModalActionType  from './modules/AddressMapModalActionType';
+import * as ArticleModalActionType  from './modules/ArticleModalActionType';
+import * as CommentModalActionType  from './modules/CommentModalActionType';
 import * as NewVoteModalActionType  from './modules/NewVoteModalActionType';
 import * as MessageModalActionType  from './modules/MessageModalActionType';
 import * as NewAdminModalActionType  from './modules/NewAdminModalActionType';
@@ -58,6 +60,8 @@ export  {
     AppVersionDetailActionType,
 
     AddressMapModalActionType,
+    ArticleModalActionType,
+    CommentModalActionType,
     NewVoteModalActionType,
     MessageModalActionType,
     NewAdminModalActionType,

@@ -3,10 +3,12 @@ import Select from 'react-select';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {UserManagerDetailActionType} from '../../types';
-import {AddressMapModal, MessageModal} from "../modules";
+import {MessageModal, ArticleModal, CommentModal, AddressMapModal} from "../modules";
 import {DatePicker, TextInput} from "react-materialize";
 
 const userManagerDetailAction = require('../../actions/main/UserManagerDetailAction');
+const articleModalAction = require('../../actions/modules/ArticleModalAction');
+const commentModalAction = require('../../actions/modules/CommentModalAction');
 const addressMapModalAction = require('../../actions/modules/AddressMapModalAction');
 const messageModalAction = require('../../actions/modules/MessageModalAction');
 const sysConst = require('../../utils/SysConst');
@@ -99,6 +101,13 @@ class UserManagerDetail extends React.Component {
     commentNextBtn = () => {
         this.props.setCommentStartNumber(this.props.userManagerDetailReducer.commentStart + (this.props.userManagerDetailReducer.size - 1));
         this.props.getUserCommentList();
+    };
+
+    /**
+     * 显示 评论 模态
+     */
+    showCommentModal = (id) => {
+        this.props.initCommentModalData(id);
     };
 
     /**
@@ -260,9 +269,8 @@ class UserManagerDetail extends React.Component {
     /**
      * 显示 收藏文章 模态
      */
-    showMsgCollMapModal = (detail) => {
-        // this.props.initMsgCollModalData(detail);
-        this.props.initAddressMapModalData(detail);
+    showMsgCollMapModal = (id) => {
+        this.props.initMsgCollModalData(id);
     };
 
     /**
@@ -436,7 +444,7 @@ class UserManagerDetail extends React.Component {
                         </div>}
                     </div>
 
-                    {/* 发布文章 TAB */}
+                    {/* 发布文章 TAB2 */}
                     <div id="tab_article" className="col s12 tab_box">
                         <div className="row">
                             <div className="col s12">
@@ -451,6 +459,7 @@ class UserManagerDetail extends React.Component {
                                         <th>评论数</th>
                                         <th>点赞数</th>
                                         <th className="center" style={{width: '180px'}}>发布时间</th>
+                                        <th className="center">详细</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -473,12 +482,18 @@ class UserManagerDetail extends React.Component {
                                                 <td>{formatUtil.formatNumber(item.agree_num)}</td>
                                                 {/* 发布时间 */}
                                                 <td className="center" style={{width: '180px'}}>{formatUtil.getDateTime(item.created_at)}</td>
+                                                {/* 详细 */}
+                                                <td className="operation center">
+                                                    <a className="modal-trigger" href="#msgCollModal" onClick={() => {this.showMsgCollMapModal(item._id)}}>
+                                                        <i className="mdi mdi-table-search purple-font"/>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         )
                                     },this)}
                                     {userManagerDetailReducer.userArticleList.length === 0 &&
                                     <tr className="grey-text text-darken-1">
-                                        <td className="no-data-tr" colSpan="7">暂无数据</td>
+                                        <td className="no-data-tr" colSpan="8">暂无数据</td>
                                     </tr>}
                                     </tbody>
                                 </table>
@@ -500,7 +515,7 @@ class UserManagerDetail extends React.Component {
                         </div>
                     </div>
 
-                    {/* 评论回复 TAB */}
+                    {/* 评论回复 TAB3 */}
                     <div id="tab_reply" className="col s12 tab_box">
                         <div className="row">
                             <div className="col s12">
@@ -515,7 +530,7 @@ class UserManagerDetail extends React.Component {
                                         <th>点赞数</th>
                                         <th className="center" style={{width: '180px'}}>评论时间</th>
                                         <th className="center">状态</th>
-                                        {/*<th className="center" style={{width: '150px'}}>操作</th>*/}
+                                        <th className="center">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -534,21 +549,22 @@ class UserManagerDetail extends React.Component {
                                                 <td>{formatUtil.formatNumber(item.comment_num)}</td>
                                                 {/* 点赞数 */}
                                                 <td>{formatUtil.formatNumber(item.agree_num)}</td>
-
                                                 {/* 评论时间 */}
                                                 <td className="center" style={{width: '180px'}}>{formatUtil.getDateTime(item.created_at)}</td>
                                                 {/* 状态 */}
                                                 <td className="center">{commonUtil.getJsonValue(sysConst.COMMENT_STATUS, item.status)}</td>
                                                 {/* 操作 */}
-                                                {/*<td className="operation center"  style={{width: '150px'}}>*/}
-                                                {/*    <i className="mdi mdi-close purple-font pointer margin-right10" onClick={() => {this.deleteComment(item._id)}}/>*/}
-                                                {/*</td>*/}
+                                                <td className="operation center">
+                                                    <a className="modal-trigger" href="#commentModal" onClick={() => {this.showCommentModal(item._id)}}>
+                                                        <i className="mdi mdi-table-search purple-font"/>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         )
                                     },this)}
                                     {userManagerDetailReducer.userCommentList.length === 0 &&
                                     <tr className="grey-text text-darken-1">
-                                        <td className="no-data-tr" colSpan="8">暂无数据</td>
+                                        <td className="no-data-tr" colSpan="9">暂无数据</td>
                                     </tr>}
                                     </tbody>
                                 </table>
@@ -568,9 +584,10 @@ class UserManagerDetail extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <CommentModal/>
                     </div>
 
-                    {/* 投票 TAB */}
+                    {/* 投票 TAB4 */}
                     <div id="tab_vote" className="col s12 tab_box">
                         {/* 下部分：检索结果显示区域 */}
                         <div className="row">
@@ -629,7 +646,7 @@ class UserManagerDetail extends React.Component {
                         </div>
                     </div>
 
-                    {/* 社交圈 TAB */}
+                    {/* 社交圈 TAB5 */}
                     <div id="tab_social" className="col s12 tab_box">
                          {/*上部分：检索条件输入区域 */}
                         <div className="row grey-text text-darken-1 margin-top20 margin-bottom0">
@@ -710,7 +727,7 @@ class UserManagerDetail extends React.Component {
                         </div>
                     </div>
 
-                    {/* 消息 TAB */}
+                    {/* 消息 TAB6 */}
                     <div id="tab_message" className="col s12 tab_box">
                         {/*上部分：检索条件输入区域 */}
                         <div className="row grey-text text-darken-1 margin-top20 margin-bottom0">
@@ -805,7 +822,7 @@ class UserManagerDetail extends React.Component {
                         </div>
                     </div>
 
-                    {/* 收藏文章 */}
+                    {/* 收藏文章 TAB7 */}
                     <div id="tab_collection_article" className="col s12 tab_box">
                         <div className="row">
                             <div className="col s12">
@@ -827,16 +844,16 @@ class UserManagerDetail extends React.Component {
                                                 {/* 文章编号 */}
                                                 <td>{item._id}</td>
                                                 {/* 发布位置 */}
-                                                <td>{item.msg_info[0].address_name}</td>
+                                                <td>{item.msg_info.length >0 ? item.msg_info[0].address_name : ''}</td>
                                                 {/* 文章类型 */}
-                                                <td className="center">{commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.msg_info[0].type)}</td>
+                                                <td className="center">{item.msg_info.length >0 ? commonUtil.getJsonValue(sysConst.MESSAGE_TYPE, item.msg_info[0].type) : ''}</td>
                                                 {/* 载体类型 */}
-                                                <td className="center">{commonUtil.getJsonValue(sysConst.CARRIER_TYPE, item.msg_info[0].carrier)}</td>
+                                                <td className="center">{item.msg_info.length >0 ? commonUtil.getJsonValue(sysConst.CARRIER_TYPE, item.msg_info[0].carrier) : ''}</td>
                                                 {/* 发布时间 */}
-                                                <td className="center">{formatUtil.getDateTime(item.msg_info[0].created_at)}</td>
+                                                <td className="center">{item.msg_info.length >0 ? formatUtil.getDateTime(item.msg_info[0].created_at) : ''}</td>
                                                 {/* 详细 */}
                                                 <td className="operation center">
-                                                    <a className="modal-trigger" href="#msgCollModal" onClick={() => {this.showMsgCollMapModal(item)}}>
+                                                    <a className="modal-trigger" href="#msgCollModal" onClick={() => {this.showMsgCollMapModal(item._id)}}>
                                                         <i className="mdi mdi-table-search purple-font"/>
                                                     </a>
                                                 </td>
@@ -865,7 +882,7 @@ class UserManagerDetail extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <AddressMapModal/>
+                        <ArticleModal/>
                     </div>
                     
                     {/* 收藏地址 */}
@@ -991,6 +1008,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     setCommentStartNumber: (start) => {
         dispatch(UserManagerDetailActionType.setCommentStartNumber(start))
     },
+    initCommentModalData: (id) => {
+        dispatch(commentModalAction.initCommentInfo(id));
+    },
 
     // 显示 投票 TAB4 内容
     showUserVoteTab: () => {
@@ -1066,8 +1086,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     setMsgCollStartNumber: (start) => {
         dispatch(UserManagerDetailActionType.setMsgCollStartNumber(start))
     },
-    initMsgCollModalData: (detail) => {
-        // dispatch(addressMapModalAction.initMsgCollModal(addressDetail));
+    initMsgCollModalData: (id) => {
+        dispatch(articleModalAction.initMsgCollModal(id));
     },
 
     // 显示 收藏地址 TAB 8 内容

@@ -24,6 +24,8 @@ import AppVersionReducer from './main/AppVersionReducer';
 import AppVersionDetailReducer from './main/AppVersionDetailReducer';
 
 import AddressMapModalReducer from './modules/AddressMapModalReducer';
+import ArticleModalReducer from './modules/ArticleModalReducer';
+import CommentModalReducer from './modules/CommentModalReducer';
 import NewVoteModalReducer from './modules/NewVoteModalReducer';
 import MessageModalReducer from './modules/MessageModalReducer';
 import NewAdminModalReducer from './modules/NewAdminModalReducer';
@@ -56,6 +58,8 @@ export default combineReducers({
     AppVersionDetailReducer,
 
     AddressMapModalReducer,
+    ArticleModalReducer,
+    CommentModalReducer,
     MessageModalReducer,
     NewVoteModalReducer,
     NewAdminModalReducer,
