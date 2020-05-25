@@ -8,6 +8,7 @@ const messageModalAction = require('../../actions/modules/MessageModalAction');
 const commonAction = require('../../actions/layout/CommonAction');
 const sysConst = require('../../utils/SysConst');
 
+// 发布消息/消息详情
 class MessageModal extends React.Component {
 
     /**

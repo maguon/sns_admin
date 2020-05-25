@@ -7,6 +7,7 @@ import Select from "react-select";
 const newAppModalAction = require('../../actions/modules/NewAppModalAction');
 const sysConst = require('../../utils/SysConst');
 
+// 新增App
 class NewAppModal extends React.Component {
 
     /**

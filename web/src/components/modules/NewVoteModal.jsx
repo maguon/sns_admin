@@ -7,6 +7,7 @@ const newVoteModalAction = require('../../actions/modules/NewVoteModalAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 
+// 发布投票
 class NewVoteModal extends React.Component {
 
     /**

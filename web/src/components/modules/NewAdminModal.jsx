@@ -5,6 +5,7 @@ import {NewAdminModalActionType} from "../../types";
 
 const newAdminModalAction = require('../../actions/modules/NewAdminModalAction');
 
+// 新增员工
 class NewAdminModal extends React.Component {
 
     /**
