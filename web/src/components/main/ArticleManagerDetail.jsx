@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import {Tab, Tabs} from "react-materialize";
+import {fileHost, mediaHost} from "../../config/HostConfig";
+import VideoPlayer from "../utils/VideoPlayer";
 
 const articleManagerDetailAction = require('../../actions/main/ArticleManagerDetailAction');
 const sysConst = require('../../utils/SysConst');
@@ -21,6 +23,20 @@ class ArticleManagerDetail extends React.Component {
      */
     componentDidMount() {
         this.props.getArticleInfo();
+    }
+
+    // 更新
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // 载体类型：图片
+        if (this.props.articleManagerDetailReducer.articleInfo.length > 0 &&
+            this.props.articleManagerDetailReducer.articleInfo[0].carrier === sysConst.CARRIER_TYPE[1].value &&
+            this.props.articleManagerDetailReducer.articleInfo[0].media.length > 0) {
+            let viewer = new Viewer(document.getElementById('viewer'), {
+                show: function (){  // 动态加载图片后，更新实例
+                    viewer.update();
+                },
+            });
+        }
     }
 
     /**
@@ -63,6 +79,35 @@ class ArticleManagerDetail extends React.Component {
                     <div className="col s12 no-padding"><div className="col s12 margin-top10 divider"/></div>
                     {/* 文章内容 */}
                     <div className="col s12 margin-top10">{articleManagerDetailReducer.articleInfo[0].info}</div>
+
+                    {/* 载体类型: 图片 */}
+                    {articleManagerDetailReducer.articleInfo[0].media.length > 0 && articleManagerDetailReducer.articleInfo[0].carrier === sysConst.CARRIER_TYPE[1].value &&
+                    <ul id="viewer" className="margin-top0">
+                        {articleManagerDetailReducer.articleInfo[0].media.map(function (item) {
+                            return (
+                                <div className="col s2 margin-top40">
+                                    <div className="img-box z-depth-1 detail-box">
+                                        <li className="picture-list vc-center">
+                                            <img src={item !== '' ? "http://" + fileHost + "/api/image/" + item.url : ""} className="responsive-img"/>
+                                        </li>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </ul>}
+
+                    {/* 载体类型: 视频 */}
+                    {articleManagerDetailReducer.articleInfo[0].media.length > 0 && articleManagerDetailReducer.articleInfo[0].carrier === sysConst.CARRIER_TYPE[2].value &&
+                    <ul id="video" className="margin-top0">
+                        {articleManagerDetailReducer.articleInfo[0].media.map(function (item) {
+                            return (
+                                <div className="col s12 margin-top40">
+                                    {/*<VideoPlayer src="//vjs.zencdn.net/v/oceans.mp4" pic={item.preview === '' ? item.preview : "/assets/images/no_pic.png"}/>*/}
+                                    <VideoPlayer src={"http://" + mediaHost + "/" + item.url} pic={item.preview !== '' ? item.preview : "/assets/images/no_pic.png"}/>
+                                </div>
+                            )
+                        })}
+                    </ul>}
                 </div>}
 
                 <div className="row margin-left20 margin-right20">
@@ -89,7 +134,7 @@ class ArticleManagerDetail extends React.Component {
                                                     <div className="col s4 margin-top10 right-align">{formatUtil.getDateTime(item.created_at)}</div>
                                                     <div className="col s1 margin-top10">&nbsp;</div>
                                                     <div className="col s11 margin-top10">{item.comment}</div>
-                                                    <div className="col s1"></div>
+                                                    <div className="col s1">&nbsp;</div>
                                                     <div className="col s11 no-padding"><div className="col s12 margin-top10 divider"/></div>
                                                     <div className="col s1 margin-top10">&nbsp;</div>
                                                     <div className="col s6 margin-top10 blue-font">共{item.comment_num}条评论 {item.comment_num > 0 ? '展开更多 >>' : ''}</div>

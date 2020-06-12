@@ -51,8 +51,6 @@ class CommentModal extends React.Component {
             >
                 <div className="row margin-top20 padding-left20 padding-right20">
 
-
-
                     {/* 文章 */}
                     {commentModalReducer.articleInfo.length > 0 &&
                     <div className="row margin-top20 margin-left20 margin-right20">
@@ -85,9 +83,6 @@ class CommentModal extends React.Component {
                         <div className="col s6 margin-top10">共{commentModalReducer.commentInfo[0].comment_num}条评论</div>
                         <div className="col s6 margin-top10 right-align">赞({commentModalReducer.commentInfo[0].agree_num})</div>
                     </div>}
-
-
-
 
                 </div>
             </Modal>

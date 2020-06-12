@@ -532,7 +532,31 @@ table.striped > tbody > tr:nth-child(odd) {
     font-size: 22px;
 }
 
+/* 照片 */
+.picture-list {
+    height: 200px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    font-size: 100px;
+    min-width: 200px;
+}
 
+img.responsive-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-box{
+    height: 200px;
+    width: 200px;
+}
+
+.video-box{
+    height: 400px;
+    width: 700px;
+}
 /**********************************************  下面内容不确定保留  *************************************************/
 
 
