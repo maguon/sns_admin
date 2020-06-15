@@ -557,36 +557,18 @@ img.responsive-img {
     height: 400px;
     width: 700px;
 }
+
+/* video.js 显示当前的播放时间，以及总共视频时长 */
+.video-js .vjs-time-control {
+    display: block !important;
+}
+
+/* video.js 默认倒序显示时间，也就是视频播放的剩余时间。 */
+.video-js .vjs-remaining-time {
+    display: none !important;
+}
 /**********************************************  下面内容不确定保留  *************************************************/
 
-
-
-
-.detail-box-header {
-    height: 52px;
-    padding-top: 11px;
-    border-top: 1px solid #D4D4D4 !important;
-    border-bottom: 1px solid #D4D4D4 !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-}
-
-
-/* Icon Background Round */
-.background-round {
-    padding: 15px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, .18);
-}
-
-
-/* 主控画面 图标样式 */
-.main-panel-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 30px;
-}
 
 /* 统计画面用*/
 .statistic-half-page {
@@ -594,46 +576,6 @@ img.responsive-img {
     height: 350px;
     padding-top: 80px;
 }
-
-
-
-
-
-.recommend-business-detail-header {
-    height: 90px;
-}
-
-/*.detail-box-header, .user-detail-header, .inquiry-detail-header,*/
-/*.order-detail-header, .trans-demand-header, .supplier-business-detail-header, .recommend-business-detail-header {*/
-/*    background-color: #F0EFF4;*/
-/*    padding-left: 1.5rem;*/
-/*    padding-right: 1.5rem;*/
-/*    border-bottom: 2px solid #D9BEDD;*/
-/*    color: #724278;*/
-/*    font-weight: bold;*/
-/*}*/
-
-
-/** Material补充样式 start */
-
-.custom-label-field {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px dotted #9e9e9e;
-    border-radius: 0;
-    outline: none;
-    height: 3rem;
-    width: 100%;
-    font-size: 1rem;
-    margin: 0 0 20px 0;
-    padding: 10px 0 !important;
-    box-shadow: none;
-    box-sizing: content-box;
-    transition: all 0.3s;
-}
-
-
-/** 自定义-全画面布局位置样式(调整布局用 margin padding) end */
 
 
 /** 自定义-全画面布局边框样式(border) start */
