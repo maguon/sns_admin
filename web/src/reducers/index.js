@@ -15,6 +15,8 @@ import VoteManagerDetailReducer from './main/VoteManagerDetailReducer';
 import CommentManagerReducer from './main/CommentManagerReducer';
 import CommentManagerDetailReducer from './main/CommentManagerDetailReducer';
 import MessageManagerReducer from './main/MessageManagerReducer'
+import ReportManagerReducer from './main/ReportManagerReducer';
+import ReportManagerDetailReducer from './main/ReportManagerDetailReducer';
 
 import AdminUserSettingReducer from './main/AdminUserSettingReducer';
 import AdminUserSettingDetailReducer from './main/AdminUserSettingDetailReducer';
@@ -49,6 +51,8 @@ export default combineReducers({
     CommentManagerReducer,
     CommentManagerDetailReducer,
     MessageManagerReducer,
+    ReportManagerReducer,
+    ReportManagerDetailReducer,
 
     AdminUserSettingReducer,
     AdminUserSettingDetailReducer,

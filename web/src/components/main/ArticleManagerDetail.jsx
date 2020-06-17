@@ -81,7 +81,7 @@ class ArticleManagerDetail extends React.Component {
                     <div className="col s12 margin-top10">{articleManagerDetailReducer.articleInfo[0].info}</div>
 
                     {/* 载体类型: 图片 */}
-                    {articleManagerDetailReducer.articleInfo[0].media.length > 0 && articleManagerDetailReducer.articleInfo[0].carrier === sysConst.CARRIER_TYPE[1].value &&
+                    {articleManagerDetailReducer.articleInfo[0].carrier === sysConst.CARRIER_TYPE[1].value && articleManagerDetailReducer.articleInfo[0].media.length > 0 &&
                     <ul id="viewer" className="margin-top0">
                         {articleManagerDetailReducer.articleInfo[0].media.map(function (item) {
                             return (
@@ -97,7 +97,7 @@ class ArticleManagerDetail extends React.Component {
                     </ul>}
 
                     {/* 载体类型: 视频 */}
-                    {articleManagerDetailReducer.articleInfo[0].media.length > 0 && articleManagerDetailReducer.articleInfo[0].carrier === sysConst.CARRIER_TYPE[2].value &&
+                    {articleManagerDetailReducer.articleInfo[0].carrier === sysConst.CARRIER_TYPE[2].value && articleManagerDetailReducer.articleInfo[0].media.length > 0 &&
                     <ul id="video" className="margin-top0">
                         {articleManagerDetailReducer.articleInfo[0].media.map(function (item) {
                             return (

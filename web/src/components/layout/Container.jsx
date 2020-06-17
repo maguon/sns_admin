@@ -25,6 +25,10 @@ import {
     // 消息管理
     MessageManager,
 
+    // 举报管理
+    ReportManager,
+    ReportManagerDetail,
+
     // 系统设置
     // 员工管理
     AdminUserSetting,
@@ -106,6 +110,18 @@ const routes = [
         path: "/message",
         exact: true,
         component: MessageManager
+    },
+
+    // 举报管理
+    {
+        path: "/report",
+        exact: true,
+        component: ReportManager
+    },
+    {
+        path: '/report/:id',
+        exact: true,
+        component: ReportManagerDetail
     },
 
     // 员工管理
@@ -236,6 +252,12 @@ class Container extends React.Component {
                 "children": []
             },
             {
+                "label": '举报管理',
+                "icon": 'mdi-bell-plus',
+                "link": '/report',
+                "children": []
+            },
+            {
                 "label": '系统设置',
                 "icon": 'mdi-settings-outline',
                 "children": [
@@ -253,8 +275,6 @@ class Container extends React.Component {
                     }
                 ]
             }
-
-
 
 
             // {

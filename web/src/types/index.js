@@ -16,6 +16,9 @@ import * as CommentManagerDetailActionType  from './main/CommentManagerDetailAct
 
 import * as MessageManagerActionType  from './main/MessageManagerActionType';
 
+import * as ReportManagerActionType  from './main/ReportManagerActionType';
+import * as ReportManagerDetailActionType  from './main/ReportManagerDetailActionType';
+
 import * as AdminUserSettingActionType  from './main/AdminUserSettingActionType';
 import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetailActionType';
 import * as DeviceManagerActionType  from './main/DeviceManagerActionType';
@@ -51,6 +54,9 @@ export  {
     CommentManagerDetailActionType,
 
     MessageManagerActionType,
+
+    ReportManagerActionType,
+    ReportManagerDetailActionType,
 
     AdminUserSettingActionType,
     AdminUserSettingDetailActionType,

@@ -13,6 +13,9 @@ export VoteManagerDetail from "./VoteManagerDetail";
 
 export MessageManager from "./MessageManager";
 
+export ReportManager from "./ReportManager";
+export ReportManagerDetail from "./ReportManagerDetail";
+
 export AdminUserSetting from "./AdminUserSetting";
 export AdminUserSettingDetail from "./AdminUserSettingDetail";
 export DeviceManager from "./DeviceManager";

@@ -238,6 +238,18 @@ export const NOTICE_FLAG = [
     {value: 1, label: "通知"}
 ];
 
+// 处理状态（1-未处理（默认），2-已处理）
+export const REPORT_STATUS = [
+    {value: 1, label: "未处理"},
+    {value: 2, label: "已处理"}
+];
+
+// 处理结果（1-有效，2-无效）
+export const REPORT_VALID_RESULT = [
+    {value: 1, label: "有效"},
+    {value: 2, label: "无效"}
+];
+
 // 按日统计-日数
 export const STATISTIC_DAYS = [
     {value: 10, label: "近 10 天"},
