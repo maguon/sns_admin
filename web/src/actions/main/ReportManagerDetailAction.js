@@ -49,7 +49,7 @@ export const getArticleInfo = (msgId) => async (dispatch) => {
 };
 
 // 处理举报
-export const confirmReport = (reportId) => async (dispatch, getState) => {
+export const confirmReport = (reportId, msgId) => async (dispatch, getState) => {
     // 处理结果
     const validResults = getState().ReportManagerDetailReducer.validResults;
     // 处理意见
@@ -73,10 +73,23 @@ export const confirmReport = (reportId) => async (dispatch, getState) => {
                 if (res.success === true) {
                     swal("处理成功", "", "success");
                     dispatch(getReportInfo(reportId));
+                    // 举报有效则屏蔽文章
+                    if (validResults.value === sysConst.REPORT_VALID_RESULT[0].value) {
+                        dispatch(hideArticle(msgId));
+                    }
                 } else if (res.success === false) {
                     swal('处理失败', res.msg, 'warning');
                 }
             }
         });
+    }
+};
+
+export const hideArticle = (msgId) => async (dispatch) => {
+    const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
+        + '/msg/' + msgId + '/status';
+    const res = await httpUtil.httpPut(url, {status: sysConst.ARTICLE_STATUS[0].value});
+    if (res.success === false) {
+        swal('屏蔽文章失败，请去文章管理再次处理', res.msg, 'warning');
     }
 };

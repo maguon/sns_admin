@@ -114,7 +114,7 @@ class ReportManagerDetail extends React.Component {
                 </div>}
 
                 {/* 举报信息 */}
-                {reportManagerDetailReducer.reportInfo.length > 0 &&
+                {reportManagerDetailReducer.reportInfo.length > 0 && reportManagerDetailReducer.articleInfo.length > 0 &&
                 <div className="row margin-top20 margin-left20 margin-right20">
                     <div className={`col s6 bold-font ${reportManagerDetailReducer.reportInfo[0].status === sysConst.REPORT_STATUS[0].value ? "pink-font" : "blue-font"}`}>
                         {commonUtil.getJsonValue(sysConst.REPORT_STATUS, reportManagerDetailReducer.reportInfo[0].status)}
@@ -144,7 +144,7 @@ class ReportManagerDetail extends React.Component {
 
                     {reportManagerDetailReducer.reportInfo[0].status === sysConst.REPORT_STATUS[0].value &&
                     <div className="col s12 fz18 right-align">
-                        <button type="button" className="btn orange-btn" onClick={() => {confirmReport()}}>确认处理</button>
+                        <button type="button" className="btn orange-btn" onClick={() => {confirmReport(reportManagerDetailReducer.articleInfo[0]._id)}}>确认处理</button>
                     </div>}
                 </div>}
             </div>
@@ -170,8 +170,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         dispatch(ReportManagerDetailActionType.setReportReview(value))
     },
     // 处理举报
-    confirmReport: () => {
-        dispatch(reportManagerDetailAction.confirmReport(ownProps.match.params.id))
+    confirmReport: (msgId) => {
+        dispatch(reportManagerDetailAction.confirmReport(ownProps.match.params.id, msgId))
     }
 });
 
