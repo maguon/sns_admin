@@ -676,6 +676,7 @@ class UserManagerDetail extends React.Component {
                         {/* 下部分：检索结果显示区域 */}
                         <div className="row">
                             <div className="col s12">
+                                {userManagerDetailReducer.conditionAttentionType != null && userManagerDetailReducer.conditionAttentionType.value !== sysConst.ATTENTION_TYPE[3].value &&
                                 <table className="bordered striped">
                                     <thead className="custom-dark-grey table-top-line">
                                     <tr className="grey-text text-darken-2">
@@ -708,7 +709,36 @@ class UserManagerDetail extends React.Component {
                                         <td className="no-data-tr" colSpan="5">暂无数据</td>
                                     </tr>}
                                     </tbody>
-                                </table>
+                                </table>}
+
+                                {userManagerDetailReducer.conditionAttentionType != null && userManagerDetailReducer.conditionAttentionType.value === sysConst.ATTENTION_TYPE[3].value &&
+                                <table className="bordered striped">
+                                    <thead className="custom-dark-grey table-top-line">
+                                    <tr className="grey-text text-darken-2">
+                                        <th>屏蔽人帐号</th>
+                                        <th>屏蔽人昵称</th>
+                                        <th>屏蔽人名称</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {userManagerDetailReducer.userBlockList.map(function (item) {
+                                        return (
+                                            <tr className="grey-text text-darken-1">
+                                                {/* 屏蔽人帐号 */}
+                                                <td>{item._user_id}</td>
+                                                {/* 屏蔽人昵称 */}
+                                                <td>{item.nick_name}</td>
+                                                {/* 屏蔽人名称 */}
+                                                <td>{item.real_name}</td>
+                                            </tr>
+                                        )
+                                    },this)}
+                                    {userManagerDetailReducer.userBlockList.length === 0 &&
+                                    <tr className="grey-text text-darken-1">
+                                        <td className="no-data-tr" colSpan="3">暂无数据</td>
+                                    </tr>}
+                                    </tbody>
+                                </table>}
                             </div>
 
                             {/* 上下页按钮 */}
@@ -960,7 +990,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => ({
     // 基本信息
     getUserInfo: () => {
-        // dispatch(commonAction.getCityList());
+        // 社交圈TAB 默认选项
+        dispatch(UserManagerDetailActionType.setConditionAttentionType({value: 1, label: "已关注"}));
         dispatch(userManagerDetailAction.getUserInfo(ownProps.match.params.id));
         dispatch(userManagerDetailAction.getUserNoticeInfo(ownProps.match.params.id));
     },
@@ -1032,10 +1063,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
         $("#tab_social").addClass("active");
         $("#tab_social").show();
         dispatch(userManagerDetailAction.getUserAttentionList(ownProps.match.params.id));
-        dispatch(UserManagerDetailActionType.setConditionAttentionType({value: 1, label: "已关注"}));
     },
     changeConditionAttentionType: (value) => {
         dispatch(UserManagerDetailActionType.setConditionAttentionType(value));
+        // 切换关注类型后，清空数据
+        dispatch(userManagerDetailAction.clearUserAttentionList());
     },
     getUserAttentionList: () => {
         dispatch(userManagerDetailAction.getUserAttentionList(ownProps.match.params.id));

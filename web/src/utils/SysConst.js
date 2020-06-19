@@ -182,7 +182,8 @@ export const VOTE_STATUS = [
 export const ATTENTION_TYPE = [
     {value: 1, label: "已关注"},
     {value: 2, label: "被关注"},
-    {value: 3, label: "互相关注"}
+    {value: 3, label: "互相关注"},
+    {value: 4, label: "已屏蔽"}
 ];
 
 // 消息类型

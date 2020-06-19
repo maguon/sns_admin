@@ -71,7 +71,7 @@ export const changeUserStatus = (userId, status) => async (dispatch) => {
     });
 };
 
-// 获取 用户 发布文章
+// TAB2: 获取 用户 发布文章
 export const getUserArticleList = (userId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
@@ -94,7 +94,7 @@ export const getUserArticleList = (userId) => async (dispatch, getState) => {
     }
 };
 
-// 获取 用户 评论回复
+// TAB3: 获取 用户 评论回复
 export const getUserCommentList = (userId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
@@ -117,7 +117,7 @@ export const getUserCommentList = (userId) => async (dispatch, getState) => {
     }
 };
 
-// 获取 参与人投票详情
+// TAB4: 获取 参与人投票详情
 export const getUserVoteList = (userId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
@@ -140,7 +140,7 @@ export const getUserVoteList = (userId) => async (dispatch, getState) => {
     }
 };
 
-// 获取 用户关系详情
+// TAB5: 获取 用户关系详情
 export const getUserAttentionList = (userId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
@@ -150,36 +150,60 @@ export const getUserAttentionList = (userId) => async (dispatch, getState) => {
         // 检索条件：关注类型
         const conditionAttentionType = getState().UserManagerDetailReducer.conditionAttentionType;
 
-        // 基本检索URL
-        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
-            + '/friend?start=' + start + '&size=' + size;
-        switch (conditionAttentionType === null ? '' : conditionAttentionType.value) {
-            case 1:
-                url = url + '&type=0&followId=' + userId;
-                break;
-            case 2:
-                url = url + '&type=0&attentionId=' + userId;
-                break;
-            case 3:
-                url = url + '&type=1&followId=' + userId;
-                break;
-            default:
-                break;
-        }
+        if (conditionAttentionType.value !== sysConst.ATTENTION_TYPE[3].value) {
+            // 基本检索URL
+            let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
+                + '/friend?start=' + start + '&size=' + size;
+            switch (conditionAttentionType.value) {
+                case 1:
+                    url = url + '&type=0&followId=' + userId;
+                    break;
+                case 2:
+                    url = url + '&type=0&attentionId=' + userId;
+                    break;
+                case 3:
+                    url = url + '&type=1&followId=' + userId;
+                    break;
+                default:
+                    break;
+            }
 
-        const res = await httpUtil.httpGet(url);
-        if (res.success === true) {
-            dispatch({type: UserManagerDetailActionType.setAttentionDataSize, payload: res.result.length});
-            dispatch({type: UserManagerDetailActionType.getUserAttentionList, payload: res.result.slice(0, size - 1)});
-        } else if (res.success === false) {
-            swal('获取用户关系信息失败', res.msg, 'warning');
+            const res = await httpUtil.httpGet(url);
+            if (res.success === true) {
+                dispatch({type: UserManagerDetailActionType.setAttentionDataSize, payload: res.result.length});
+                dispatch({type: UserManagerDetailActionType.getUserAttentionList, payload: res.result.slice(0, size - 1)});
+            } else if (res.success === false) {
+                swal('获取用户关系列表失败', res.msg, 'warning');
+            }
+        } else {
+            // 基本检索URL
+            let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
+                + '/user/' + userId + '/blockList?start=' + start + '&size=' + size;
+
+            const res = await httpUtil.httpGet(url);
+            if (res.success === true) {
+                dispatch({type: UserManagerDetailActionType.setAttentionDataSize, payload: res.result.length});
+                dispatch({type: UserManagerDetailActionType.getUserBlockList, payload: res.result.slice(0, size - 1)});
+            } else if (res.success === false) {
+                swal('获取用户黑名单列表失败', res.msg, 'warning');
+            }
         }
     } catch (err) {
         swal('操作失败', err.message, 'error');
     }
 };
 
-// 获取 消息TAB详情
+// TAB5: 清空 列表
+export const clearUserAttentionList = () => async (dispatch) => {
+    try {
+        dispatch({type: UserManagerDetailActionType.getUserAttentionList, payload: []});
+        dispatch({type: UserManagerDetailActionType.getUserBlockList, payload: []});
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
+
+// TAB6: 获取 消息TAB详情
 export const getUserMsgList = (userId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
@@ -224,7 +248,7 @@ export const getUserMsgList = (userId) => async (dispatch, getState) => {
     }
 };
 
-// 获取 收藏文章详情
+// TAB7: 获取 收藏文章详情
 export const getUserMsgCollList = (userId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置
@@ -247,7 +271,7 @@ export const getUserMsgCollList = (userId) => async (dispatch, getState) => {
     }
 };
 
-// 获取 收藏地址详情
+// TAB8: 获取 收藏地址详情
 export const getUserAddressList = (userId) => async (dispatch, getState) => {
     try {
         // 检索条件：开始位置

@@ -16,6 +16,7 @@ export const setVoteStartNumber = createAction('SET_USER_DETAIL_VOTE_START_NUMBE
 export const setVoteDataSize = createAction('SET_USER_DETAIL_VOTE_DATA_SIZE');
 
 export const getUserAttentionList = createAction('GET_USER_DETAIL_USER_ATTENTION_LIST');
+export const getUserBlockList = createAction('GET_USER_DETAIL_USER_BLOCK_LIST');
 export const setConditionAttentionType = createAction('SET_USER_DETAIL_ATTENTION_CONDITION_TYPE');
 export const setAttentionStartNumber = createAction('SET_USER_DETAIL_ATTENTION_START_NUMBER');
 export const setAttentionDataSize = createAction('SET_USER_DETAIL_ATTENTION_DATA_SIZE');

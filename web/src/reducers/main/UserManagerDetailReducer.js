@@ -2,36 +2,37 @@ import {handleActions} from 'redux-actions';
 import {UserManagerDetailActionType} from '../../types';
 
 const initialState = {
-    // 基本信息TAB：用户信息
+    // 基本信息TAB1：用户信息
     userInfo: [],
     // 基本信息TAB：用户通知设置
     userNoticeInfo: [],
     // 每页数量
     size: 9,
 
-    // 发布文章TAB：列表
+    // 发布文章TAB2：列表
     userArticleList: [],
     // 发布文章TAB：开始位置
     articleStart: 0,
     // 发布文章TAB：检索结果数量
     articleDataSize: 0,
 
-    // 评论TAB：列表
+    // 评论TAB3：列表
     userCommentList: [],
     // 评论TAB：开始位置
     commentStart: 0,
     // 评论TAB：检索结果数量
     commentDataSize: 0,
 
-    // 投票TAB：列表
+    // 投票TAB4：列表
     userVoteList: [],
     // 投票TAB：开始位置
     voteStart: 0,
     // 投票TAB：检索结果数量
     voteDataSize: 0,
 
-    // 投票TAB：列表
+    // 社交圈TAB5：列表
     userAttentionList: [],
+    userBlockList: [],
     // 投票TAB：检索条件 关注类型
     conditionAttentionType: null,
     // 投票TAB：开始位置
@@ -39,7 +40,7 @@ const initialState = {
     // 投票TAB：检索结果数量
     attentionDataSize: 0,
 
-    // 消息TAB：列表
+    // 消息TAB6：列表
     userMsgList: [],
     // 消息TAB：检索条件：消息编号
     conditionMsgId: '',
@@ -54,14 +55,14 @@ const initialState = {
     // 消息TAB：检索结果数量
     messageDataSize: 0,
 
-    // 收藏文章TAB：列表
+    // 收藏文章TAB7：列表
     userMsgCollList: [],
     // 收藏文章TAB：开始位置
     msgCollStart: 0,
     // 收藏文章TAB：检索结果数量
     msgCollDataSize: 0,
 
-    // 收藏地址TAB：列表
+    // 收藏地址TAB8：列表
     userAddressList: [],
     // 收藏地址TAB：开始位置
     addressStart: 0,
@@ -144,6 +145,12 @@ export default handleActions({
         return {
             ...state,
             userAttentionList: action.payload
+        }
+    },
+    [UserManagerDetailActionType.getUserBlockList]: (state, action) => {
+        return {
+            ...state,
+            userBlockList: action.payload
         }
     },
     [UserManagerDetailActionType.setConditionAttentionType]: (state, action) => {
