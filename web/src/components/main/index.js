@@ -16,6 +16,11 @@ export MessageManager from "./MessageManager";
 export ReportManager from "./ReportManager";
 export ReportManagerDetail from "./ReportManagerDetail";
 
+export FakeUserSetting from "./FakeUserSetting";
+export FakeUserSettingDetail from "./FakeUserSettingDetail";
+export FakeArticleManager from "./FakeArticleManager";
+export FakeArticleManagerDetail from "./FakeArticleManagerDetail";
+
 export AdminUserSetting from "./AdminUserSetting";
 export AdminUserSettingDetail from "./AdminUserSettingDetail";
 export DeviceManager from "./DeviceManager";

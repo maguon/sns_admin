@@ -159,6 +159,13 @@ export const CARRIER_TYPE = [
     {value: 4, label: "位置分享"}
 ];
 
+// 载体类型 1.文本 2.图片 3.视频
+export const FAKE_CARRIER_TYPE = [
+    {value: 1, label: "文本"},
+    {value: 2, label: "图片"},
+    {value: 3, label: "视频"}
+];
+
 // 评论状态
 export const COMMENT_STATUS = [
     {value: 0, label: "屏蔽"},

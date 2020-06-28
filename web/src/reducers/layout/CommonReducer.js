@@ -7,7 +7,9 @@ const initialState = {
     // 用户列表 (根据电话模糊查询)
     userList: [],
     // 设备版本
-    appVersionList: []
+    appVersionList: [],
+    // Fake用户列表
+    fakeUserList: []
 };
 
 export default handleActions({
@@ -37,6 +39,16 @@ export default handleActions({
         return {
             ...state,
             appVersionList: appVersionList
+        }
+    },
+    [CommonActionType.getFakeUserList]: (state, action) => {
+        let fakeUserList = [];
+        action.payload.forEach((value) => {
+            fakeUserList.push({value: value._id, label: value.user_detail_info[0].nick_name})
+        });
+        return {
+            ...state,
+            fakeUserList: fakeUserList
         }
     }
 }, initialState)

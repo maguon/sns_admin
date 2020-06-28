@@ -922,7 +922,7 @@ img.responsive-img {
     max-height: 400px;
 }
 
-#messageModal {
+#messageModal,#newFakeUserModal {
     max-height: 450px;
 }
 /** modal 样式定义部分 end */

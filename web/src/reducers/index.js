@@ -17,6 +17,10 @@ import CommentManagerDetailReducer from './main/CommentManagerDetailReducer';
 import MessageManagerReducer from './main/MessageManagerReducer'
 import ReportManagerReducer from './main/ReportManagerReducer';
 import ReportManagerDetailReducer from './main/ReportManagerDetailReducer';
+import FakeUserSettingReducer from './main/FakeUserSettingReducer';
+import FakeUserSettingDetailReducer from './main/FakeUserSettingDetailReducer';
+import FakeArticleManagerReducer from './main/FakeArticleManagerReducer';
+import FakeArticleManagerDetailReducer from './main/FakeArticleManagerDetailReducer';
 
 import AdminUserSettingReducer from './main/AdminUserSettingReducer';
 import AdminUserSettingDetailReducer from './main/AdminUserSettingDetailReducer';
@@ -32,6 +36,7 @@ import NewVoteModalReducer from './modules/NewVoteModalReducer';
 import MessageModalReducer from './modules/MessageModalReducer';
 import NewAdminModalReducer from './modules/NewAdminModalReducer';
 import NewAppModalReducer from './modules/NewAppModalReducer';
+import NewFakeUserModalReducer from './modules/NewFakeUserModalReducer';
 
 import OrderStatisticReducer from './main/OrderStatisticReducer';
 
@@ -53,6 +58,10 @@ export default combineReducers({
     MessageManagerReducer,
     ReportManagerReducer,
     ReportManagerDetailReducer,
+    FakeUserSettingReducer,
+    FakeUserSettingDetailReducer,
+    FakeArticleManagerReducer,
+    FakeArticleManagerDetailReducer,
 
     AdminUserSettingReducer,
     AdminUserSettingDetailReducer,
@@ -68,6 +77,7 @@ export default combineReducers({
     NewVoteModalReducer,
     NewAdminModalReducer,
     NewAppModalReducer,
+    NewFakeUserModalReducer,
 
     OrderStatisticReducer,
 })

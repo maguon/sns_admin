@@ -19,6 +19,11 @@ import * as MessageManagerActionType  from './main/MessageManagerActionType';
 import * as ReportManagerActionType  from './main/ReportManagerActionType';
 import * as ReportManagerDetailActionType  from './main/ReportManagerDetailActionType';
 
+import * as FakeUserSettingActionType  from './main/FakeUserSettingActionType';
+import * as FakeUserSettingDetailActionType  from './main/FakeUserSettingDetailActionType';
+import * as FakeArticleManagerActionType  from './main/FakeArticleManagerActionType';
+import * as FakeArticleManagerDetailActionType  from './main/FakeArticleManagerDetailActionType';
+
 import * as AdminUserSettingActionType  from './main/AdminUserSettingActionType';
 import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetailActionType';
 import * as DeviceManagerActionType  from './main/DeviceManagerActionType';
@@ -33,6 +38,7 @@ import * as NewVoteModalActionType  from './modules/NewVoteModalActionType';
 import * as MessageModalActionType  from './modules/MessageModalActionType';
 import * as NewAdminModalActionType  from './modules/NewAdminModalActionType';
 import * as NewAppModalActionType  from './modules/NewAppModalActionType';
+import * as NewFakeUserModalActionType  from './modules/NewFakeUserModalActionType';
 
 import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
 
@@ -58,6 +64,11 @@ export  {
     ReportManagerActionType,
     ReportManagerDetailActionType,
 
+    FakeUserSettingActionType,
+    FakeUserSettingDetailActionType,
+    FakeArticleManagerActionType,
+    FakeArticleManagerDetailActionType,
+
     AdminUserSettingActionType,
     AdminUserSettingDetailActionType,
     DeviceManagerActionType,
@@ -72,6 +83,7 @@ export  {
     MessageModalActionType,
     NewAdminModalActionType,
     NewAppModalActionType,
+    NewFakeUserModalActionType,
 
     OrderStatisticActionType,
 }

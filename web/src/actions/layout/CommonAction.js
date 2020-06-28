@@ -74,6 +74,21 @@ export const getAppVersionList = (deviceType) => async (dispatch) => {
     }
 };
 
+// 取得Fake用户列表
+export const getFakeUserList = () => async (dispatch) => {
+    try {
+        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/fakeUser';
+        const res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            dispatch({type: CommonActionType.getFakeUserList, payload: res.result})
+        } else if (res.success === false) {
+            swal('获取Fake用户列表失败', res.msg, 'warning');
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
+
 // export const getOrderCarList = (orderId) => async (dispatch) => {
 //     try {
 //         // 基本检索URL

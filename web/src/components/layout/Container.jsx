@@ -29,6 +29,13 @@ import {
     ReportManager,
     ReportManagerDetail,
 
+    // Faker用户管理
+    FakeUserSetting,
+    FakeUserSettingDetail,
+    // Faker文章管理
+    FakeArticleManager,
+    FakeArticleManagerDetail,
+
     // 系统设置
     // 员工管理
     AdminUserSetting,
@@ -122,6 +129,29 @@ const routes = [
         path: '/report/:id',
         exact: true,
         component: ReportManagerDetail
+    },
+
+    // Fake用户管理
+    {
+        path: "/fake_user_setting",
+        exact: true,
+        component: FakeUserSetting
+    },
+    {
+        path: '/fake_user_setting/:id',
+        exact: true,
+        component: FakeUserSettingDetail
+    },
+    // Fake文章管理
+    {
+        path: "/fake_article",
+        exact: true,
+        component: FakeArticleManager
+    },
+    {
+        path: '/fake_article/:id',
+        exact: true,
+        component: FakeArticleManagerDetail
     },
 
     // 员工管理
@@ -256,6 +286,20 @@ class Container extends React.Component {
                 "icon": 'mdi-bell-plus',
                 "link": '/report',
                 "children": []
+            },
+            {
+                "label": 'Fake用户管理',
+                "icon": 'mdi-settings-outline',
+                "children": [
+                    {
+                        "link": '/fake_user_setting',
+                        "name": 'Fake用户'
+                    },
+                    {
+                        "link": '/fake_article',
+                        "name": 'Fake文章'
+                    }
+                ]
             },
             {
                 "label": '系统设置',
