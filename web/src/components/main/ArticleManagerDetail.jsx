@@ -103,7 +103,7 @@ class ArticleManagerDetail extends React.Component {
                             return (
                                 <div className="col s12 margin-top40">
                                     {/*<VideoPlayer src="//vjs.zencdn.net/v/oceans.mp4" pic={item.preview === '' ? item.preview : "/assets/images/no_pic.png"}/>*/}
-                                    <VideoPlayer src={"http://" + mediaHost + "/" + item.url} pic={item.preview !== '' ? item.preview : "/assets/images/no_pic.png"}/>
+                                    <VideoPlayer src={"http://" + mediaHost + "/" + item.url} pic={item.preview !== '' ? "http://" + mediaHost + "/" + item.preview : "/assets/images/no_pic.png"}/>
                                 </div>
                             )
                         })}

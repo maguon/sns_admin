@@ -39,6 +39,7 @@ import * as MessageModalActionType  from './modules/MessageModalActionType';
 import * as NewAdminModalActionType  from './modules/NewAdminModalActionType';
 import * as NewAppModalActionType  from './modules/NewAppModalActionType';
 import * as NewFakeUserModalActionType  from './modules/NewFakeUserModalActionType';
+import * as NewFakeArticleModalActionType  from './modules/NewFakeArticleModalActionType';
 
 import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
 
@@ -84,6 +85,7 @@ export  {
     NewAdminModalActionType,
     NewAppModalActionType,
     NewFakeUserModalActionType,
+    NewFakeArticleModalActionType,
 
     OrderStatisticActionType,
 }

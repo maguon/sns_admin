@@ -266,3 +266,10 @@ export const STATISTIC_DAYS = [
 
 // 地图默认坐标：大连
 export const DEFAULT_LOCATION = [121.61476, 38.91369];
+
+// 发布文章：默认地址 大连
+export const DEFAULT_ADDRESS = {
+    addressName: '大连市金普新区金马路',
+    addressReal: "大连市金普新区金马路中国银行金普支行",
+    addressShow: ""
+};

@@ -1,18 +1,22 @@
 const httpHeaders = require('./HttpHeaders');
 
 export const httpAsyncFormPost = (url, formData, success, fail) => {
+    $("#preload").show();
     fetch('http://' + url, {
         method :"POST",
         body: formData
     }).then((response) => {
+        $("#preload").hide();
         if(response.ok){
             return response.json();
         }else{
             throw new Error();
         }
     }).then((result) => {
+        $("#preload").hide();
         success(result);
     }).catch((error) => {
+        $("#preload").hide();
         fail(error);
     })
 };

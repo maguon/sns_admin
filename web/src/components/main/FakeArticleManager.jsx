@@ -4,8 +4,10 @@ import {Link} from "react-router-dom";
 import {TextInput, DatePicker} from 'react-materialize';
 import {FakeArticleManagerActionType} from '../../types';
 import Select from "react-select";
+import {NewFakeArticleModal} from "../modules";
 
 const fakeArticleManagerAction = require('../../actions/main/FakeArticleManagerAction');
+const newFakeArticleModalAction = require('../../actions/modules/NewFakeArticleModalAction');
 const commonAction = require('../../actions/layout/CommonAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
@@ -99,7 +101,7 @@ class FakeArticleManager extends React.Component {
     };
 
     render() {
-        const {fakeArticleManagerReducer, commonReducer, changeConditionFakeUser, changeConditionType, changeConditionCarrier} = this.props;
+        const {fakeArticleManagerReducer, commonReducer, changeConditionFakeUser, changeConditionType, changeConditionCarrier, initModalData} = this.props;
         return (
             <div>
                 {/* 标题部分 */}
@@ -112,7 +114,7 @@ class FakeArticleManager extends React.Component {
 
                 {/* 上部分：检索条件输入区域 */}
                 <div className="row grey-text text-darken-1">
-                    <div className="col s11 search-condition-box">
+                    <div className="col s10 search-condition-box">
                         <TextInput s={2} label="文章编号" value={fakeArticleManagerReducer.conditionArticleId} onChange={this.changeConditionArticleId}/>
                         <div className="input-field col s2">
                             <Select
@@ -176,6 +178,14 @@ class FakeArticleManager extends React.Component {
                             <i className="mdi mdi-magnify"/>
                         </a>
                     </div>
+
+                    {/* 追加按钮 */}
+                    <div className="col s1">
+                        <a className="btn-floating btn-large waves-light waves-effect btn add-btn modal-trigger" href="#newFakeUserArticle" onClick={initModalData}>
+                            <i className="mdi mdi-plus"/>
+                        </a>
+                    </div>
+                    <NewFakeArticleModal/>
                 </div>
 
                 {/* 下部分：检索结果显示区域 */}
@@ -307,6 +317,9 @@ const mapDispatchToProps = (dispatch) => ({
 
     changeArticleStatus: (id, status) => {
         dispatch(fakeArticleManagerAction.changeArticleStatus(id, status));
+    },
+    initModalData: () => {
+        dispatch(newFakeArticleModalAction.initNewFakeArticleModal());
     }
 });
 

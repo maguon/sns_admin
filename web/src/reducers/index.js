@@ -37,6 +37,7 @@ import MessageModalReducer from './modules/MessageModalReducer';
 import NewAdminModalReducer from './modules/NewAdminModalReducer';
 import NewAppModalReducer from './modules/NewAppModalReducer';
 import NewFakeUserModalReducer from './modules/NewFakeUserModalReducer';
+import NewFakeArticleModalReducer from './modules/NewFakeArticleModalReducer';
 
 import OrderStatisticReducer from './main/OrderStatisticReducer';
 
@@ -78,6 +79,7 @@ export default combineReducers({
     NewAdminModalReducer,
     NewAppModalReducer,
     NewFakeUserModalReducer,
+    NewFakeArticleModalReducer,
 
     OrderStatisticReducer,
 })

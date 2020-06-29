@@ -6,3 +6,4 @@ export NewVoteModal from "./NewVoteModal";
 export NewAdminModal from "./NewAdminModal";
 export NewAppModal from "./NewAppModal";
 export NewFakeUserModal from "./NewFakeUserModal";
+export NewFakeArticleModal from "./NewFakeArticleModal";
