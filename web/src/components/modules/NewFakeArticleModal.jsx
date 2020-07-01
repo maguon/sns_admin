@@ -110,7 +110,7 @@ class NewFakeArticleModal extends React.Component {
                         <label className="active">载体类型</label>
                     </div>
 
-                    <TextInput s={12} label="内容" maxLength="50" value={newFakeArticleModalReducer.info} onChange={this.changeInfo}/>
+                    <TextInput s={12} label="内容" maxLength="400" value={newFakeArticleModalReducer.info} onChange={this.changeInfo}/>
 
                     {/* 载体类型 ：图片 */}
                     {newFakeArticleModalReducer.carrier != null && newFakeArticleModalReducer.carrier.value === sysConst.FAKE_CARRIER_TYPE[1].value &&
