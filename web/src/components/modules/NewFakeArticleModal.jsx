@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInput, Modal} from 'react-materialize';
+import {Modal, Textarea} from 'react-materialize';
 import {connect} from 'react-redux';
 import {NewFakeArticleModalActionType} from "../../types";
 import Select from "react-select";
@@ -110,7 +110,7 @@ class NewFakeArticleModal extends React.Component {
                         <label className="active">载体类型</label>
                     </div>
 
-                    <TextInput s={12} label="内容" maxLength="400" value={newFakeArticleModalReducer.info} onChange={this.changeInfo}/>
+                    <Textarea s={12} label="内容" maxLength="400" value={newFakeArticleModalReducer.info} onChange={this.changeInfo}/>
 
                     {/* 载体类型 ：图片 */}
                     {newFakeArticleModalReducer.carrier != null && newFakeArticleModalReducer.carrier.value === sysConst.FAKE_CARRIER_TYPE[1].value &&
