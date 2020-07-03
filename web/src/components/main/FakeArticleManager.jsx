@@ -7,6 +7,7 @@ import Select from "react-select";
 import {NewFakeArticleModal} from "../modules";
 
 const fakeArticleManagerAction = require('../../actions/main/FakeArticleManagerAction');
+const fakeArticleManagerDetailAction = require('../../actions/main/FakeArticleManagerDetailAction');
 const newFakeArticleModalAction = require('../../actions/modules/NewFakeArticleModalAction');
 const commonAction = require('../../actions/layout/CommonAction');
 const sysConst = require('../../utils/SysConst');
@@ -39,6 +40,7 @@ class FakeArticleManager extends React.Component {
             this.props.setConditionCreatedOnEnd('');
         }
         this.props.getFakeArticleList();
+        this.props.initDetailData();
     }
 
     /**
@@ -287,6 +289,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
     getFakeArticleList: () => {
         dispatch(fakeArticleManagerAction.getFakeArticleList());
+    },
+    initDetailData: () => {
+        dispatch(fakeArticleManagerDetailAction.initDetailData());
     },
     getFakeUserList: () => {
         dispatch(commonAction.getFakeUserList());

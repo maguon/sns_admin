@@ -5,6 +5,14 @@ const httpUtil = require('../../utils/HttpUtil');
 const localUtil = require('../../utils/LocalUtil');
 const sysConst = require('../../utils/SysConst');
 
+// 初期数据
+export const initDetailData = () => async (dispatch) => {
+    dispatch({type: ArticleManagerDetailActionType.getArticleInfo, payload: []});
+    dispatch({type: ArticleManagerDetailActionType.getCommentInfo, payload: []});
+    dispatch({type: ArticleManagerDetailActionType.getCommentLv2Info, payload: []});
+    dispatch({type: ArticleManagerDetailActionType.getPraiseInfo, payload: []});
+};
+
 // 获取文章信息
 export const getArticleInfo = (articleId) => async (dispatch) => {
     try {

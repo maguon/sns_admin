@@ -6,6 +6,7 @@ import {ArticleManagerActionType} from '../../types';
 import Select from "react-select";
 
 const articleManagerAction = require('../../actions/main/ArticleManagerAction');
+const articleManagerDetailAction = require('../../actions/main/ArticleManagerDetailAction');
 const sysConst = require('../../utils/SysConst');
 const formatUtil = require('../../utils/FormatUtil');
 const commonUtil = require('../../utils/CommonUtil');
@@ -35,6 +36,7 @@ class ArticleManager extends React.Component {
             this.props.setConditionCreatedOnEnd('');
         }
         this.props.getArticleList();
+        this.props.initDetailData();
     }
 
     /**
@@ -277,6 +279,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
     getArticleList: () => {
         dispatch(articleManagerAction.getArticleList());
+    },
+    initDetailData: () => {
+        dispatch(articleManagerDetailAction.initDetailData());
     },
     setStartNumber: (start) => {
         dispatch(ArticleManagerActionType.setStartNumber(start))
