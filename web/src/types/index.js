@@ -41,7 +41,7 @@ import * as NewAppModalActionType  from './modules/NewAppModalActionType';
 import * as NewFakeUserModalActionType  from './modules/NewFakeUserModalActionType';
 import * as NewFakeArticleModalActionType  from './modules/NewFakeArticleModalActionType';
 
-import * as OrderStatisticActionType  from './main/OrderStatisticActionType';
+import * as UserStatisticActionType  from './main/UserStatisticActionType';
 
 export  {
     LoginActionType,
@@ -87,5 +87,5 @@ export  {
     NewFakeUserModalActionType,
     NewFakeArticleModalActionType,
 
-    OrderStatisticActionType,
+    UserStatisticActionType
 }

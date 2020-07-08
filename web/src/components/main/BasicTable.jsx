@@ -3,7 +3,6 @@ import Select from 'react-select';
 import {connect} from 'react-redux';
 import {OrderStatisticActionType} from "../../types";
 
-const orderStatisticAction = require('../../actions/main/OrderStatisticAction');
 const formatUtil = require('../../utils/FormatUtil');
 const sysConst = require('../../utils/SysConst');
 
@@ -391,22 +390,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getOrderStatByMonth: () => {
-        dispatch(orderStatisticAction.getOrderStatByMonth());
-    },
-    getOrderStatByDay: () => {
-        dispatch(orderStatisticAction.getOrderStatByDay());
-    },
-    setMonthStart: (value) => {
-        dispatch(OrderStatisticActionType.setMonthStart(value));
-    },
-    setMonthEnd: (value) => {
-        dispatch(OrderStatisticActionType.setMonthEnd(value));
-    },
-    changeDaySize: (value) => {
-        dispatch(OrderStatisticActionType.setDaySize(value));
-        dispatch(orderStatisticAction.getOrderStatByDay());
-    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BasicTable)

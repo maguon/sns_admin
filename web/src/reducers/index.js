@@ -39,7 +39,7 @@ import NewAppModalReducer from './modules/NewAppModalReducer';
 import NewFakeUserModalReducer from './modules/NewFakeUserModalReducer';
 import NewFakeArticleModalReducer from './modules/NewFakeArticleModalReducer';
 
-import OrderStatisticReducer from './main/OrderStatisticReducer';
+import UserStatisticReducer from './main/UserStatisticReducer';
 
 export default combineReducers({
     form: reduxFormReducer,
@@ -81,5 +81,5 @@ export default combineReducers({
     NewFakeUserModalReducer,
     NewFakeArticleModalReducer,
 
-    OrderStatisticReducer,
+    UserStatisticReducer
 })

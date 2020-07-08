@@ -6,6 +6,9 @@ import {
     // 综合页面
     MainPanel,
 
+    // 统计
+    UserStatistic,
+
     // 用户管理
     UserManager,
     UserManagerDetail,
@@ -47,8 +50,6 @@ import {
     AppVersion,
     AppVersionDetail
 
-    // // 统计
-    // OrderStatistic,
     // // 表单
     // FormElements,
     // FormValidation,
@@ -63,6 +64,14 @@ const routes = [
         path: "/",
         exact: true,
         component: MainPanel
+    },
+
+    // 统计
+    {
+        // 新增用户统计
+        path: "/user_statistic",
+        exact: true,
+        component: UserStatistic
     },
 
     // 用户管理
@@ -188,13 +197,6 @@ const routes = [
         component: AppVersionDetail
     },
 
-    // // 统计
-    // {
-    //     // 订单统计
-    //     path: "/order_statistic",
-    //     exact: true,
-    //     component: OrderStatistic
-    // },
     // // Forms （表单）
     // {
     //     // 表单组件
@@ -248,6 +250,16 @@ class Container extends React.Component {
                 "icon": 'mdi-speedometer',
                 "link": '/',
                 "children": []
+            },
+            {
+                "label": '统计',
+                "icon": 'mdi-chart-line',
+                "children": [
+                    {
+                        "link": '/user_statistic',
+                        "name": '新增用户'
+                    }
+                ]
             },
             {
                 "label": '用户管理',

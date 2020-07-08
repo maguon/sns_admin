@@ -28,7 +28,7 @@ export DeviceManagerDetail from "./DeviceManagerDetail";
 export AppVersion from "./AppVersion";
 export AppVersionDetail from "./AppVersionDetail";
 
-export OrderStatistic from "./OrderStatistic";
+export UserStatistic from "./UserStatistic";
 export FormValidation from "./FormValidation";
 export FormElements from "./FormElements";
 export BasicTable from "./BasicTable";

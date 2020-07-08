@@ -567,8 +567,6 @@ img.responsive-img {
 .video-js .vjs-remaining-time {
     display: none !important;
 }
-/**********************************************  下面内容不确定保留  *************************************************/
-
 
 /* 统计画面用*/
 .statistic-half-page {
@@ -577,6 +575,12 @@ img.responsive-img {
     padding-top: 80px;
 }
 
+.table-icon {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+}
+/**********************************************  下面内容不确定保留  *************************************************/
 
 /** 自定义-全画面布局边框样式(border) start */
 .detail-box {

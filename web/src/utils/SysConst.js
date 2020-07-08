@@ -260,7 +260,7 @@ export const REPORT_VALID_RESULT = [
 
 // 按日统计-日数
 export const STATISTIC_DAYS = [
-    {value: 10, label: "近 10 天"},
+    {value: 20, label: "近 20 天"},
     {value: 30, label: "近 30 天"}
 ];
 
