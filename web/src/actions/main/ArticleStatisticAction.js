@@ -68,11 +68,11 @@ export const getArticleStatByDay = () => async (dispatch, getState) => {
             // 初始化 y轴数据 消息发送-按日统计
             let yAxisDat = [
                 {
-                    name: '文章数',
+                    name: '文章',
                     data: []
                 },
                 {
-                    name: '求助数',
+                    name: '求助',
                     data: []
                 }
             ];
@@ -92,6 +92,8 @@ export const getArticleStatByDay = () => async (dispatch, getState) => {
             dispatch(showDayChartType(xAxisDat, yAxisDat));
             // 新增文章-按日统计 (载体类型)
             dispatch(getArticleStatByDayCarrier());
+            // 新增评论
+            dispatch(getArticleStatByDayCom());
         } else if (res.success === false) {
             swal('获取新增文章按日统计信息失败', res.msg, 'warning');
         }
@@ -170,6 +172,46 @@ export const getArticleStatByDayCarrier = () => async (dispatch, getState) => {
     }
 };
 
+export const getArticleStatByDayCom = () => async (dispatch, getState) => {
+    try {
+        // 取得 画面前 XX 天数
+        let dateSize = getState().ArticleStatisticReducer.dataSize;
+        // 当前时间
+        let curDate = new Date();
+        let startDay = formatUtil.formatDate(new Date(curDate.getTime() - dateSize*24*60*60*1000), 'yyyyMMdd');
+        let endDay = formatUtil.formatDate(curDate, 'yyyyMMdd');
+        // 基本检索URL
+        let url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID)
+            + '/statisticsNewComByDay?startDay=' + startDay + '&endDay=' + endDay + '&type=0&level=0';
+        let res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            // 初始化 x轴数据 日期
+            let xAxisData = [];
+            // 初始化 y轴数据 消息发送-按日统计
+            let yAxisData = [
+                {
+                    name: '评论',
+                    data: []
+                }
+            ];
+            // 数据反转
+            res.result.reverse();
+            for (let i = 0; i < res.result.length; i++) {
+                // x轴数据
+                yAxisData[0].data.push(res.result[i].value);
+                // x轴日期
+                xAxisData.push(res.result[i]._id.c_date);
+            }
+            // 新增评论-按日统计
+            dispatch(showDayChartCom(xAxisData, yAxisData));
+        } else if (res.success === false) {
+            swal('获取新增评论按日统计信息失败', res.msg, 'warning');
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
+
 const highChartOptions = (xAxisData, yAxisData) => {
     return {
         // bar: 条形图，line：折线图，column：柱状图
@@ -185,7 +227,7 @@ const highChartOptions = (xAxisData, yAxisData) => {
         },
         yAxis: {
             title: {
-                text: '文章数',
+                text: '数量',
                 // 可用的值有 "low"，"middle" 和 "high"，分别表示于最小值对齐、居中对齐、与最大值对齐。 默认是：middle.
                 align: 'middle'
             }
@@ -223,4 +265,9 @@ export const showDayChartType = (xAxisData, yAxisData) => () => {
 export const showDayChartCarrier = (xAxisData, yAxisData) => () => {
     // 初始化图表
     Highcharts.chart('day-chart-carrier', highChartOptions(xAxisData, yAxisData));
+};
+
+export const showDayChartCom = (xAxisData, yAxisData) => () => {
+    // 初始化图表
+    Highcharts.chart('day-chart-com', highChartOptions(xAxisData, yAxisData));
 };

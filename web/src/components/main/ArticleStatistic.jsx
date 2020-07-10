@@ -86,6 +86,15 @@ class ArticleStatistic extends React.Component {
                     </div>
                     <div id="day-chart-carrier" className="statistic-half-page"/>
                 </div>
+
+                {/* 下部分：新增用户-按月统计 */}
+                <div className="row margin-top40 margin-left50 margin-right50 z-depth-1 white">
+                    <div className="col s12 custom-purple bold white-text text-darken-1 no-padding">
+                        <div className="col s6 margin-top15 margin-bottom15">新增评论-按日统计</div>
+                        <div className="col s6 margin-top15 margin-bottom15 padding-right20 right-align">{sysConst.STATISTIC_DAYS[0].label}</div>
+                    </div>
+                    <div id="day-chart-com" className="statistic-half-page"/>
+                </div>
             </div>
         )
     }
