@@ -40,6 +40,7 @@ import NewFakeUserModalReducer from './modules/NewFakeUserModalReducer';
 import NewFakeArticleModalReducer from './modules/NewFakeArticleModalReducer';
 
 import UserStatisticReducer from './main/UserStatisticReducer';
+import ArticleStatisticReducer from './main/ArticleStatisticReducer';
 
 export default combineReducers({
     form: reduxFormReducer,
@@ -81,5 +82,6 @@ export default combineReducers({
     NewFakeUserModalReducer,
     NewFakeArticleModalReducer,
 
-    UserStatisticReducer
+    UserStatisticReducer,
+    ArticleStatisticReducer
 })

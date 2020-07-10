@@ -8,6 +8,7 @@ import {
 
     // 统计
     UserStatistic,
+    ArticleStatistic,
 
     // 用户管理
     UserManager,
@@ -72,6 +73,12 @@ const routes = [
         path: "/user_statistic",
         exact: true,
         component: UserStatistic
+    },
+    {
+        // 新增文章统计
+        path: "/msg_statistic",
+        exact: true,
+        component: ArticleStatistic
     },
 
     // 用户管理
@@ -258,6 +265,10 @@ class Container extends React.Component {
                     {
                         "link": '/user_statistic',
                         "name": '新增用户'
+                    },
+                    {
+                        "link": '/msg_statistic',
+                        "name": '新增文章'
                     }
                 ]
             },

@@ -29,6 +29,7 @@ export AppVersion from "./AppVersion";
 export AppVersionDetail from "./AppVersionDetail";
 
 export UserStatistic from "./UserStatistic";
+export ArticleStatistic from "./ArticleStatistic";
 export FormValidation from "./FormValidation";
 export FormElements from "./FormElements";
 export BasicTable from "./BasicTable";
