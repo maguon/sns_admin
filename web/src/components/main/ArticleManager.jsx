@@ -214,7 +214,7 @@ class ArticleManager extends React.Component {
                                         <td>{commonUtil.getJsonValue(sysConst.CARRIER_TYPE, item.carrier)}</td>
 
                                         {/* 评论数 */}
-                                        <td>{formatUtil.formatNumber(item.comments_num)}</td>
+                                        <td>{formatUtil.formatNumber(item.comment_num)}</td>
                                         {/* 点赞数 */}
                                         <td>{formatUtil.formatNumber(item.agree_num)}</td>
                                         {/* 发布时间 */}
