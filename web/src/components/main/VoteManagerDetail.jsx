@@ -266,7 +266,7 @@ class VoteManagerDetail extends React.Component {
                                                 {/* 投票选项内容 */}
                                                 <div className="col s9">{item.txt}</div>
                                                 {/* 投票数 */}
-                                                <div className="col s3 right-align">{formatUtil.formatNumber(item.voteNum)}票</div>
+                                                <div className="col s3 right-align">{formatUtil.formatNumber(item.num)}票</div>
                                                 {/* 分割线 */}
                                                 <div className="col s12 no-padding"><div className="col s12 margin-top5 divider"/></div>
                                             </div>
