@@ -4,6 +4,8 @@ import {CommonActionType} from '../../types';
 const initialState = {
     // 登录用户的详细信息
     loginUserInfo :{},
+    // 登录用户的菜单数组
+    loginUserMenuList :[],
     // 用户列表 (根据电话模糊查询)
     userList: [],
     // 设备版本
@@ -17,6 +19,12 @@ export default handleActions({
         return {
             ...state,
             loginUserInfo: action.payload
+        }
+    },
+    [CommonActionType.getLoginUserMenu]: (state, action) => {
+        return {
+            ...state,
+            loginUserMenuList: action.payload
         }
     },
     [CommonActionType.getUserByPhoneList]: (state, action) => {

@@ -24,6 +24,24 @@ export const getLoginUserInfo = (params) => async (dispatch) => {
     }
 };
 
+// 取得登录用户权限菜单
+export const getLoginUserMenu = () => async (dispatch) => {
+    try {
+        // admin用户 检索 URL
+        const url = apiHost + '/api/admin/' + localUtil.getSessionItem(sysConst.LOGIN_USER_ID) + '/menuList';
+
+        // 发送 get 请求
+        const res = await httpUtil.httpGet(url);
+        if (res.success === true) {
+            dispatch({type: CommonActionType.getLoginUserMenu, payload: res.result[0].menu_list})
+        } else if (res.success === false) {
+            swal('查询失败', res.msg, 'warning');
+        }
+    } catch (err) {
+        swal('操作失败', err.message, 'error');
+    }
+};
+
 // 退出登录
 export const logout = () => async () => {
     swal({

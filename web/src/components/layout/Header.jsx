@@ -34,6 +34,7 @@ class Header extends React.Component {
             window.location.href = '/login.html';
         } else {
             this.props.getLoginUserInfo(userId);
+            this.props.getLoginUserMenu();
         }
         $('.sidenav').sidenav();
         // $("#sideNav").sideNav({closeOnClick: true});
@@ -91,6 +92,10 @@ const mapDispatchToProps = (dispatch) => ({
     // 取得登录用户基本信息
     getLoginUserInfo: (userId) => {
         dispatch(commonAction.getLoginUserInfo({userId: userId}))
+    },
+    // 取得登录用户基本信息
+    getLoginUserMenu: () => {
+        dispatch(commonAction.getLoginUserMenu());
     },
     // 修改密码
     openEditLoginUserModal: () => {
