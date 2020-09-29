@@ -22,9 +22,30 @@ export default handleActions({
         }
     },
     [CommonActionType.getLoginUserMenu]: (state, action) => {
+        let newMenu = [];
+        let oldMenu = action.payload;
+        let tmpMenu;
+        for (let i = 0; i < oldMenu.length; i++) {
+            if (oldMenu[i].children.length === 0 && oldMenu[i].usable) {
+                newMenu.push(oldMenu[i]);
+            }
+            if (oldMenu[i].children.length > 0) {
+                tmpMenu = oldMenu[i];
+                for (let k = tmpMenu.children.length -1; k >= 0; k--) {
+                    if (!tmpMenu.children[k].usable) {
+                        tmpMenu.children.splice(k,1);
+                    }
+                }
+
+                if (tmpMenu.children.length > 0) {
+                    newMenu.push(tmpMenu);
+                }
+            }
+        }
+
         return {
             ...state,
-            loginUserMenuList: action.payload
+            loginUserMenuList: newMenu
         }
     },
     [CommonActionType.getUserByPhoneList]: (state, action) => {

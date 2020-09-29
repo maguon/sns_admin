@@ -26,6 +26,7 @@ import * as FakeArticleManagerDetailActionType  from './main/FakeArticleManagerD
 
 import * as AdminUserSettingActionType  from './main/AdminUserSettingActionType';
 import * as AdminUserSettingDetailActionType  from './main/AdminUserSettingDetailActionType';
+import * as AuthoritySettingActionType  from './main/AuthoritySettingActionType';
 import * as DeviceManagerActionType  from './main/DeviceManagerActionType';
 import * as DeviceManagerDetailActionType  from './main/DeviceManagerDetailActionType';
 import * as AppVersionActionType  from './main/AppVersionActionType';
@@ -73,6 +74,7 @@ export  {
 
     AdminUserSettingActionType,
     AdminUserSettingDetailActionType,
+    AuthoritySettingActionType,
     DeviceManagerActionType,
     DeviceManagerDetailActionType,
     AppVersionActionType,

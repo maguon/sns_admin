@@ -44,6 +44,8 @@ import {
     // 员工管理
     AdminUserSetting,
     AdminUserSettingDetail,
+    // 权限设置
+    AuthoritySetting,
     // 设备管理
     DeviceManager,
     DeviceManagerDetail,
@@ -52,7 +54,7 @@ import {
     AppVersionDetail
 
     // // 表单
-    // FormElements,
+    // ,FormElements,
     // FormValidation,
     // // 表格
     // BasicTable,
@@ -181,6 +183,12 @@ const routes = [
         exact: true,
         component: AdminUserSettingDetail
     },
+    // 权限管理
+    {
+        path: "/authority_setting",
+        exact: true,
+        component: AuthoritySetting
+    },
     // 设备管理
     {
         path: "/device",
@@ -202,10 +210,10 @@ const routes = [
         path: '/app_version/:id',
         exact: true,
         component: AppVersionDetail
-    },
+    }
 
     // // Forms （表单）
-    // {
+    // ,{
     //     // 表单组件
     //     path: "/form_elements",
     //     exact: true,
@@ -229,7 +237,7 @@ const routes = [
     //     path: '/react_table',
     //     exact: true,
     //     component: ReactTablePivoting
-    // },
+    // }
 ];
 
 class Container extends React.Component {
@@ -255,144 +263,6 @@ class Container extends React.Component {
         } else {
             avatarUrl = "/assets/images/avatar.png"
         }
-
-        // // TODO 后期可以根据登录用户权限 动态生成 不同的菜单数组
-        // let loginUserMenuList = [
-        //     {
-        //         "label": '综合页面',
-        //         "icon": 'mdi-speedometer',
-        //         "link": '/',
-        //         "children": []
-        //     },
-        //     {
-        //         "label": '统计',
-        //         "icon": 'mdi-chart-line',
-        //         "children": [
-        //             {
-        //                 "link": '/user_statistic',
-        //                 "name": '新增用户'
-        //             },
-        //             {
-        //                 "link": '/msg_statistic',
-        //                 "name": '新增文章'
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         "label": '用户管理',
-        //         "icon": 'mdi-account-group',
-        //         "link": '/user',
-        //         "children": []
-        //     },
-        //     {
-        //         "label": '文章管理',
-        //         "icon": 'mdi-message-text',
-        //         "children": [
-        //             {
-        //                 "link": '/article',
-        //                 "name": '文章'
-        //             },
-        //             {
-        //                 "link": '/vote',
-        //                 "name": '投票'
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         "label": '评论管理',
-        //         "icon": 'mdi-comment-text-multiple',
-        //         "link": '/comment',
-        //         "children": []
-        //     },
-        //     {
-        //         "label": '消息管理',
-        //         "icon": 'mdi-message-processing',
-        //         "link": '/message',
-        //         "children": []
-        //     },
-        //     {
-        //         "label": '举报管理',
-        //         "icon": 'mdi-bell-plus',
-        //         "link": '/report',
-        //         "children": []
-        //     },
-        //     {
-        //         "label": 'Fake用户管理',
-        //         "icon": 'mdi-settings-outline',
-        //         "children": [
-        //             {
-        //                 "link": '/fake_user_setting',
-        //                 "name": 'Fake用户'
-        //             },
-        //             {
-        //                 "link": '/fake_article',
-        //                 "name": 'Fake文章'
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         "label": '系统设置',
-        //         "icon": 'mdi-settings-outline',
-        //         "children": [
-        //             {
-        //                 "link": '/admin_user_setting',
-        //                 "name": '员工管理'
-        //             },
-        //             {
-        //                 "link": '/device',
-        //                 "name": '设备管理'
-        //             },
-        //             {
-        //                 "link": '/app_version',
-        //                 "name": 'App系统'
-        //             }
-        //         ]
-        //     }
-        //     // {
-        //     //     "label": '推广业绩',
-        //     //     "icon": 'mdi-speedometer',
-        //     //     "link": '/recommend_business',
-        //     //     "children": []
-        //     // },
-        //     // {
-        //     //     "label": '数据统计',
-        //     //     "icon": 'mdi-chart-line',
-        //     //     "children": [
-        //     //         {
-        //     //             "link": '/order_statistic',
-        //     //             "name": '订单统计'
-        //     //         }
-        //     //     ]
-        //     // },
-        //     // {
-        //     //     "label": 'Form表单',
-        //     //     "icon": 'mdi-account-group',
-        //     //     "children": [
-        //     //         {
-        //     //             "link": '/form_elements',
-        //     //             "name": 'Form表单组件'
-        //     //         },
-        //     //         {
-        //     //             "link": '/form_validation',
-        //     //             "name": 'Form表单验证'
-        //     //         }
-        //     //     ]
-        //     // },
-        //     // {
-        //     //     "label": 'Table表格',
-        //     //     "icon": 'mdi-account-group',
-        //     //     "children": [
-        //     //         {
-        //     //             "link": '/basic_table',
-        //     //             "name": '基本表格'
-        //     //         },
-        //     //         {
-        //     //             "link": '/react_table',
-        //     //             "name": 'React 表格'
-        //     //         }
-        //     //     ]
-        //     // },
-        // ];
 
         return (
             <Router hashType={"hashbang"}>

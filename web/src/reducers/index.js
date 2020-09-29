@@ -24,6 +24,7 @@ import FakeArticleManagerDetailReducer from './main/FakeArticleManagerDetailRedu
 
 import AdminUserSettingReducer from './main/AdminUserSettingReducer';
 import AdminUserSettingDetailReducer from './main/AdminUserSettingDetailReducer';
+import AuthoritySettingReducer from './main/AuthoritySettingReducer';
 import DeviceManagerReducer from './main/DeviceManagerReducer';
 import DeviceManagerDetailReducer from './main/DeviceManagerDetailReducer';
 import AppVersionReducer from './main/AppVersionReducer';
@@ -67,6 +68,7 @@ export default combineReducers({
 
     AdminUserSettingReducer,
     AdminUserSettingDetailReducer,
+    AuthoritySettingReducer,
     DeviceManagerReducer,
     DeviceManagerDetailReducer,
     AppVersionReducer,

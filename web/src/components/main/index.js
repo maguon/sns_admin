@@ -23,6 +23,7 @@ export FakeArticleManagerDetail from "./FakeArticleManagerDetail";
 
 export AdminUserSetting from "./AdminUserSetting";
 export AdminUserSettingDetail from "./AdminUserSettingDetail";
+export AuthoritySetting from "./AuthoritySetting";
 export DeviceManager from "./DeviceManager";
 export DeviceManagerDetail from "./DeviceManagerDetail";
 export AppVersion from "./AppVersion";

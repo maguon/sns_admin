@@ -273,3 +273,123 @@ export const DEFAULT_ADDRESS = {
     addressReal: "大连市金普新区金马路中国银行金普支行",
     addressShow: ""
 };
+
+// 按日统计-日数
+export const USER_TYPE_LIST = [
+    {value: 99, label: "系统管理员"},
+    {value: 50, label: "普通用户"},
+    {value: 10, label: "访客"}
+];
+
+// 用于权限设定（包含所有机能设定）
+export const ALL_PAGE_LIST = [
+    {
+        "label": "综合页面",
+        "icon": "mdi-speedometer",
+        "link": "/",
+        "children": [],
+        "usable": true
+    },
+    {
+        "label": "统计",
+        "icon": "mdi-chart-line",
+        "children": [
+            {
+                "link": "/user_statistic",
+                "name": "新增用户",
+                "usable": false
+            },
+            {
+                "link": "/msg_statistic",
+                "name": "新增文章",
+                "usable": false
+            }
+        ]
+    },
+    {
+        "label": "用户管理",
+        "icon": "mdi-account-group",
+        "link": "/user",
+        "children": [],
+        "usable": true
+    },
+    {
+        "label": "文章管理",
+        "icon": "mdi-message-text",
+        "children": [
+            {
+                "link": "/article",
+                "name": "文章",
+                "usable": false
+            },
+            {
+                "link": "/vote",
+                "name": "投票",
+                "usable": false
+            }
+        ]
+    },
+    {
+        "label": "评论管理",
+        "icon": "mdi-comment-text-multiple",
+        "link": "/comment",
+        "children": [],
+        "usable": true
+    },
+    {
+        "label": "消息管理",
+        "icon": "mdi-message-processing",
+        "link": "/message",
+        "children": [],
+        "usable": true
+    },
+    {
+        "label": "举报管理",
+        "icon": "mdi-bell-plus",
+        "link": "/report",
+        "children": [],
+        "usable": false
+    },
+    {
+        "label": "Fake用户管理",
+        "icon": "mdi-settings-outline",
+        "children": [
+            {
+                "link": "/fake_user_setting",
+                "name": "Fake用户",
+                "usable": false
+            },
+            {
+                "link": "/fake_article",
+                "name": "Fake文章",
+                "usable": false
+            }
+        ]
+    },
+    {
+        "label": "系统设置",
+        "icon": "mdi-settings-outline",
+        "children": [
+            {
+                "link": "/admin_user_setting",
+                "name": "员工管理",
+                "usable": false
+            },
+            {
+                "link": "/authority_setting",
+                "name": "权限设置",
+                "usable": false
+            },
+            {
+                "link": "/device",
+                "name": "设备管理",
+                "usable": false
+            },
+            {
+                "link": "/app_version",
+                "name": "App系统",
+                "usable": false
+            }
+        ]
+    }
+];
